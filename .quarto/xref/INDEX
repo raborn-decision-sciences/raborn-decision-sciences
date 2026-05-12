@@ -10,5 +10,14 @@
   },
   "contact.qmd": {
     "contact.html": "85d82c00"
+  },
+  "tools.qmd": {
+    "tools.html": "af259ecb"
+  },
+  "writing.qmd": {
+    "writing.html": "6afd94a6"
+  },
+  "posts/ShinyShortForm.qmd": {
+    "ShinyShortForm.html": "f2755d3f"
   }
 }

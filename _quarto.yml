@@ -23,7 +23,7 @@ website:
               href: index.qmd
             - text: "Services"
               href: services.qmd
-            - text: "Tools"
+            - text: "Tools and Projects"
               href: tools.qmd
             - text: "Writing"
               href: writing.qmd
@@ -52,10 +52,10 @@ website:
               aria-label: "GitHub"
         
     google-analytics: "G-XXXXXXXXXX"
-    cookie-consent: 
-        type: express
-        style: interstitial
-        palette: dark
+    #cookie-consent: 
+    #    type: express
+    #    style: interstitial
+    #    palette: dark
 
 format:
     html:

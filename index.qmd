@@ -9,7 +9,10 @@ page-layout: full
 
 Raborn Decision Sciences helps individuals and organizations translate complex measurement, operational, and planning questions into defensible analyses, reproducible workflows, and usable decision-support tools.
 
-[Explore services](services.qmd){.btn .btn-primary} [View tools](tools.qmd){.btn .btn-outline-secondary}
+[Explore services](services.qmd){.btn .btn-primary} 
+[View tools](tools.qmd){.btn .btn-secondary} 
+[Contact me](contact.qmd){.btn .btn-tertiary}
+
 :::
 
 ## What I do
@@ -28,7 +31,7 @@ Item analysis, form analysis, DIF, equating, standard setting support, technical
 ::: {.rds-card}
 ### R/Shiny Decision Tools
 
-Custom Shiny apps, Quarto reporting workflows, R package development, dashboards, and analytic automation.
+Custom interactive applications, Quarto reporting workflows, R package development and support, dashboards, and analytic automation.
 :::
 :::
 
@@ -36,7 +39,7 @@ Custom Shiny apps, Quarto reporting workflows, R package development, dashboards
 ::: {.rds-card}
 ### Operations & Planning Models
 
-Break-even tools, capacity planning, pricing scenarios, and interactive models for direct-care and service-based practices.
+Break-even tools, capacity planning, pricing scenarios, and interactive models for  service-based organizations.
 :::
 :::
 
@@ -46,13 +49,82 @@ Break-even tools, capacity planning, pricing scenarios, and interactive models f
 **Decision point:** The goal is not just analysis. The goal is a tool, workflow, or report that helps someone make a clearer decision.
 :::
 
+## Decision-making tools you can trust
+
+```{=html}
+<iframe width=100% height="500" src="https://quarto.org/" title="Quarto Documentation"></iframe>
+```
+
+Built on psychometrics, statistical programming, reproducible research, and practical decision support.
+
+```{=html}
+<style>
+/* 1. The container hides everything outside its bounds */
+.ticker-container {
+  width: 100%;
+  overflow: hidden;
+  background: $body-bg;
+  color: $body-color;
+  padding: 10px 0;
+  white-space: nowrap;
+}
+
+/* 2. The wrapper contains two identical sets of content */
+.ticker-wrapper {
+  display: inline-block;
+  animation: seamless-scroll 20s linear infinite;
+}
+
+.ticker-item {
+  display: inline-block;
+  padding: 0 40px;
+  font-weight: bold;
+}
+
+/* 3. Animate exactly half the total width of the wrapper */
+@keyframes seamless-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Pause on hover for readability */
+.ticker-container:hover .ticker-wrapper {
+  animation-play-state: paused;
+}
+</style>
+
+<div class="ticker-container">
+  <div class="ticker-wrapper">
+        <!-- Set 1 -->
+        <div class="ticker-item">R</div>
+        <div class="ticker-item">Shiny</div>
+        <div class="ticker-item">Quarto</div>
+        <div class="ticker-item">SQL</div>
+        <div class="ticker-item">Git/GitHub</div>
+        <div class="ticker-item">Winsteps</div>
+        <div class="ticker-item">flexMIRT</div>
+        <div class="ticker-item">Mplus</div>
+        <div class="ticker-item">Python</div>
+        <!-- Set 2 -->
+        <div class="ticker-item">R</div>
+        <div class="ticker-item">Shiny</div>
+        <div class="ticker-item">Quarto</div>
+        <div class="ticker-item">SQL</div>
+        <div class="ticker-item">Git/GitHub</div>
+        <div class="ticker-item">Winsteps</div>
+        <div class="ticker-item">flexMIRT</div>
+        <div class="ticker-item">Mplus</div>
+        <div class="ticker-item">Python</div>
+    </div>
+</div>
+```
 
 :::: {.grid .align-items-center}
 
 ::: {.g-col-12}
 ## Expert-led quantitative consulting
 
-Raborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny decision tools.
+Raborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny tools.
 
 [About Anthony](about.qmd){.btn .btn-outline-secondary}
 :::

@@ -1,5 +1,53 @@
 ---
 title: "Services"
-format: html
 ---
 
+## Assessment & Psychometrics
+
+- Item analysis
+- Form analysis
+- DIF/fairness analyses
+- Equating
+- Standard setting
+- Validity evidence
+- Technical reports
+- Documentation
+- Assessment program review
+
+For credentialing, licensing, certification, education, and assessment programs that need defensible analyses and clear technical documentation.
+
+## R, Shiny, & Reproducible Tools
+
+- Shiny dashboards
+- Decision-support apps
+- Quarto reports
+- R package development, deployment, and support
+- Workflow automation
+- Code review and refactoring
+- Reproducible reporting pipelines
+
+Building tools that help teams repeat analyses, explain results, and make decisions without relying on fragile spreadsheet workflows.
+
+## Operations & Planning Models
+
+- Break-even modeling
+- Capacity planning
+- Pricing scenarios
+- Service-line planning
+- Forecasing/sensitivity analysis
+- Interactive planning tools
+
+For new or small service-based businesses planning for their future.
+
+## Engagement Types
+
+- Focused analysis project
+- Technical report or documentation
+- Prototype Shiny app
+- Ongoing analytics support
+- Code/workflow review
+- Advisory consultant
+
+## Call to Action
+
+Have a measurement, analytics, or decision-tool problem? [Let's talk.](contact.qmd)

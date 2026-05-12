@@ -21,7 +21,7 @@ about:
 
 Anthony Raborn is a psychometrician/statistician specializing in applied measurement, reproducible analytics, and custom R/Shiny decision tools.
 
-His work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data.
+My work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data. I strive to provide tools that make work easier to repeat, explain, and use for all levels of technical expertise.
 
 ## Education
 
@@ -38,14 +38,70 @@ PhD in Research and Evaluation Methodology, Minor in Statistics
 - Quarto reports and technical documentation
 - Operations and break-even modeling
 
-## Technical background
+## Technical toolkit
 
-## Selected projects
+```{=html}
+<style>
+/* 1. The container hides everything outside its bounds */
+.ticker-container {
+  width: 100%;
+  overflow: hidden;
+  background: $body-bg;
+  color: $body-color;
+  padding: 10px 0;
+  white-space: nowrap;
+}
 
+/* 2. The wrapper contains two identical sets of content */
+.ticker-wrapper {
+  display: inline-block;
+  animation: seamless-scroll 20s linear infinite;
+}
 
+.ticker-item {
+  display: inline-block;
+  padding: 0 40px;
+  font-weight: bold;
+}
 
-## Selected publications
+/* 3. Animate exactly half the total width of the wrapper */
+@keyframes seamless-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 
+/* Pause on hover for readability */
+.ticker-container:hover .ticker-wrapper {
+  animation-play-state: paused;
+}
+</style>
 
+<div class="ticker-container">
+  <div class="ticker-wrapper">
+        <!-- Set 1 -->
+        <div class="ticker-item">R</div>
+        <div class="ticker-item">Shiny</div>
+        <div class="ticker-item">Quarto</div>
+        <div class="ticker-item">SQL</div>
+        <div class="ticker-item">Git/GitHub</div>
+        <div class="ticker-item">Winsteps</div>
+        <div class="ticker-item">flexMIRT</div>
+        <div class="ticker-item">Mplus</div>
+        <div class="ticker-item">Python</div>
+        <!-- Set 2 -->
+        <div class="ticker-item">R</div>
+        <div class="ticker-item">Shiny</div>
+        <div class="ticker-item">Quarto</div>
+        <div class="ticker-item">SQL</div>
+        <div class="ticker-item">Git/GitHub</div>
+        <div class="ticker-item">Winsteps</div>
+        <div class="ticker-item">flexMIRT</div>
+        <div class="ticker-item">Mplus</div>
+        <div class="ticker-item">Python</div>
+    </div>
+</div>
+```
 
-[Download CV](assets/anthony-raborn-cv.pdf){.btn .btn-outline-secondary}
+## Resume/CV
+
+[Download consulting.CV](assets/anthony-raborn-cv.pdf){.btn .btn-outline-secondary}

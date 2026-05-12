@@ -1,0 +1,9 @@
+---
+title: "Writing"
+listing: 
+    contents: posts
+    type: grid
+    categories: true
+    feed: true
+---
+

@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Applied analytics and custom R/Shiny tools for measurement, operations, and planning.">
 
-<title>Raborn Decision Sciences</title>
+<title>Writing – Raborn Decision Sciences</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -35,6 +34,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./assets/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -46,9 +47,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-a3ffc900db29c1fd40e75c4e08dce7be.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-504ca27693abf58f33b1ebed985aba91.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-f0e8675bf2bb1da611fcff931eeb12e0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-504ca27693abf58f33b1ebed985aba91.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0bb2d54e2b1b6ddcf938b612bca51199.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-92f7b078eb905aee401a439f830fbab0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-0bb2d54e2b1b6ddcf938b612bca51199.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,6 +77,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 
 <script type="text/javascript">
@@ -87,13 +117,40 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
 </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="Raborn Decision Sciences">
-<meta property="og:description" content="Applied analytics and custom R/Shiny tools for measurement, operations, and planning.">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Writing – Raborn Decision Sciences">
 <meta property="og:site_name" content="Raborn Decision Sciences">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Raborn Decision Sciences">
-<meta name="twitter:description" content="Applied analytics and custom R/Shiny tools for measurement, operations, and planning.">
+<meta name="twitter:title" content="Writing – Raborn Decision Sciences">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -278,7 +335,7 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -290,7 +347,7 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
 <span class="menu-text">Tools and Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./writing.html"> 
+    <a class="nav-link active" href="./writing.html" aria-current="page"> 
 <span class="menu-text">Writing</span></a>
   </li>  
   <li class="nav-item">
@@ -326,31 +383,17 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#applied-analytics-and-r-powered-tools-for-better-decisions" id="toc-applied-analytics-and-r-powered-tools-for-better-decisions" class="nav-link active" data-scroll-target="#applied-analytics-and-r-powered-tools-for-better-decisions">Applied analytics and R-powered tools for better decisions</a></li>
-  <li><a href="#what-i-do" id="toc-what-i-do" class="nav-link" data-scroll-target="#what-i-do">What I do</a></li>
-  <li><a href="#decision-making-tools-you-can-trust" id="toc-decision-making-tools-you-can-trust" class="nav-link" data-scroll-target="#decision-making-tools-you-can-trust">Decision-making tools you can trust</a></li>
-  <li><a href="#expert-led-quantitative-consulting" id="toc-expert-led-quantitative-consulting" class="nav-link" data-scroll-target="#expert-led-quantitative-consulting">Expert-led quantitative consulting</a></li>
-  </ul>
-</nav>
-    </div>
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVtbw==">demo <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="U2hpbnk=">Shiny <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Raborn Decision Sciences</h1>
+<h1 class="title">Writing</h1>
 </div>
 
-<div>
-  <div class="description">
-    Applied analytics and custom R/Shiny tools for measurement, operations, and planning.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta column-page-left">
@@ -365,112 +408,46 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
 </header>
 
 
-<section id="applied-analytics-and-r-powered-tools-for-better-decisions" class="level1 hero">
-<h1>Applied analytics and R-powered tools for better decisions</h1>
-<p>Raborn Decision Sciences helps individuals and organizations translate complex measurement, operational, and planning questions into defensible analyses, reproducible workflows, and usable decision-support tools.</p>
-<p><a href="./services.html" class="btn btn-primary">Explore services</a> <a href="./tools.html" class="btn btn-secondary">View tools</a> <a href="./contact.html" class="btn btn-tertiary">Contact me</a></p>
-</section>
-<section id="what-i-do" class="level2">
-<h2 class="anchored" data-anchor-id="what-i-do">What I do</h2>
-<div class="grid">
-<div class="g-col-12 g-col-md-4">
-<section id="assessment-psychometrics" class="level3 rds-card">
-<h3 class="anchored" data-anchor-id="assessment-psychometrics">Assessment &amp; Psychometrics</h3>
-<p>Item analysis, form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.</p>
-</section>
+
+
+
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="ZGVtbyUyQ1NoaW55JTJDUg==" data-listing-date-sort="1778040000000" data-listing-file-modified-sort="1778603395557" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="40">
+<a href="./posts/ShinyShortForm.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Shiny Short Form
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZGVtbw=='); return false;">demo</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('U2hpbnk='); return false;">Shiny</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
 </div>
-<div class="g-col-12 g-col-md-4">
-<section id="rshiny-decision-tools" class="level3 rds-card">
-<h3 class="anchored" data-anchor-id="rshiny-decision-tools">R/Shiny Decision Tools</h3>
-<p>Custom interactive applications, Quarto reporting workflows, R package development and support, dashboards, and analytic automation.</p>
-</section>
+<div class="card-text listing-description delink">
+<p>A Shiny app demonstrating the ShortForm package.</p>
 </div>
-<div class="g-col-12 g-col-md-4">
-<section id="operations-planning-models" class="level3 rds-card">
-<h3 class="anchored" data-anchor-id="operations-planning-models">Operations &amp; Planning Models</h3>
-<p>Break-even tools, capacity planning, pricing scenarios, and interactive models for service-based organizations.</p>
-</section>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Anthony W. Raborn
+</div>
+<div class="listing-date">
+May 6, 2026
 </div>
 </div>
-<div class="decision-point">
-<p><strong>Decision point:</strong> The goal is not just analysis. The goal is a tool, workflow, or report that helps someone make a clearer decision.</p>
 </div>
-</section>
-<section id="decision-making-tools-you-can-trust" class="level2">
-<h2 class="anchored" data-anchor-id="decision-making-tools-you-can-trust">Decision-making tools you can trust</h2>
-<iframe width="100%" height="500" src="https://quarto.org/" title="Quarto Documentation"></iframe>
-<p>Built on psychometrics, statistical programming, reproducible research, and practical decision support.</p>
-<style>
-/* 1. The container hides everything outside its bounds */
-.ticker-container {
-  width: 100%;
-  overflow: hidden;
-  background: $body-bg;
-  color: $body-color;
-  padding: 10px 0;
-  white-space: nowrap;
-}
-
-/* 2. The wrapper contains two identical sets of content */
-.ticker-wrapper {
-  display: inline-block;
-  animation: seamless-scroll 20s linear infinite;
-}
-
-.ticker-item {
-  display: inline-block;
-  padding: 0 40px;
-  font-weight: bold;
-}
-
-/* 3. Animate exactly half the total width of the wrapper */
-@keyframes seamless-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* Pause on hover for readability */
-.ticker-container:hover .ticker-wrapper {
-  animation-play-state: paused;
-}
-</style>
-
-<div class="ticker-container">
-  <div class="ticker-wrapper">
-        <!-- Set 1 -->
-        <div class="ticker-item">R</div>
-        <div class="ticker-item">Shiny</div>
-        <div class="ticker-item">Quarto</div>
-        <div class="ticker-item">SQL</div>
-        <div class="ticker-item">Git/GitHub</div>
-        <div class="ticker-item">Winsteps</div>
-        <div class="ticker-item">flexMIRT</div>
-        <div class="ticker-item">Mplus</div>
-        <div class="ticker-item">Python</div>
-        <!-- Set 2 -->
-        <div class="ticker-item">R</div>
-        <div class="ticker-item">Shiny</div>
-        <div class="ticker-item">Quarto</div>
-        <div class="ticker-item">SQL</div>
-        <div class="ticker-item">Git/GitHub</div>
-        <div class="ticker-item">Winsteps</div>
-        <div class="ticker-item">flexMIRT</div>
-        <div class="ticker-item">Mplus</div>
-        <div class="ticker-item">Python</div>
-    </div>
+</div></a>
 </div>
-</section>
-<div class="grid align-items-center">
-<section id="expert-led-quantitative-consulting" class="level2 g-col-12">
-<h2 class="anchored" data-anchor-id="expert-led-quantitative-consulting">Expert-led quantitative consulting</h2>
-<p>Raborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny tools.</p>
-<p><a href="./about.html" class="btn btn-outline-secondary">About Anthony</a></p>
-</section>
 </div>
-
-
-
-</main> <!-- /main -->
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

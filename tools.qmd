@@ -1,0 +1,39 @@
+---
+title: "Tools and Projects"
+---
+
+Raborn Decision Sciences has been involved in the creation of multiple free and open source products for performing high-quality, replicable analyses. 
+
+## ShortForm
+
+[ShortForm is an R package for automated short form development, combining psychometric methods, machine learning, and reproducible statistical workflows.](https://cran.r-project.org/web/packages/ShortForm/index.html)
+
+It uses proven, peer-reviewed metaheuristic algorithms to shorten assessents, scales, and other measurement tools while preserving psychometric and statistical qualities. [The package documentation is available for everyone to read.](https://cran.r-project.org/web/packages/ShortForm/ShortForm.pdf) [The source code is also publically available on GitHub.](https://www.github.com/AnthonyRaborn/ShortForm)
+
+Raborn Decision Sciences has also developed a Shiny app to demonstrate the ShortForm package with simulated data.
+
+```{=html}
+<iframe width=100% height="750" src="https://4kve1c-anthony0raborn.shinyapps.io/ShinyShortForm/" title="ShinyShortForm"></iframe>
+```
+
+## Direct Care Break-Even App
+
+An interactive Shiny planning tool for modeling revenue, capacity, pricing, and break-even scenarios in direct care or service-based medical practices.
+
+## Psychometric Quarto Reporting App
+
+An interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats. 
+
+## Programmatic Tools
+
+Some of the tools used to create these products were:
+
+- [R](www.cran.r-project.org), an open source statistical programming language.
+- [Shiny](https://shiny.posit.co/), an open source software for creating web applications.
+- [Quarto](quarto.org), an open source scientific and technical publishing system.
+- [LaTeX](https://www.latex-project.org/), an open source document preparation system.
+- [Git](https://git-scm.com/), an open source distributed version control system.
+- [Fedora Linux](https://fedoraproject.org), an open source operating system using the Linux kernel.
+- [Positron](https://positron.posit.co) and [RStudio](https://posit.co/products/open-source/rstudio), integrated development environments for R and other languages.
+
+This website itself is built on a combination of Quarto, Git, and Positron. Its code lives in a GitHub repository and is published via Quarto within a continuous integration/continuous deployment process. 

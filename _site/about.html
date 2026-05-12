@@ -34,8 +34,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./assets/favicon.png" rel="icon" type="image/png">
-<script src="site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -46,9 +44,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-a3ffc900db29c1fd40e75c4e08dce7be.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f6b87bc20b55570b7c44e959d2c63408.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d8a4c3096a656e7383ce936db6d5d78a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-f6b87bc20b55570b7c44e959d2c63408.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-504ca27693abf58f33b1ebed985aba91.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f0e8675bf2bb1da611fcff931eeb12e0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-504ca27693abf58f33b1ebed985aba91.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,31 +76,13 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 
-<script type="text/plain" cookie-consent="tracking">
+<script type="text/javascript">
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
 </script>
-
-<script type="text/javascript" charset="UTF-8">
-document.addEventListener('DOMContentLoaded', function () {
-cookieconsent.run({
-  "notice_banner_type":"interstitial",
-  "consent_type":"express",
-  "palette":"dark",
-  "language":"en",
-  "page_load_consent_levels":["strictly-necessary"],
-  "notice_banner_reject_button_hide":false,
-  "preferences_center_close_button_hide":false,
-  "website_name":""
-  ,
-"language":"en"
-  });
-});
-</script> 
-  
 <style>html{ scroll-behavior: smooth; }</style>
 
 
@@ -304,11 +284,11 @@ cookieconsent.run({
 <span class="menu-text">Services</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tools.qmd"> 
-<span class="menu-text">Tools</span></a>
+    <a class="nav-link" href="./tools.html"> 
+<span class="menu-text">Tools and Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./writing.qmd"> 
+    <a class="nav-link" href="./writing.html"> 
 <span class="menu-text">Writing</span></a>
   </li>  
   <li class="nav-item">
@@ -322,12 +302,12 @@ cookieconsent.run({
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AnthonyRaborn"> <i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/raborn-decision-sciences"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://bsky.app/profile/anthony-raborn.bsky.social"> <i class="bi bi-bluesky" role="img" aria-label="Bluesky">
+    <a class="nav-link" href="https://bsky.app/profile/raborndecisionsciences.com"> <i class="bi bi-bluesky" role="img" aria-label="Bluesky">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -349,27 +329,47 @@ cookieconsent.run({
   <ul>
   <li><a href="#education" id="toc-education" class="nav-link active" data-scroll-target="#education">Education</a></li>
   <li><a href="#areas-of-expertise" id="toc-areas-of-expertise" class="nav-link" data-scroll-target="#areas-of-expertise">Areas of expertise</a></li>
-  <li><a href="#technical-background" id="toc-technical-background" class="nav-link" data-scroll-target="#technical-background">Technical background</a></li>
-  <li><a href="#selected-projects" id="toc-selected-projects" class="nav-link" data-scroll-target="#selected-projects">Selected projects</a></li>
-  <li><a href="#selected-publications" id="toc-selected-publications" class="nav-link" data-scroll-target="#selected-publications">Selected publications</a></li>
+  <li><a href="#technical-toolkit" id="toc-technical-toolkit" class="nav-link" data-scroll-target="#technical-toolkit">Technical toolkit</a></li>
+  <li><a href="#resumecv" id="toc-resumecv" class="nav-link" data-scroll-target="#resumecv">Resume/CV</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<div class="quarto-about-broadside column-body">
-  <div class="about-main">
-    <div class="about-entity" style="background-image: url('assets/anthony-raborn.jpg')"></div>
-    <div class="about-contents"><header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-about-trestles column-page-left">
+  <div class="about-entity">
+    <img src="assets/anthony-raborn.jpg" class="about-image
+  rounded " style="width: 20em;">
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">About</h1>
 </div>
-<div class="quarto-title-meta column-body">
+<div class="quarto-title-meta column-page-left">
   </div>
-</header><main class="content column-body" id="quarto-document-content">
+</header>
+    <div class="about-links">
+  <a href="https://bsky.app/profile/raborndecisionsciences.com" class="about-link" rel="" target="">
+    <i class="bi bi-bluesky"></i>
+     <span class="about-link-text">Bluesky</span>
+  </a>
+  <a href="https://github.com/raborn-decision-sciences" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">Github</span>
+  </a>
+  <a href="https://www.linkedin.com/company/raborn-decision-sciences" class="about-link" rel="" target="">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">LinkedIn</span>
+  </a>
+  <a href="mailto:hello@raborndecisionsciences.com" class="about-link" rel="" target="">
+    <i class="bi bi-envelope-fill"></i>
+     <span class="about-link-text">Email</span>
+  </a>
+</div>
+  </div>
+  <div class="about-contents"><main class="content column-page-left" id="quarto-document-content">
 
 
 <p>Anthony Raborn is a psychometrician/statistician specializing in applied measurement, reproducible analytics, and custom R/Shiny decision tools.</p>
-<p>His work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data.</p>
+<p>My work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data. I strive to provide tools that make work easier to repeat, explain, and use for all levels of technical expertise.</p>
 <section id="education" class="level2">
 <h2 data-anchor-id="education">Education</h2>
 <p>Univesrity of Florida | Gainesville, FL | May 2019</p>
@@ -386,38 +386,70 @@ cookieconsent.run({
 <li>Operations and break-even modeling</li>
 </ul>
 </section>
-<section id="technical-background" class="level2">
-<h2 data-anchor-id="technical-background">Technical background</h2>
+<section id="technical-toolkit" class="level2">
+<h2 data-anchor-id="technical-toolkit">Technical toolkit</h2>
+<style>
+/* 1. The container hides everything outside its bounds */
+.ticker-container {
+  width: 100%;
+  overflow: hidden;
+  background: $body-bg;
+  color: $body-color;
+  padding: 10px 0;
+  white-space: nowrap;
+}
+/* 2. The wrapper contains two identical sets of content */
+.ticker-wrapper {
+  display: inline-block;
+  animation: seamless-scroll 20s linear infinite;
+}
+.ticker-item {
+  display: inline-block;
+  padding: 0 40px;
+  font-weight: bold;
+}
+/* 3. Animate exactly half the total width of the wrapper */
+@keyframes seamless-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+/* Pause on hover for readability */
+.ticker-container:hover .ticker-wrapper {
+  animation-play-state: paused;
+}
+</style>
+<div class="ticker-container">
+  <div class="ticker-wrapper">
+        <!-- Set 1 -->
+        <div class="ticker-item">R</div>
+        <div class="ticker-item">Shiny</div>
+        <div class="ticker-item">Quarto</div>
+        <div class="ticker-item">SQL</div>
+        <div class="ticker-item">Git/GitHub</div>
+        <div class="ticker-item">Winsteps</div>
+        <div class="ticker-item">flexMIRT</div>
+        <div class="ticker-item">Mplus</div>
+        <div class="ticker-item">Python</div>
+        <!-- Set 2 -->
+        <div class="ticker-item">R</div>
+        <div class="ticker-item">Shiny</div>
+        <div class="ticker-item">Quarto</div>
+        <div class="ticker-item">SQL</div>
+        <div class="ticker-item">Git/GitHub</div>
+        <div class="ticker-item">Winsteps</div>
+        <div class="ticker-item">flexMIRT</div>
+        <div class="ticker-item">Mplus</div>
+        <div class="ticker-item">Python</div>
+    </div>
+</div>
 </section>
-<section id="selected-projects" class="level2">
-<h2 data-anchor-id="selected-projects">Selected projects</h2>
-</section>
-<section id="selected-publications" class="level2">
-<h2 data-anchor-id="selected-publications">Selected publications</h2>
-<p><a href="assets/anthony-raborn-cv.pdf" class="btn btn-outline-secondary">Download CV</a></p>
+<section id="resumecv" class="level2">
+<h2 data-anchor-id="resumecv">Resume/CV</h2>
+<p><a href="assets/anthony-raborn-cv.pdf" class="btn btn-outline-secondary">Download consulting.CV</a></p>
 
 
 </section>
 </main></div>
-  </div>
-  <div class="about-links">
-  <a href="https://bsky.app" class="about-link" rel="" target="">
-    <i class="bi bi-bluesky"></i>
-     <span class="about-link-text">Bluesky</span>
-  </a>
-  <a href="https://github.com/AnthonyRaborn" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-  <a href="https://www.linkedin.com/company/raborn-decision-sciences" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="mailto:hello@raborndecisionsciences.com" class="about-link" rel="" target="">
-    <i class="bi bi-envelope-fill"></i>
-     <span class="about-link-text">Email</span>
-  </a>
-</div>
 </div>
  <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -839,7 +871,7 @@ cookieconsent.run({
 </div>   
     <div class="nav-footer-center">
 <p>Applied Analytics · Psychometrics · R/Shiny Decision Tools</p>
-<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+</div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
@@ -848,7 +880,7 @@ cookieconsent.run({
 </a>
   </li>  
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/AnthonyRaborn">
+    <a class="nav-link" href="https://github.com/raborn-decision-sciences">
       <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
     </a>
