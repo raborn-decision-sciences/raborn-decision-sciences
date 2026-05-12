@@ -1,0 +1,77 @@
+meta:
+  name: "Raborn Decision Sciences"
+  link:
+    github: "https://github.com/AnthonyRaborn"
+    bluesky: "https://bsky.app/profile/anthony-raborn.bsky.social"
+    home: "https://raborn.decisionsciences.com"
+
+logo:
+  images:
+    icon:
+      path: assets/favicon.svg
+      alt: "Raborn Decision Sciences icon"
+    horizontal:
+      path: assets/logo-rds.svg
+      alt: "Raborn Decision Sciences logo"
+    horizontal-dark:
+      path: assets/logo-rds-rds.svg
+      alt: "Raborn Decision Sciences logo"
+  small: icon
+  medium: horizontal
+  large: horizontal
+
+color:
+    palette:
+        deep-navy: "#182A3A"
+        charcoal-slate: "#2F3A4A"
+        cool-gray: "#64748B"
+        off-white: "#F8FAFC"
+        white: "#FFFFFF"
+
+        teal: "#14B8A6" #main accent
+        blue: "#2563EB"
+        amber: "#F59E0B" #threshold or decision point highlight
+        soft-cyan: "#E0F2FE"
+
+    foreground: "#172033"
+    background: "#F8FAFC"
+    primary: "#14B8A6"
+    secondary: "#2F3A4A"
+    tertiary: "#E0F2FE"
+    success: "#16A34A"
+    info: "#2563EB"
+    warning: "#F59E0B"
+    danger: "#DC2626"
+    light: "#F8FAFC"
+    dark: "#172033"
+
+typography:
+  fonts:
+      - family: Atkinson Hyperlegible
+        source: google
+      - family: Fira Code
+        source: google
+
+  base:
+    family: Atkinson Hyperlegible
+    size: 1rem
+    line-height: 1.6
+
+  headings:
+    family: Atkinson Hyperlegible
+    #weight: 650
+    color: "#172033"
+    line-height: 1.15
+
+  monospace:
+    family: Fira Code
+    size: 0.95em
+
+  monospace-inline:
+    family: Fira Code
+    color: "#2F3A4A"
+    background-color: "#E2E8F0"
+
+  link:
+    color: "#14B8A6"
+    decoration: none

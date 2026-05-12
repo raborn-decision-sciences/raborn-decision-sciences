@@ -1,0 +1,22 @@
+---
+title: "Contact"
+about:
+    template: jolla
+    image-shape: rounded
+    image: assets/anthony-raborn.jpg
+    links:
+        - icon: bluesky
+          text: Bluesky
+          href: https://bsky.app/profile/raborndecisionsciences.com
+        - icon: github
+          text: Github
+          href: https://github.com/raborn-decision-sciences
+        - icon: linkedin
+          text: LinkedIn
+          href: https://www.linkedin.com/company/raborn-decision-sciences
+        - icon: envelope-fill
+          text: Email
+          href: mailto:hello@raborndecisionsciences.com 
+---
+
+You can contact Raborn Decision Sciences via Bluesky, GitHub, LinkedIn, or email, with all links provided below.

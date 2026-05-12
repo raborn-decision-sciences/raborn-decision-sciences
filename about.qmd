@@ -1,0 +1,51 @@
+---
+title: "About"
+about:
+    template: trestles
+    image: assets/anthony-raborn.jpg
+    image-shape: rounded
+    links:
+        - icon: bluesky
+          text: Bluesky
+          href: https://bsky.app/profile/raborndecisionsciences.com
+        - icon: github
+          text: Github
+          href: https://github.com/raborn-decision-sciences
+        - icon: linkedin
+          text: LinkedIn
+          href: https://www.linkedin.com/company/raborn-decision-sciences
+        - icon: envelope-fill
+          text: Email
+          href: mailto:hello@raborndecisionsciences.com 
+---
+
+Anthony Raborn is a psychometrician/statistician specializing in applied measurement, reproducible analytics, and custom R/Shiny decision tools.
+
+His work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data.
+
+## Education
+
+Univesrity of Florida | Gainesville, FL | May 2019
+
+PhD in Research and Evaluation Methodology, Minor in Statistics
+
+## Areas of expertise
+
+- Psychometrics and assessment analytics
+- Item analysis, DIF, equating, standard setting, and technical reporting
+- R package development, deployment, and reproducible workflows
+- Shiny dashboards and decision-support tools
+- Quarto reports and technical documentation
+- Operations and break-even modeling
+
+## Technical background
+
+## Selected projects
+
+
+
+## Selected publications
+
+
+
+[Download CV](assets/anthony-raborn-cv.pdf){.btn .btn-outline-secondary}

@@ -1,0 +1,60 @@
+---
+title: "Raborn Decision Sciences"
+description: "Applied analytics and custom R/Shiny tools for measurement, operations, and planning."
+page-layout: full
+---
+
+::: {.hero}
+# Applied analytics and R-powered tools for better decisions
+
+Raborn Decision Sciences helps individuals and organizations translate complex measurement, operational, and planning questions into defensible analyses, reproducible workflows, and usable decision-support tools.
+
+[Explore services](services.qmd){.btn .btn-primary} [View tools](tools.qmd){.btn .btn-outline-secondary}
+:::
+
+## What I do
+
+:::: {.grid}
+
+::: {.g-col-12 .g-col-md-4}
+::: {.rds-card}
+### Assessment & Psychometrics
+
+Item analysis, form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.rds-card}
+### R/Shiny Decision Tools
+
+Custom Shiny apps, Quarto reporting workflows, R package development, dashboards, and analytic automation.
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.rds-card}
+### Operations & Planning Models
+
+Break-even tools, capacity planning, pricing scenarios, and interactive models for direct-care and service-based practices.
+:::
+:::
+
+::::
+
+::: {.decision-point}
+**Decision point:** The goal is not just analysis. The goal is a tool, workflow, or report that helps someone make a clearer decision.
+:::
+
+
+:::: {.grid .align-items-center}
+
+::: {.g-col-12}
+## Expert-led quantitative consulting
+
+Raborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny decision tools.
+
+[About Anthony](about.qmd){.btn .btn-outline-secondary}
+:::
+
+::::

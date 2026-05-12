@@ -1,0 +1,85 @@
+project:
+    type: website
+    output-dir: _site
+
+website:
+    title: "Raborn Decision Sciences"
+    description: "Applied analytics and custom R/Shiny tools for measurement, operations, and planning."
+    favicon: assets/favicon.png
+    twitter-card: true
+    open-graph: 
+        locale: en_US
+        site-name: "Raborn Decision Sciences"
+
+    navbar:
+        background: dark
+        foreground: light
+        search: true
+        logo: assets/logo-rds-dark.png
+        logo-alt: "Raborn Decision Sciences"
+        title: false
+        left:
+            - text: "Home"
+              href: index.qmd
+            - text: "Services"
+              href: services.qmd
+            - text: "Tools"
+              href: tools.qmd
+            - text: "Writing"
+              href: writing.qmd
+            - text: "About"
+              href: about.qmd
+            - text: "Contact"
+              href: contact.qmd
+        right:
+            - icon: github
+              href: "https://github.com/raborn-decision-sciences"
+              aria-label: "GitHub"
+            - icon: bluesky
+              href: "https://bsky.app/profile/raborndecisionsciences.com"
+              aria-label: "Bluesky"
+        
+    page-footer:
+        background: dark
+        foreground: light
+        left: © 2026 Raborn Decision Sciences
+        center: Applied Analytics · Psychometrics · R/Shiny Decision Tools
+        right:
+            - text: "Contact"
+              href: contact.qmd
+            - icon: github
+              href: "https://github.com/raborn-decision-sciences"
+              aria-label: "GitHub"
+        
+    google-analytics: "G-XXXXXXXXXX"
+    cookie-consent: 
+        type: express
+        style: interstitial
+        palette: dark
+
+format:
+    html:
+        theme:
+            light: 
+                - cosmo
+                - theme-light.scss
+            dark: 
+                - darkly
+                - theme-dark.scss
+        toc: true
+        toc-depth: 3
+        smooth-scroll: true
+        anchor-sections: true
+        code-copy: true
+        code-overflow: wrap
+        link-external-newwindow: true
+        page-layout: full
+        grid:
+            sidebar-width: 250px
+            body-width: 900px
+            margin-width: 300px
+            gutter-width: 1.5rem
+
+execute:
+    freeze: auto
+    editor: visual

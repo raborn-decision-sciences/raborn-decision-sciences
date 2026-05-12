@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 9089e14d-2b3f-4ee8-ac49-fe180acb61fd
+      url: https://splendorous-flan-c9acee.netlify.app

@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "You can contact Raborn Decision Sciences via Bluesky, GitHub, LinkedIn, or email, with all links provided below."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Raborn Decision Sciences",
+    "section": "",
+    "text": "Raborn Decision Sciences helps individuals and organizations translate complex measurement, operational, and planning questions into defensible analyses, reproducible workflows, and usable decision-support tools.\nExplore services View tools"
+  },
+  {
+    "objectID": "index.html#what-i-do",
+    "href": "index.html#what-i-do",
+    "title": "Raborn Decision Sciences",
+    "section": "What I do",
+    "text": "What I do\n\n\n\nAssessment & Psychometrics\nItem analysis, form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.\n\n\n\n\nR/Shiny Decision Tools\nCustom Shiny apps, Quarto reporting workflows, R package development, dashboards, and analytic automation.\n\n\n\n\nOperations & Planning Models\nBreak-even tools, capacity planning, pricing scenarios, and interactive models for direct-care and service-based practices.\n\n\n\n\nDecision point: The goal is not just analysis. The goal is a tool, workflow, or report that helps someone make a clearer decision."
+  },
+  {
+    "objectID": "index.html#expert-led-quantitative-consulting",
+    "href": "index.html#expert-led-quantitative-consulting",
+    "title": "Raborn Decision Sciences",
+    "section": "Expert-led quantitative consulting",
+    "text": "Expert-led quantitative consulting\nRaborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny decision tools.\nAbout Anthony"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Anthony Raborn is a psychometrician/statistician specializing in applied measurement, reproducible analytics, and custom R/Shiny decision tools.\nHis work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nUnivesrity of Florida | Gainesville, FL | May 2019\nPhD in Research and Evaluation Methodology, Minor in Statistics"
+  },
+  {
+    "objectID": "about.html#areas-of-expertise",
+    "href": "about.html#areas-of-expertise",
+    "title": "About",
+    "section": "Areas of expertise",
+    "text": "Areas of expertise\n\nPsychometrics and assessment analytics\nItem analysis, DIF, equating, standard setting, and technical reporting\nR package development, deployment, and reproducible workflows\nShiny dashboards and decision-support tools\nQuarto reports and technical documentation\nOperations and break-even modeling"
+  },
+  {
+    "objectID": "about.html#technical-background",
+    "href": "about.html#technical-background",
+    "title": "About",
+    "section": "Technical background",
+    "text": "Technical background"
+  },
+  {
+    "objectID": "about.html#selected-projects",
+    "href": "about.html#selected-projects",
+    "title": "About",
+    "section": "Selected projects",
+    "text": "Selected projects"
+  },
+  {
+    "objectID": "about.html#selected-publications",
+    "href": "about.html#selected-publications",
+    "title": "About",
+    "section": "Selected publications",
+    "text": "Selected publications\nDownload CV"
+  }
+]
