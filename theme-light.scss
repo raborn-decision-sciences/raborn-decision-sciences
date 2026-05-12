@@ -313,3 +313,66 @@ h1, h2, h3 {
     border-radius: 1rem;
   }
 }
+
+/* Prevent wide ticker content from expanding the About page layout */
+.quarto-about-trestles,
+.quarto-about-trestles main,
+.quarto-about-trestles .about-entity,
+.quarto-about-trestles .about-contents {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Ticker outer wrapper participates in normal page width */
+.ticker-outer {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Visual ticker box */
+.ticker-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  padding: 0.75rem 0;
+  border-block: 1px solid rgba(100, 116, 139, 0.22);
+  contain: inline-size;
+}
+
+/* The moving content can be wide, but should not affect parent width */
+.ticker-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  min-width: max-content;
+  animation: seamless-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+.ticker-item {
+  flex: 0 0 auto;
+  padding: 0 2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--bs-body-color);
+}
+
+@keyframes seamless-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-container:hover .ticker-wrapper {
+  animation-play-state: paused;
+}
