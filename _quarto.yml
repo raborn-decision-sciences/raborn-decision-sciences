@@ -3,6 +3,7 @@ project:
     output-dir: _site
 
 website:
+    site-url: "https://raborndecisionsciences.com"
     title: "Raborn Decision Sciences"
     description: "Applied analytics and custom R/Shiny tools for measurement, operations, and planning."
     favicon: assets/favicon.png

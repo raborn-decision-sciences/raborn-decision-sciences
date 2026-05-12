@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Raborn Decision Sciences</title>
+<link>https://raborndecisionsciences.com/writing.html</link>
+<atom:link href="https://raborndecisionsciences.com/writing.xml" rel="self" type="application/rss+xml"/>
+<description>Applied analytics and custom R/Shiny tools for measurement, operations, and planning.</description>
+<generator>quarto-1.9.37</generator>
+<lastBuildDate>Tue, 12 May 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Shiny Short Form</title>
+  <dc:creator>Anthony W. Raborn</dc:creator>
+  <link>https://raborndecisionsciences.com/posts/2026-05-12/ShinyShortForm.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>ShinyShortForm is a small app demonstrating the ShortForm package. It allows users to modify some of the parameters of the metaheuristic algorithms included in the package and see first-hand how they affect the runtime and output using simulated sample data.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raborndecisionsciences.com/posts/2026-05-12/ShinyShortForm-Screenshot.png" class="img-fluid figure-img"></p>
+<figcaption>Not shown: the animations that play while the algorithms are running.</figcaption>
+</figure>
+</div>
+<p>As seen in this screenshot, the app provides the modifiable parameters on the lefthand side of the screen, as well as algorithm-specific informatino and output on the righthand side of the screen. For each of the algorithms (Ant Colony Optimization, Simulated Annealing, and Tabu Search), the parameter list automatically updates, as well as the manual page. You can press the “Run Selected Algorithm” button to use the default parameters, which result in a (relatively) quick run for each algorithm.</p>
+<p>Each algorithm additionally has its own outputs and diagnostic plots that auto-populate after the algorithm has completed its run. The plots allow you to visually inspect how the algorithm searched for its proposed solution. If you modify the parameters, you can easily see how the search changes by keeping an eye on these diagnostic plots across runs.</p>
+<p>Note that only a select set of parameters are modifiable on the app and there are restrictions on the values you can input for each parameter. However, you can still end up in a situation where the algorithm takes a long time to find a solution–that’s expected! As long as the Algorithm Output is showing the ASCII animation, the application is working and you can expect a solution eventually.</p>
+<p>Have any questions, comments, or ideas? Reach out and let us know!</p>
+
+
+
+ ]]></description>
+  <category>demo</category>
+  <category>Shiny</category>
+  <category>R</category>
+  <guid>https://raborndecisionsciences.com/posts/2026-05-12/ShinyShortForm.html</guid>
+  <pubDate>Tue, 12 May 2026 04:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

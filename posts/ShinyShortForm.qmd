@@ -1,9 +1,0 @@
----
-title: "Shiny Short Form"
-author: "Anthony W. Raborn"
-description: "A Shiny app demonstrating the ShortForm package."
-date: 2026-05-06
-categories: [demo, Shiny, R]
----
-
-ShinyShortForm is a small app demonstrating the ShortForm package. It allows users to modify some of the parameters of the metaheuristic algorithms included in the package and see first-hand how they affect the runtime and output using simulated sample data.
