@@ -51,9 +51,7 @@ Break-even tools, capacity planning, pricing scenarios, and interactive models f
 
 ## Decision-making tools you can trust
 
-```{=html}
-<iframe width=100% height="500" src="https://quarto.org/" title="Quarto Documentation"></iframe>
-```
+![](assets/ShinyShortForm-Screenshot.png)
 
 Built on psychometrics, statistical programming, reproducible research, and practical decision support.
 
