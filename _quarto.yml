@@ -6,7 +6,7 @@ website:
     site-url: "https://raborndecisionsciences.com"
     title: "Raborn Decision Sciences"
     description: "Applied analytics and custom R/Shiny tools for measurement, operations, and planning."
-    favicon: assets/favicon.png
+    favicon: assets/favicon.svg
     twitter-card: true
     open-graph: 
         locale: en_US
@@ -16,7 +16,7 @@ website:
         background: dark
         foreground: light
         search: true
-        logo: assets/logo-rds-dark.png
+        logo: assets/logo-rds-dark.svg
         logo-alt: "Raborn Decision Sciences"
         title: false
         left:
