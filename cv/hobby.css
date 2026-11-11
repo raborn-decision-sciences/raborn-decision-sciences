@@ -1,0 +1,64 @@
+/* The hobby page's own skin. Loaded after site.css, which it overrides by token where it
+   can, so the layout and the engine are untouched.
+
+   The register is the one the projects already use: a dark rig, phosphor on glass. It is
+   kept quiet on purpose. No flicker, no animated scanlines, nothing that moves while you
+   are trying to read, because the text still has to carry the page. */
+:root{
+  --bg:#0a0d10; --panel:#111820; --ink:#d2dce4; --muted:#6a7a86;
+  --line:#243139; --accent:#2fe0c0; --accent-ink:#7df3dd;
+  color-scheme:dark;
+}
+body{background:
+  radial-gradient(120% 90% at 72% 18%, #16202a 0%, #0a0d10 62%),
+  var(--bg);
+  text-shadow:0 0 18px rgba(47,224,192,.045)}
+
+/* a glass surface over the rig, not a sheet of paper */
+.panel{
+  background:linear-gradient(180deg, rgba(23,32,41,.96), rgba(14,20,26,.96));
+  border:1px solid var(--line);
+  border-left:2px solid var(--accent);
+  box-shadow:0 0 0 1px rgba(47,224,192,.05), 0 18px 48px -24px rgba(0,0,0,.9),
+             inset 0 1px 0 rgba(125,243,221,.05);
+}
+.panel h2{letter-spacing:-.005em;text-shadow:0 0 24px rgba(47,224,192,.16)}
+.panel p{color:#b9c6d0}
+.panel .kicker{color:var(--accent-ink);opacity:.75}
+.panel .kicker b{color:var(--accent)}
+.panel .figs{border-top-color:#1d2831;color:var(--muted)}
+.panel em{color:var(--accent-ink);font-style:normal;border-bottom:1px dotted var(--accent)}
+
+/* the version switch and the rail read as rig controls */
+.vers{background:rgba(10,14,18,.86);border-color:var(--line)}
+.vers button{color:var(--muted)}
+.vers button[aria-pressed="true"]{background:var(--accent);color:#06211c;
+  box-shadow:0 0 22px -4px rgba(47,224,192,.65)}
+#rail button[aria-current="true"] i{box-shadow:0 0 14px rgba(47,224,192,.9)}
+#rail button:hover i{background:var(--accent-ink)}
+#readout{color:#4f606c;letter-spacing:.1em}
+.sitemark{color:#4f606c}
+.sitemark b{color:var(--accent-ink);text-shadow:0 0 16px rgba(47,224,192,.4)}
+
+/* the schematics glow where they are live */
+.node.hot rect,.hot-s{filter:drop-shadow(0 0 5px rgba(47,224,192,.55))}
+#grid line{opacity:.16}
+.f-text{fill:#6f7f8b}
+.f-ttl{fill:#c3d0da}
+.f-sub{fill:#64747f}
+.node text{fill:#64747f}
+.node.hot text{fill:var(--accent-ink)}
+
+.panel .links a{border-color:#243139;color:#7d8d99}
+.panel .links a:hover,.panel .links a:focus-visible{background:var(--accent);color:#06211c;
+  border-color:var(--accent);box-shadow:0 0 20px -5px rgba(47,224,192,.7)}
+.panel a.sib{color:var(--accent-ink);border-bottom-color:var(--accent)}
+.panel a.sib:hover{background:var(--accent);color:#06211c}
+
+/* a very faint scanline over the whole rig; static, and gone if the reader asked for less */
+body::after{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;
+  background:repeating-linear-gradient(to bottom,
+    rgba(255,255,255,.010) 0 1px, transparent 1px 4px)}
+@media (prefers-reduced-motion:reduce){body::after{display:none}}
+@media (prefers-contrast:more){body::after{display:none}
+  .panel p{color:#dfe8ef}.f-text,.node text{fill:#90a0ac}}

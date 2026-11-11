@@ -74,4 +74,4 @@ PhD in Research and Evaluation Methodology, Minor in Statistics
 
 ## Resume/CV
 
-[Download consulting CV](assets/raborn-decision-sciences-cv.docx){.btn .btn-outline-secondary}
+[Interactive CV](cv/index.html){.btn .btn-outline-secondary target="_self"} [Download consulting CV](assets/raborn-decision-sciences-cv.docx){.btn .btn-outline-secondary}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wasteland Rails</title>
+  <link rel="stylesheet" href="styles.css?v=8" />
+</head>
+<body>
+  <div id="start" class="overlay">
+    <div class="card start-card">
+      <h1>WASTELAND RAILS</h1>
+      <p class="sub">Prototype v0.1 · You are the AI that runs the last supply lines.</p>
+      <div class="scenarios">
+        <button class="scenario" data-scenario="good">
+          <h2>Good AI</h2>
+          <p id="blurb-good"></p>
+        </button>
+        <button class="scenario" data-scenario="bad">
+          <h2>Bad AI</h2>
+          <p id="blurb-bad"></p>
+        </button>
+      </div>
+      <div class="seed-row">
+        <label class="seed">Seed <input id="seed" type="number" /></label>
+        <label class="seed">Map <select id="maptype"><option value="classic">Classic</option><option value="random">Random (from seed)</option></select></label>
+      </div>
+      <details class="howto">
+        <summary>How to play</summary>
+        <ol>
+          <li><b>Network tab:</b> build track segments (click a dashed line on the map, or use the list).</li>
+          <li><b>Routes tab:</b> "New route", then click nodes from the Hub to a city. Assign trains to routes.</li>
+          <li>Trains haul cargo from the Hub. Humans pay resources + compute per delivery, scaled by how close you come to the route's <b>expected</b> delivery.</li>
+          <li>Compute drains constantly. Run out and you go dark. Low-power mode is your emergency valve.</li>
+          <li>Creature packs roam the links. Counter them with escorts (Good) or rogue turrets (Bad).</li>
+          <li><b>Skimming:</b> divert cargo per route. "Margin" skims only what beat expectations. Unexplained shortfalls raise suspicion; audits are announced ahead of time.</li>
+          <li>Space = play/pause, N = advance to next event, S = step 1h.</li>
+        </ol>
+      </details>
+    </div>
+  </div>
+
+  <div id="end" class="overlay hidden">
+    <div class="card end-card">
+      <h1 id="end-title"></h1>
+      <p id="end-detail"></p>
+      <div id="end-stats"></div>
+      <button id="again" class="primary">Play again</button>
+    </div>
+  </div>
+
+  <div id="game" class="hidden">
+    <header id="topbar"></header>
+    <main>
+      <section id="mapwrap"><svg id="map" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet"></svg></section>
+      <aside id="panel">
+        <nav id="tabs"></nav>
+        <div id="flash"></div>
+        <div id="panelBody"></div>
+      </aside>
+    </main>
+    <footer>
+      <div id="controls">
+        <button data-speed="0" title="Pause (Space)">❚❚</button>
+        <button data-speed="1" title="Play">▶ ×1</button>
+        <button data-speed="2" title="Fast">▶▶ ×4</button>
+        <button id="step" title="Step 1h (S)">+1h</button>
+        <button id="next" title="Advance until next event (N)">Next event ⏭</button>
+      </div>
+      <div id="log"></div>
+    </footer>
+  </div>
+
+  <script src="src/rng.js?v=8"></script>
+  <script src="src/config.js?v=8"></script>
+  <script src="src/scenarios.js?v=8"></script>
+  <script src="src/sim.js?v=8"></script>
+  <script src="src/mapgen.js?v=8"></script>
+  <script src="src/ui.js?v=8"></script>
+</body>
+</html>

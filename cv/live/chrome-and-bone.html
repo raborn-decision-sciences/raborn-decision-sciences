@@ -1,0 +1,1864 @@
+<title>Chrome &amp; Bone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+  :root{
+    --ink:#0B0A0E;
+    --ink-2:#121118;
+    --ink-3:#181722;
+    --line:#2A2734;
+    --line-hot:#3D3849;
+    --steel:#8C8FA3;
+    --steel-dim:#605F72;
+    --bone:#E8E4DC;
+    --amber:#FFB347;
+    --amber-deep:#C77A1A;
+    --oxblood:#6B1024;
+    --magenta:#FF2D6F;
+    --good:#5FD3A6;
+    --warn:#FFB347;
+    --bad:#FF2D6F;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 500px at 78% -8%, rgba(107,16,36,.38), transparent 62%),
+      radial-gradient(700px 420px at 4% 102%, rgba(255,179,71,.10), transparent 60%),
+      var(--ink);
+    color:var(--bone);
+    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    font-size:14px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:99;
+    background:repeating-linear-gradient(to bottom, rgba(0,0,0,.20) 0 1px, transparent 1px 3px);
+    mix-blend-mode:multiply;opacity:.55;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:22px 64px}
+
+  /* ---------- masthead ---------- */
+  .mast{
+    display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 24px;
+    border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px;
+  }
+  .brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .brand h1{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:clamp(26px,5.4vw,40px);
+    letter-spacing:.04em;margin:0;line-height:1;text-transform:uppercase;
+    color:var(--bone);text-shadow:0 0 22px rgba(255,179,71,.20);
+  }
+  .brand h1 em{font-style:normal;color:var(--amber)}
+  .brand .sub{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--steel-dim);
+  }
+  .clientcard{
+    margin-left:auto;display:grid;grid-template-columns:auto auto;gap:2px 14px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;
+    border-left:2px solid var(--oxblood);padding-left:12px;
+  }
+  .clientcard dt{color:var(--steel-dim);text-transform:uppercase}
+  .clientcard dd{margin:0;color:var(--bone)}
+
+  /* ---------- bench ledger ---------- */
+  .rep{
+    display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;
+    border:1px solid var(--line);background:var(--ink-2);padding:10px 14px;margin-bottom:12px;
+  }
+  .rep-main{min-width:236px;flex:1 1 236px}
+  .rep-main .top{
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px;
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  }
+  .rep-main .top span:first-child{color:var(--steel-dim)}
+  .rep-main .top b{color:var(--amber);font-weight:500;letter-spacing:.1em}
+  .rep-stats{display:flex;flex-wrap:wrap;gap:8px 18px;margin-left:auto}
+  .rep-stat{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:11px;white-space:nowrap}
+  .rep-stat i{font-style:normal;color:var(--steel-dim);letter-spacing:.14em;text-transform:uppercase;font-size:9.5px;display:block}
+  .rep-stat b{font-weight:500;font-size:14px;color:var(--bone)}
+  .rep-stat.money b{color:var(--amber)}
+  .rep-stat.lost b{color:var(--magenta)}
+  .rep-stat.refused b{color:var(--magenta)}
+
+  /* ---------- contract strip ---------- */
+  .contract{
+    display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px 18px;align-items:center;
+    border:1px solid var(--line);border-left:3px solid var(--amber);background:var(--ink-2);
+    padding:11px 14px;margin-bottom:18px;
+  }
+  @media (max-width:820px){ .contract{grid-template-columns:minmax(0,1fr);align-items:start} }
+  .c-eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--steel-dim);
+  }
+  .contract h2{
+    font-family:"Chakra Petch",sans-serif;font-size:17px;font-weight:700;margin:1px 0 1px;
+    letter-spacing:.04em;text-transform:uppercase;text-wrap:balance;
+  }
+  .contract p{margin:0;font-size:12.5px;color:var(--steel);max-width:60ch}
+  .c-reqs{display:flex;flex-wrap:wrap;gap:6px}
+  .req{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em;
+    border:1px solid var(--line-hot);color:var(--steel-dim);padding:3px 8px;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .req.met{border-color:rgba(95,211,166,.55);color:var(--good)}
+  .c-ceiling{
+    margin-top:5px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.5;
+    color:var(--steel-dim);max-width:34ch;
+  }
+  .c-ceiling b{font-weight:500;color:var(--steel);font-variant-numeric:tabular-nums}
+  .nextclient{
+    background:transparent;border:1px solid var(--line-hot);color:var(--bone);
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;padding:9px 12px;cursor:pointer;white-space:nowrap;justify-self:start;
+  }
+  .nextclient:hover{border-color:var(--amber);color:var(--amber)}
+  .paid{color:var(--good)}
+
+  /* ---------- grid ---------- */
+  .bench{display:grid;grid-template-columns:238px minmax(0,1fr) 258px;gap:18px;align-items:stretch}
+  @media (max-width:1000px){ .bench{grid-template-columns:200px minmax(0,1fr)} .ledger{grid-column:1 / -1} }
+  @media (max-width:700px){ .bench{grid-template-columns:minmax(0,1fr)} }
+
+  .panel{background:var(--ink-2);border:1px solid var(--line);position:relative;
+    display:flex;flex-direction:column;min-height:100%}
+  ul.slots,.rack{flex:1 1 auto}
+  .ledger .body{flex:1 1 auto;display:flex;flex-direction:column}
+  .ledger .body .spacer{flex:1 1 auto;min-height:8px}
+  .panel::after{
+    content:"";position:absolute;top:-1px;right:-1px;width:12px;height:12px;
+    background:var(--ink);border-left:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .panel-hd{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:9px 12px;border-bottom:1px solid var(--line);
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--steel-dim);
+  }
+  .panel-hd b{color:var(--amber);font-weight:500}
+
+  /* ---------- body rail ---------- */
+  figure.soma{margin:0;padding:8px 6px 0;display:flex;justify-content:center}
+  .soma svg{width:100%;max-width:130px;height:auto}
+  .node{cursor:pointer}
+  .node circle{transition:r .18s ease, fill .18s ease}
+  .node:hover circle.hit{fill:rgba(255,179,71,.14)}
+
+  ul.slots{list-style:none;margin:0;padding:6px;display:flex;flex-direction:column;justify-content:center}
+  ul.slots li{margin:0}
+  .slot{
+    width:100%;text-align:left;background:transparent;border:1px solid transparent;
+    color:var(--steel);padding:7px 9px;display:grid;grid-template-columns:auto 1fr auto;
+    gap:2px 9px;align-items:center;cursor:pointer;font:inherit;
+  }
+  .slot:hover{background:var(--ink-3);border-color:var(--line)}
+  .slot[aria-selected="true"]{background:var(--ink-3);border-color:var(--amber-deep);color:var(--bone)}
+  .slot[aria-selected="true"] .slot-code{color:var(--amber)}
+  .slot-code{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;color:var(--steel-dim);
+  }
+  .slot-name{font-family:"Chakra Petch",sans-serif;font-size:13.5px;letter-spacing:.03em;text-transform:uppercase}
+  .slot-fit{
+    grid-column:2 / -1;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    color:var(--steel-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .slot[aria-selected="true"] .slot-fit,.slot.filled .slot-fit{color:var(--amber-deep)}
+  .pin{width:7px;height:7px;border:1px solid var(--line-hot);border-radius:50%;grid-row:1}
+  .slot.filled .pin{background:var(--amber);border-color:var(--amber);box-shadow:0 0 8px rgba(255,179,71,.6)}
+  .slot.conflict .pin{background:var(--magenta);border-color:var(--magenta);box-shadow:0 0 8px rgba(255,45,111,.7)}
+
+  /* ---------- catalog ---------- */
+  .cat-head{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+  .cat-head h2{
+    font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:20px;margin:0;
+    letter-spacing:.05em;text-transform:uppercase;text-wrap:balance;
+  }
+  .cat-head p{margin:5px 0 0;color:var(--steel);max-width:62ch;font-size:13px}
+  .rack{display:flex;flex-direction:column}
+  .item{
+    display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:start;
+    padding:13px 16px;border-bottom:1px solid var(--line);background:transparent;
+    border-left:2px solid transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;width:100%;
+    transition:background .15s ease,border-color .15s ease;
+  }
+  .item:last-child{border-bottom:0}
+  .item:hover{background:var(--ink-3)}
+  .item[aria-pressed="true"]{border-left-color:var(--amber);background:#1A1622}
+  .item .nm{font-family:"Chakra Petch",sans-serif;font-size:15.5px;letter-spacing:.02em}
+  .item[aria-pressed="true"] .nm{color:var(--amber)}
+  .item .vendor{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--steel-dim);
+  }
+  .item .blurb{grid-column:1;color:var(--steel);font-size:12.5px;max-width:58ch}
+  .item .price{
+    font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+    font-size:14px;color:var(--bone);white-space:nowrap;
+  }
+  .item .price small{display:block;color:var(--steel-dim);font-size:10px;letter-spacing:.1em;text-align:right}
+  .specs{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:5px;margin-top:3px}
+  .spec{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.04em;
+    padding:1px 6px;border:1px solid var(--line-hot);color:var(--steel);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .spec.up{border-color:rgba(95,211,166,.45);color:var(--good)}
+  .spec.dn{border-color:rgba(255,45,111,.45);color:var(--magenta)}
+  .item.locked{opacity:.44;cursor:not-allowed}
+  .item.locked:hover{background:transparent}
+  .strike{
+    grid-column:1 / -1;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    color:var(--magenta);letter-spacing:.04em;
+  }
+
+  /* ---------- site load footer (catalog) ---------- */
+  .siteload{
+    margin-top:auto;border-top:1px solid var(--line);padding:11px 16px;
+    font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.6;color:var(--steel);
+  }
+  .siteload i{
+    font-style:normal;display:block;font-size:9.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--steel-dim);margin-bottom:3px;
+  }
+  .siteload .fitted{color:var(--bone)}
+  .siteload .headroom{color:var(--steel-dim)}
+  .siteload .headroom b{font-weight:500;color:var(--amber);font-variant-numeric:tabular-nums}
+  .siteload .headroom b.tight{color:var(--magenta)}
+
+  /* ---------- forecast (ledger) ---------- */
+  .forecast{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+  .forecast .odds{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+  .forecast .odds i{
+    font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--steel-dim);
+  }
+  .forecast .odds b{
+    font-family:"Chakra Petch",sans-serif;font-size:27px;font-weight:700;line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .forecast .odds b.ok{color:var(--good)} .forecast .odds b.warn{color:var(--amber)} .forecast .odds b.bad{color:var(--magenta)}
+  .forecast .payout{
+    margin-top:6px;font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.55;color:var(--steel-dim);
+  }
+  .forecast .payout b{font-weight:500;color:var(--amber);font-variant-numeric:tabular-nums}
+  .forecast .payout s{color:var(--steel-dim);text-decoration-color:var(--oxblood)}
+
+  /* ---------- veil (closed door / pause) ---------- */
+  .veil{
+    position:fixed;inset:0;z-index:98;display:flex;align-items:center;justify-content:center;padding:16px;
+    background:rgba(11,10,14,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  }
+  .veil-card{
+    width:min(440px,100%);border:1px solid var(--line-hot);background:var(--ink-2);
+    box-shadow:0 0 70px rgba(107,16,36,.45);padding:20px;text-align:center;
+  }
+  .veil-card h2{
+    font-family:"Chakra Petch",sans-serif;font-size:23px;font-weight:700;letter-spacing:.05em;
+    text-transform:uppercase;margin:3px 0 6px;color:var(--amber);text-wrap:balance;
+  }
+  .veil-card p{margin:0 0 14px;font-size:13px;color:var(--steel);line-height:1.5}
+  .veil-brief{
+    text-align:left;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:10px 0;margin:0 0 14px;display:grid;gap:7px 14px;grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .veil-brief .full{grid-column:1 / -1}
+  .veil-brief i{
+    font-style:normal;display:block;font-family:"IBM Plex Mono",monospace;font-size:9px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--steel-dim);
+  }
+  .veil-brief b{
+    display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500;
+    color:var(--bone);font-variant-numeric:tabular-nums;line-height:1.45;
+  }
+  .veil-brief .job{font-family:"Chakra Petch",sans-serif;font-size:15px;letter-spacing:.03em;color:var(--amber)}
+  .veil-card #veilBtn2{margin-top:7px}
+  .modebtns button:disabled{opacity:.5;cursor:default}
+  .modebtns button:disabled.on{opacity:1}
+  .veil-card .big{
+    font-family:"Chakra Petch",sans-serif;font-size:40px;font-weight:700;line-height:1;
+    font-variant-numeric:tabular-nums;color:var(--bone);margin-bottom:10px;
+  }
+
+  .modebtns{display:flex;gap:0;margin-top:1px}
+  .modebtns button{
+    background:transparent;border:1px solid var(--line-hot);color:var(--steel-dim);
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    padding:3px 8px;cursor:pointer;
+  }
+  .modebtns button+button{border-left:0}
+  .modebtns button.on{border-color:var(--amber);color:var(--amber);background:rgba(255,179,71,.10)}
+  .rep-stat b.warn{color:var(--amber)} .rep-stat b.bad{color:var(--magenta)}
+  #pauseBtn{margin-top:1px;padding:3px 10px}
+
+  /* ---------- bench records ---------- */
+  .records{border:1px solid var(--line);background:var(--ink-2);margin-top:18px}
+  .rec-body{padding:12px;display:grid;grid-template-columns:minmax(0,1fr) 252px;gap:14px 18px;align-items:start}
+  @media (max-width:820px){ .rec-body{grid-template-columns:minmax(0,1fr)} }
+  .drawers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  @media (max-width:620px){ .drawers{grid-template-columns:minmax(0,1fr)} }
+  .drawer{border:1px solid var(--line);border-top:2px solid var(--line-hot);background:#0F0E15;padding:9px 10px}
+  .drawer.used{border-top-color:var(--amber-deep)}
+  .drawer h3{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--steel-dim);margin:0 0 4px;font-weight:400;
+  }
+  .drawer .sum{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.55;color:var(--steel);
+    min-height:56px;font-variant-numeric:tabular-nums;
+  }
+  .drawer .sum b{color:var(--amber);font-weight:500}
+  .drawer .sum .who{color:var(--bone);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .drawer .sum .when{color:var(--steel-dim);font-size:10px;letter-spacing:.06em}
+  .drawer .row{display:flex;gap:6px;margin-top:7px}
+  .rec-btn{
+    flex:1 1 auto;background:transparent;border:1px solid var(--line-hot);color:var(--steel);
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    padding:5px 6px;cursor:pointer;
+  }
+  .rec-btn:hover:not(:disabled){border-color:var(--amber);color:var(--amber)}
+  .rec-btn:disabled{opacity:.35;cursor:not-allowed}
+  .rec-btn.danger{border-color:var(--oxblood);color:#E8A0B4}
+  .rec-btn.danger:hover{border-color:var(--magenta);color:var(--magenta);background:rgba(107,16,36,.25)}
+  .rec-side{display:flex;flex-direction:column;gap:8px}
+  .rec-side .wide{width:100%;padding:9px}
+  .rec-side p{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.55;color:var(--steel-dim)}
+  #codeBox{
+    width:100%;min-height:62px;resize:vertical;background:#0C0B11;color:var(--steel);
+    border:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    padding:7px;line-height:1.5;word-break:break-all;
+  }
+  #chipMsg{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--steel-dim);min-height:15px}
+  #chipMsg.ok{color:var(--good)} #chipMsg.bad{color:var(--magenta)}
+
+  /* ---------- bench rules footer ---------- */
+  .rules{
+    margin-top:22px;border-top:1px solid var(--line);padding-top:14px;
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 22px;
+  }
+  @media (max-width:820px){ .rules{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:460px){ .rules{grid-template-columns:minmax(0,1fr)} }
+  .rule{border-left:2px solid var(--line-hot);padding-left:10px}
+  .rule i{
+    font-style:normal;display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--steel-dim);
+  }
+  .rule b{
+    display:block;font-family:"Chakra Petch",sans-serif;font-size:17px;font-weight:600;
+    letter-spacing:.02em;color:var(--bone);font-variant-numeric:tabular-nums;margin:1px 0 2px;
+  }
+  .rule span{display:block;font-size:12px;color:var(--steel);line-height:1.45}
+  .rules-close{
+    grid-column:1 / -1;margin:2px 0 0;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    letter-spacing:.08em;color:var(--steel-dim);
+  }
+
+  /* ---------- ledger ---------- */
+  .ledger .body{padding:12px}
+  .gauge{margin-bottom:13px}
+  .gauge .top{
+    display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--steel-dim);margin-bottom:4px;
+  }
+  .gauge .val{font-size:12.5px;color:var(--bone);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .track{height:7px;background:#0F0E15;border:1px solid var(--line);position:relative;overflow:hidden}
+  .fill{height:100%;width:0;transition:width .35s cubic-bezier(.4,0,.2,1),background .35s ease}
+  .fill.ok{background:linear-gradient(90deg,var(--amber-deep),var(--amber))}
+  .fill.warn{background:linear-gradient(90deg,#B4581A,#FF8A3D)}
+  .fill.over{background:linear-gradient(90deg,var(--oxblood),var(--magenta))}
+  .redline{position:absolute;top:0;bottom:0;width:1px;background:var(--magenta);opacity:.7}
+
+  .attrs{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);margin:14px 0 12px}
+  .attr{background:var(--ink-2);padding:8px 9px}
+  .attr dt{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--steel-dim);
+  }
+  .attr dd{
+    margin:1px 0 0;font-family:"Chakra Petch",sans-serif;font-size:21px;font-weight:600;
+    font-variant-numeric:tabular-nums;color:var(--bone);display:flex;align-items:baseline;gap:5px;
+  }
+  .attr dd i{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--amber)}
+
+  .flags{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+  .flag{
+    display:flex;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.4;
+    border-left:2px solid var(--line-hot);padding:3px 0 3px 8px;color:var(--steel);
+  }
+  .flag.bad{border-color:var(--magenta);color:#FF9BBC}
+  .flag.warn{border-color:var(--amber);color:#F0C489}
+  .flag.ok{border-color:var(--good);color:#9DE3C7}
+
+  .install{
+    width:100%;border:1px solid var(--amber);background:linear-gradient(180deg,#2A1E10,#1A1208);
+    color:var(--amber);font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:15px;
+    letter-spacing:.14em;text-transform:uppercase;padding:12px;cursor:pointer;
+    transition:background .15s ease,color .15s ease;
+  }
+  .install:hover:not(:disabled){background:var(--amber);color:#1A1208}
+  .install:disabled{opacity:.4;cursor:not-allowed;border-color:var(--line-hot);color:var(--steel-dim);background:var(--ink-3)}
+  .reset{
+    width:100%;margin-top:7px;background:transparent;border:1px solid var(--line);color:var(--steel-dim);
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    padding:7px;cursor:pointer;
+  }
+  .reset:hover{border-color:var(--line-hot);color:var(--bone)}
+
+  /* ---------- surgery modal ---------- */
+  .op{
+    position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+    background:rgba(6,5,9,.88);padding:16px;
+  }
+  .op-card{
+    width:min(520px,100%);background:var(--ink-2);border:1px solid var(--line-hot);
+    box-shadow:0 0 60px rgba(107,16,36,.5);padding:18px 18px 16px;
+  }
+  .op-card h3{
+    font-family:"Chakra Petch",sans-serif;font-size:19px;letter-spacing:.06em;text-transform:uppercase;
+    margin:0 0 3px;color:var(--amber);
+  }
+  .op-card .op-sub{
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--steel-dim);margin-bottom:12px;
+  }
+  .oplog{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.7;
+    background:#0C0B11;border:1px solid var(--line);padding:10px;min-height:168px;
+    max-height:44vh;overflow-y:auto;color:var(--steel);
+  }
+  .oplog div{white-space:pre-wrap}
+  .oplog .t{color:var(--steel-dim)}
+  .oplog .g{color:var(--good)}
+  .oplog .a{color:var(--amber)}
+  .oplog .r{color:var(--magenta)}
+  .verdict{margin-top:12px;font-family:"Chakra Petch",sans-serif;font-size:17px;letter-spacing:.05em;text-transform:uppercase}
+  .verdict.live{color:var(--good)}
+  .verdict.flat{color:var(--magenta)}
+  .verdict.wounded{color:var(--amber)}
+  .verdict-note{
+    margin-top:7px;display:flex;flex-direction:column;gap:5px;
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.5;color:var(--steel);
+  }
+  .verdict-note div{border-left:2px solid var(--oxblood);padding-left:8px}
+  .op-close{
+    margin-top:12px;width:100%;background:transparent;border:1px solid var(--line-hot);color:var(--bone);
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    padding:9px;cursor:pointer;
+  }
+  .op-close:hover{border-color:var(--amber);color:var(--amber)}
+
+  .fineprint{
+    margin-top:26px;border-top:1px solid var(--line);padding-top:12px;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+    color:var(--steel-dim);max-width:78ch;
+  }
+  :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="brand">
+      <h1>Chrome &amp; <em>Bone</em></h1>
+      <div class="sub">Ripperdoc bench · Sublevel 4, Kestrel Arcade · lic. suspended</div>
+    </div>
+    <dl class="clientcard">
+      <dt>Client</dt><dd id="bioName">—</dd>
+      <dt>Frame</dt><dd id="bioFrame">—</dd>
+      <dt>Pronouns</dt><dd id="bioPron">—</dd>
+      <dt>Coolant</dt><dd id="bioCool">—</dd>
+      <dt>Prior work</dt><dd id="bioPrior">—</dd>
+    </dl>
+  </header>
+
+  <div class="veil" id="veil" hidden>
+    <div class="veil-card">
+      <div class="c-eyebrow" id="veilEyebrow">Bench closed</div>
+      <h2 id="veilTitle">—</h2>
+      <div class="big" id="veilBig" hidden></div>
+      <p id="veilText"></p>
+      <div class="veil-brief" id="veilBrief" hidden></div>
+      <button class="install" id="veilBtn" type="button">Bring in the client</button>
+      <button class="reset" id="veilBtn2" type="button" hidden></button>
+    </div>
+  </div>
+
+  <section class="rep" aria-label="Bench standing">
+    <div class="rep-main">
+      <div class="top"><span>Street rep</span><b id="repLabel">—</b></div>
+      <div class="track"><div class="fill ok" id="repFill"></div></div>
+    </div>
+    <div class="rep-stats">
+      <div class="rep-stat money"><i>Bench take</i><b id="stTake">0</b></div>
+      <div class="rep-stat"><i>Delivered</i><b id="stDone">0</b></div>
+      <div class="rep-stat lost"><i>Lost</i><b id="stLost">0</b></div>
+      <div class="rep-stat refused"><i>Turned away</i><b id="stRef">0</b></div>
+      <div class="rep-stat"><i>Streak</i><b id="stStreak">0</b></div>
+      <div class="rep-stat"><i>Rent</i><b id="stRent">—</b></div>
+      <div class="rep-stat"><i>On the clock</i><b id="clock">—</b></div>
+      <div class="rep-stat"><i>Mode</i>
+        <span class="modebtns">
+          <button id="modeEasy" type="button">Easy</button><button id="modeHard" type="button">Hard</button>
+        </span>
+      </div>
+      <div class="rep-stat"><i aria-hidden="true">&nbsp;</i>
+        <button class="rec-btn" id="pauseBtn" type="button">Pause</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="contract" aria-label="Contract">
+    <div>
+      <div class="c-eyebrow">Contract · walked in today</div>
+      <h2 id="jobName">—</h2>
+      <p id="jobLine"></p>
+    </div>
+    <div>
+      <div class="c-reqs" id="jobReqs"></div>
+      <div class="c-ceiling" id="jobCeiling"></div>
+    </div>
+    <button class="nextclient" id="nextBtn" type="button">Next client</button>
+  </section>
+
+  <div class="bench">
+    <!-- SLOT RAIL -->
+    <section class="panel" aria-label="Body slots">
+      <div class="panel-hd"><span>Install map</span><b id="slotcount">0/8</b></div>
+      <figure class="soma">
+        <svg viewBox="0 0 120 196" role="img" aria-label="Anatomical schematic with eight install sites">
+          <g stroke="#2A2734" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <!-- cranium and jaw -->
+            <path d="M49.5 18.5 C49.5 10 54 4.5 60 4.5 C66 4.5 70.5 10 70.5 18.5
+                     C70.5 23 68.5 25.5 66.5 26.5 L53.5 26.5 C51.5 25.5 49.5 23 49.5 18.5 Z"/>
+            <path d="M54 26.5 L54.5 30.5 Q60 33.5 65.5 30.5 L66 26.5"/>
+            <circle cx="55.2" cy="18" r="2.9" fill="#2A2734" stroke="none"/>
+            <circle cx="64.8" cy="18" r="2.9" fill="#2A2734" stroke="none"/>
+            <path d="M60 21.5 L58.3 24.5 H61.7 Z" fill="#2A2734" stroke="none"/>
+            <!-- cervical vertebrae -->
+            <path d="M60 33.5 V45"/>
+            <path d="M56.8 35.5 H63.2 M56.8 38.5 H63.2 M56.8 41.5 H63.2 M56.8 44.5 H63.2"/>
+            <!-- clavicle and shoulders -->
+            <path d="M43 48.5 Q60 43.5 77 48.5"/>
+            <!-- ribcage -->
+            <path d="M60 45 V94"/>
+            <path d="M58.6 51 Q47.5 53 46 59.5 M61.4 51 Q72.5 53 74 59.5"/>
+            <path d="M58.6 57.5 Q46 59.5 45.5 66.5 M61.4 57.5 Q74 59.5 74.5 66.5"/>
+            <path d="M58.6 64 Q46.5 66.5 47.5 73 M61.4 64 Q73.5 66.5 72.5 73"/>
+            <path d="M58.6 70.5 Q48.5 73.5 50 79 M61.4 70.5 Q71.5 73.5 70 79"/>
+            <!-- skin line: what the dermal weave sits in -->
+            <path d="M46 50 C41 62 41 80 48 96" stroke-dasharray="2 3" opacity=".85"/>
+            <path d="M74 50 C79 62 79 80 72 96" stroke-dasharray="2 3" opacity=".85"/>
+            <!-- pelvis -->
+            <path d="M50.5 96 C45.5 100 46 109 53 113 Q60 116.5 67 113 C74 109 74.5 100 69.5 96"/>
+            <path d="M54 99 Q60 104 66 99"/>
+            <!-- arms: humerus, elbow, radius and ulna -->
+            <path d="M44.5 49.5 L36.5 73.5 M75.5 49.5 L83.5 73.5"/>
+            <circle cx="36.5" cy="75.5" r="2.1"/><circle cx="83.5" cy="75.5" r="2.1"/>
+            <path d="M35 78 L30.5 99 M38 78 L34 99 M85 78 L89.5 99 M82 78 L86 99"/>
+            <!-- hands -->
+            <path d="M30 100.5 L27.5 105 M32.5 100.5 L30.5 106 M35 100.5 L34 106 M37 100.5 L37 104.5"/>
+            <path d="M90 100.5 L92.5 105 M87.5 100.5 L89.5 106 M85 100.5 L86 106 M83 100.5 L83 104.5"/>
+            <!-- femur, knee, tibia and fibula -->
+            <path d="M54 113.5 L50.5 143 M66 113.5 L69.5 143"/>
+            <circle cx="50.5" cy="145.5" r="2.4"/><circle cx="69.5" cy="145.5" r="2.4"/>
+            <path d="M50 148 L47.5 175 M52.5 148.5 L50.5 174 M70 148 L72.5 175 M67.5 148.5 L69.5 174"/>
+            <!-- feet -->
+            <path d="M47.5 176.5 L40 181 M72.5 176.5 L80 181"/>
+          </g>
+          <g id="somaNodes"></g>
+        </svg>
+      </figure>
+      <ul class="slots" id="slotList" role="tablist" aria-label="Install sites"></ul>
+    </section>
+
+    <!-- CATALOG -->
+    <section class="panel" aria-label="Available chrome">
+      <div class="cat-head">
+        <h2 id="catTitle">Cortex</h2>
+        <p id="catBlurb"></p>
+      </div>
+      <div class="rack" id="rack"></div>
+      <div class="siteload" id="siteload"></div>
+    </section>
+
+    <!-- LEDGER -->
+    <section class="panel ledger" aria-label="Vitals and cost">
+      <div class="panel-hd"><span>Bench readout</span><b id="riskTag">NOMINAL</b></div>
+      <div class="body">
+        <div class="gauge">
+          <div class="top"><span>Eddies</span><span class="val" id="vMoney">0 / 145,000</span></div>
+          <div class="track"><div class="fill ok" id="fMoney"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="top"><span>Neural bus</span><span class="val" id="vBus">0.0 / 34.0 Gb/s</span></div>
+          <div class="track"><div class="fill ok" id="fBus"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="top"><span>Thermal load</span><span class="val" id="vHeat">0 / 165 W</span></div>
+          <div class="track"><div class="fill ok" id="fHeat"></div><div class="redline" style="left:80%"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="top"><span>Cortical drift</span><span class="val" id="vDrift">0.0 / 32.0 cd</span></div>
+          <div class="track"><div class="fill ok" id="fDrift"></div><div class="redline" style="left:75%"></div></div>
+        </div>
+
+        <dl class="attrs">
+          <div class="attr"><dt>Reflex</dt><dd id="aRef">10<i id="dRef"></i></dd></div>
+          <div class="attr"><dt>Percep</dt><dd id="aPer">10<i id="dPer"></i></dd></div>
+          <div class="attr"><dt>Armor</dt><dd id="aArm">10<i id="dArm"></i></dd></div>
+          <div class="attr"><dt>Sync</dt><dd id="aSyn">10<i id="dSyn"></i></dd></div>
+        </dl>
+
+        <div class="flags" id="flags"></div>
+        <div class="spacer"></div>
+        <div class="forecast">
+          <div class="odds"><i>Survival estimate</i><b id="fcOdds">—</b></div>
+          <div class="payout" id="fcPay"></div>
+        </div>
+        <button class="install" id="installBtn">Run install</button>
+        <button class="reset" id="resetBtn">Strip the rack</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="records" aria-label="Bench records">
+    <div class="panel-hd"><span>Bench records</span><b id="recHint">Autosaving</b></div>
+    <div class="rec-body">
+      <div class="drawers" id="drawers"></div>
+      <div class="rec-side">
+        <button class="rec-btn danger wide" id="restartBtn" type="button">Close the bench · start over</button>
+        <p>A run is your rep, your take and the client on the table. Drawers keep three of them. The chip moves one to another machine.</p>
+        <textarea id="codeBox" spellcheck="false" placeholder="Paste a transfer chip here, then read it."></textarea>
+        <div style="display:flex;gap:6px">
+          <button class="rec-btn" id="exportBtn" type="button">Write chip</button>
+          <button class="rec-btn" id="importBtn" type="button">Read chip</button>
+        </div>
+        <div id="chipMsg"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="rules" aria-label="Bench rules for this client">
+    <div class="rule"><i>Credit line</i><b id="rlMoney">—</b>
+      <span id="rlMoneyNote"></span></div>
+    <div class="rule"><i>C4 trunk</i><b id="rlBus">—</b>
+      <span>Past this, reflex packets drop mid-motion and never stop dropping.</span></div>
+    <div class="rule"><i>Lattice</i><b id="rlHeat">—</b>
+      <span id="rlHeatNote"></span></div>
+    <div class="rule"><i>Drift ceiling</i><b id="rlDrift">—</b>
+      <span id="rlDriftNote"></span></div>
+    <p class="rules-close">No refunds, no anesthesia past hour six. A client can be cut once.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var GIVEN=["Jae","Ilse","Marisol","Tovi","Nkechi","Dmitri","Yuna","Cass","Renata","Sana",
+             "Bex","Tadeo","Mira","Halvard","Iyanu","Perla","Kwabena","Noor","Esben","Rosalind"];
+  var SUR=["Okonkwo-Vass","Ferreira","Zhu","Halloran","Adeyemi","Petrossian","Mbeki-Strand","Varga",
+           "Lindqvist","Rahmani","Castellanos","Baptiste","Ng","Sorensen","Achebe-Roy","Kowalczyk"];
+  var BLOOD=["O−","O+","A+","A−","B+","AB−"];
+  var TRADE=["courier","ex-corpo security","arena fighter","dock rigger","fixer's driver","street medic",
+             "scav crew, retired","nightclub muscle","data mule","line cook, arcade level 2"];
+
+  var JOBS=[
+    {name:"Nightrunner escort", fee:26000, line:"Six weeks of moving people who are being followed. {They} {v:has|have} to be faster than the people following.", stats:["ref"]},
+    {name:"Corpo tower infiltration", fee:41000, line:"One night inside Arasaka's Kestrel annex. {They} {v:has|have} to see the trap and hold the handshake while {they} {v:does|do}.", stats:["per","syn"]},
+    {name:"Arena circuit, unlimited class", fee:33000, line:"Twelve bouts, no weight class, no medical. {They} {v:has|have} to still be standing in round nine.", stats:["arm"]},
+    {name:"Debt collection, Kestrel arcade", fee:28000, line:"Doors that do not open politely, and the people behind them. Both halves of the job matter.", stats:["arm","ref"]},
+    {name:"Netrunner's second body", fee:23000, line:"{They} {v:holds|hold} the meat while someone else drives. All that matters is what the cortex can carry.", stats:["syn"]},
+    {name:"Bench apprentice", fee:17000, line:"{They} {v:wants|want} this job. Steady hands, sharp eyes, and a head that stays {theirs} through a double shift.", stats:["per","syn"]},
+    {name:"Roof-to-roof courier, sublevel run", fee:36000, line:"Four kilometres without touching the street. Legs and reflex, and a spine that survives the landings.", stats:["ref","arm"]}
+  ];
+
+  // every stat's ceiling with no budget at all, used to weigh multi-stat contracts fairly.
+  // computed on first use: SLOTS and CHROME are declared further down this file.
+  var _gmax=null;
+  function globalMax(){
+    if(_gmax) return _gmax;
+    var out={ref:10,per:10,arm:10,syn:10};
+    SLOTS.forEach(function(s){
+      ["ref","per","arm","syn"].forEach(function(k){
+        var best=0;
+        CHROME.forEach(function(c){ if(c.slot===s.id && c[k]>best) best=c[k]; });
+        out[k]+=best;
+      });
+    });
+    _gmax=out;
+    return out;
+  }
+
+  var HEAVY={gorilla:1, plates:1, lynx:1};
+
+  // exhaustive search of the ~49k legal racks: what is the best this body can actually do,
+  // inside its own credit line, trunk, lattice and drift ceiling, with no faults at all?
+  function solveBest(caps, preowned, stats){
+    var opts=SLOTS.map(function(s){
+      return {id:s.id, list:[null].concat(CHROME.filter(function(c){ return c.slot===s.id; }))};
+    });
+    var n=opts.length, cur=new Array(n), best=null, bestScore=-1, gmax=globalMax();
+
+    function settle(){
+      var ids={}, heavy=0, laced=false, i, c;
+      for(i=0;i<n;i++){ c=cur[i]; if(!c) continue;
+        ids[c.id]=1; if(HEAVY[c.id]) heavy++; if(c.id==="lacing") laced=true; }
+      if(heavy>=2 && !laced) return;                       // frame strain is a fault
+      for(i=0;i<n;i++){ c=cur[i]; if(!c||!c.conflicts) continue;
+        for(var q=0;q<c.conflicts.length;q++) if(ids[c.conflicts[q]]) return; }
+      var v={ref:10,per:10,arm:10,syn:10};
+      for(i=0;i<n;i++){ c=cur[i]; if(!c) continue;
+        v.ref+=c.ref; v.per+=c.per; v.arm+=c.arm; v.syn+=c.syn; }
+      var sc=0;
+      for(i=0;i<stats.length;i++) sc+=v[stats[i]]/gmax[stats[i]];
+      if(sc>bestScore){ bestScore=sc; best=v; }
+    }
+
+    function rec(i, money, bus, heat, drift){
+      // money, bus and drift only ever climb, so they prune; heat can still fall (thermoregulating dermis)
+      if(money>caps.money || bus>caps.bus || drift>caps.drift || heat>caps.heat+28) return;
+      if(i===n){ if(heat<=caps.heat) settle(); return; }
+      var list=opts[i].list, slotId=opts[i].id;
+      for(var a=0;a<list.length;a++){
+        var c=list[a]; cur[i]=c;
+        if(!c) rec(i+1, money, bus, heat, drift);
+        else rec(i+1, money+(preowned[slotId]===c.id?0:c.price), bus+c.bus, heat+c.heat, drift+c.drift);
+      }
+      cur[i]=null;
+    }
+    rec(0,0,0,0,0);
+    return best || {ref:10,per:10,arm:10,syn:10};
+  }
+
+  var PRONOUNS={
+    F:{s:"she",  o:"her",  p:"her",   ps:"hers",   r:"herself",    pl:false, set:"she/her"},
+    M:{s:"he",   o:"him",  p:"his",   ps:"his",    r:"himself",    pl:false, set:"he/him"},
+    N:{s:"they", o:"them", p:"their", ps:"theirs", r:"themselves", pl:true,  set:"they/them"}
+  };
+  function pr(){ return (client && PRONOUNS[client.sex]) || PRONOUNS.N; }
+
+  // {they} {them} {their} {theirs} {themself} — capitalise the token to capitalise the word.
+  // {v:walks|walk} picks the verb form, because they/them takes the plural.
+  function P(str){
+    var p=pr();
+    return String(str).replace(/\{(\w+)(?::([^}]*))?\}/g, function(m,key,arg){
+      if(key==="v"){ var f=(arg||"").split("|"); return p.pl ? (f.length>1?f[1]:f[0]) : f[0]; }
+      var low=key.toLowerCase(), out;
+      if(low==="they") out=p.s;
+      else if(low==="them") out=p.o;
+      else if(low==="their") out=p.p;
+      else if(low==="theirs") out=p.ps;
+      else if(low==="themself") out=p.r;
+      else return m;
+      return (key.charAt(0)!==low.charAt(0)) ? out.charAt(0).toUpperCase()+out.slice(1) : out;
+    });
+  }
+
+  function pickOne(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function between(lo,hi,step){
+    var n=Math.floor(Math.random()*((hi-lo)/step+1))*step+lo;
+    return Math.round(n*10)/10;
+  }
+
+  function coolantName(heat){
+    if(heat<150) return "Peltier lattice, 1st gen";
+    if(heat<180) return "Peltier lattice, 2nd gen";
+    if(heat<210) return "Peltier lattice, 3rd gen";
+    return "Zetatech microloop, wet";
+  }
+
+  function rollClient(){
+    var tier=repTier();
+    var c={
+      name: pickOne(GIVEN).charAt(0)+". "+pickOne(SUR).toUpperCase(),
+      age: Math.floor(between(19,58,1)),
+      sex: pickOne(["F","M","N"]),
+      kg: Math.floor(between(51,98,1)),
+      blood: pickOne(BLOOD),
+      trade: pickOne(TRADE),
+      job: pickOne(JOBS),
+      caps:{
+        money: Math.round(between(58000,148000,500)*tier.cred/500)*500,
+        bus: Math.round(between(26,46,0.5)*tier.cap*2)/2,
+        heat: Math.round(between(130,230,5)*tier.cap/5)*5,
+        drift: Math.round(between(22,40,0.5)*tier.cap*2)/2
+      },
+      closed:false,
+      started:false,
+      preowned:{}
+    };
+    c.fee = Math.round(c.job.fee*tier.fee/100)*100;
+
+    // prior work first: it is chrome the client already paid for, so it changes what the
+    // credit line can still buy — and the contract is solved against that.
+    var n=Math.random();
+    var howMany = n<0.42 ? 0 : (n<0.82 ? 1 : 2);
+    var open=SLOTS.map(function(x){return x.id;});
+    for(var i=0;i<howMany;i++){
+      var slotId=open.splice(Math.floor(Math.random()*open.length),1)[0];
+      var cheap=CHROME.filter(function(x){ return x.slot===slotId && x.price<16000; });
+      if(cheap.length) c.preowned[slotId]=pickOne(cheap).id;
+    }
+
+    // the contract is written against this body's real ceiling, not a flat number:
+    // 84-96% of the best fault-free rack the credit line can still buy.
+    // the joint solve sets the thresholds, so a single rack can satisfy all of them at once.
+    var joint = solveBest(c.caps, c.preowned, c.job.stats);
+    var tightness = 0.84 + Math.random()*0.08 + (tier.cred>1.2 ? 0.03 : 0);
+    c.reqs = c.job.stats.map(function(k){
+      return [k, Math.max(11, Math.ceil(joint[k]*tightness))];
+    });
+
+    // displayed ceiling is each stat's own true maximum, which for a two-stat
+    // contract is higher than the joint rack reaches on either one
+    c.ceiling={};
+    c.job.stats.forEach(function(k){
+      c.ceiling[k] = (c.job.stats.length===1) ? joint[k] : solveBest(c.caps, c.preowned, [k])[k];
+    });
+
+    // hard mode: a two-stat contract is a longer cut
+    c.limit = (c.job.stats.length>1) ? 270 : 210;
+    c.remain = c.limit;
+    return c;
+  }
+
+  var client, CAP;
+
+  // the bench outlives any one client
+  var bench = {rep:50, take:0, done:0, lost:0, refused:0, streak:0, mode:null,
+               cycle:0, strikes:0, rentDue:false, over:null};
+  var RENT_EVERY = 3;
+  var RENT_BASE = 32000;
+  var SALVAGE_ODDS = 0.5;          // chance a single assembly is recovered from a dead client
+  var timer = {id:null, paused:false};
+
+  function repTier(){
+    var r=bench.rep;
+    if(r>=72) return {cred:1.28, cap:1.12, fee:1.25, label:"The arcade sends people"};
+    if(r>=38) return {cred:1.00, cap:1.00, fee:1.00, label:"Known on the level"};
+    if(r>=14) return {cred:0.78, cap:0.92, fee:0.85, label:"Word is getting around"};
+    return           {cred:0.60, cap:0.84, fee:0.70, label:"Only the desperate come here"};
+  }
+
+  var SLOTS = [
+    {id:"cortex", code:"CRX-01", name:"Cortex",      pts:[[60,9]],  blurb:"Direct cortical tap. Everything downstream inherits whatever you put here — pick the bus before you pick the toys."},
+    {id:"optic",  code:"OPT-02", name:"Optics",      pts:[[55.2,18],[64.8,18]],  blurb:"Ocular replacement. Vendors sell resolution; what you actually buy is how fast you can be wrong about a doorway."},
+    {id:"neck",   code:"CVT-03", name:"Cervical",    pts:[[60,39]],  blurb:"Spinal interface at C4. Where reflex boosters splice in, and where they fail loudest."},
+    {id:"hands",  code:"MNP-04", name:"Manipulators",pts:[[32,103],[88,103]], blurb:"Hands and forearms. Fine-motor chrome is cheap; the gear that survives a fight is not."},
+    {id:"heart",  code:"CRD-05", name:"Circulatory", pts:[[60,60]],  blurb:"Cardiac and vascular. Pumps, filters, the systems that decide how long a bad night lasts."},
+    {id:"skel",   code:"SKL-06", name:"Skeleton",    pts:[[60,88]], blurb:"Bone lacing and joint reinforcement. Adds mass, eats coolant, keeps your arms attached."},
+    {id:"derm",   code:"DRM-07", name:"Dermal",      pts:[[42.5,71.5],[77.5,71.5]], blurb:"Subdermal armor weave. Every plate you add is a degree your lattice has to fight."},
+    {id:"legs",   code:"LOC-08", name:"Locomotion",  pts:[[50.5,145.5],[69.5,145.5]], blurb:"Legs and ankles. Nobody buys these until the first time they need to leave a room fast."}
+  ];
+
+  // price €$, bus Gb/s, heat W, drift cd, stat deltas
+  var CHROME = [
+    // CORTEX
+    {slot:"cortex", id:"zetatech", name:"Zetatech Rarita", vendor:"Zetatech · grey import", price:9800, bus:6.0, heat:14, drift:2.5,
+      ref:1, per:2, arm:0, syn:3, blurb:"Stock corporate cortical bus. Boring, documented, and the only one with a recall history you can actually read."},
+    {slot:"cortex", id:"kiroshi_mx", name:"Arasaka MX-9 'Blacklace'", vendor:"Arasaka · salvage", price:21400, bus:11.0, heat:26, drift:7.0,
+      ref:3, per:3, arm:0, syn:6, conflicts:["nightfall"],
+      blurb:"Pulled from a decommissioned security unit. Firmware still thinks it has a chain of command, and it will not handshake with Militech glass."},
+    {slot:"cortex", id:"wetware", name:"Hand-rolled wetware stack", vendor:"Bench build · no warranty", price:4200, bus:3.5, heat:9, drift:9.5,
+      ref:1, per:1, arm:0, syn:2, blurb:"Three donor chips and a lot of solder. Cheap, light on the bus, murder on the drift."},
+
+    // OPTICS
+    {slot:"optic", id:"kiroshi3", name:"Kiroshi Mk.3", vendor:"Kiroshi Optics", price:7600, bus:4.0, heat:8, drift:1.0,
+      ref:0, per:5, arm:0, syn:1, blurb:"Threat-tagging at 240 Hz with a 40 ms tag latency. The civilian model, which is to say the legal one."},
+    {slot:"optic", id:"nightfall", name:"Nightfall IR suite", vendor:"Militech · diverted", price:13900, bus:7.5, heat:19, drift:3.0,
+      ref:1, per:8, arm:0, syn:0, conflicts:["kiroshi_mx"], blurb:"Thermal overlay plus flash compensation. Burns bright on the bus and hums where you can hear it."},
+    {slot:"optic", id:"lensfree", name:"Refurb lens, single eye", vendor:"Kestrel market stall", price:1900, bus:1.5, heat:4, drift:2.0,
+      ref:0, per:2, arm:0, syn:0, blurb:"One eye, previous owner unstated. Depth perception is a negotiation for the first month."},
+
+    // CERVICAL
+    {slot:"neck", id:"kerez", name:"Kereznikov 4 reflex splice", vendor:"Dynalar", price:26800, bus:13.0, heat:38, drift:11.0,
+      ref:12, per:2, arm:0, syn:0, conflicts:["sandev"],
+      blurb:"Subjective time dilates roughly 3.4x for eleven seconds. Then your knees find out what happened."},
+    {slot:"neck", id:"sandev", name:"Sandevistan MK.4", vendor:"Dynalar · reflashed", price:31200, bus:16.0, heat:44, drift:14.0,
+      ref:15, per:0, arm:0, syn:-2, conflicts:["kerez","reflexlegs"],
+      blurb:"Longer burn, harder crash. Cannot share a spine with a Kereznikov — the two fight for the same nerve trunk."},
+    {slot:"neck", id:"damper", name:"Cervical shock damper", vendor:"Bioform Medical", price:5400, bus:1.0, heat:6, drift:0,
+      ref:2, per:0, arm:3, syn:1, blurb:"Passive. Keeps your skull on your shoulders when the rest of your chrome outruns your bones."},
+
+    // MANIPULATORS
+    {slot:"hands", id:"mantis", name:"Mantis blades, folded", vendor:"Arasaka · unnumbered", price:18700, bus:5.5, heat:22, drift:6.0,
+      ref:6, per:0, arm:2, syn:0, blurb:"Forearm-housed monoblade pair. Deploys in 340 ms. You will not pass a body scanner again."},
+    {slot:"hands", id:"surgeon", name:"Micro-motor surgeon's hands", vendor:"Bioform Medical", price:11200, bus:4.5, heat:11, drift:1.5,
+      ref:4, per:3, arm:0, syn:2, blurb:"Sub-millimetre tremor cancellation. Built for the person on this side of the table."},
+    {slot:"hands", id:"gorilla", name:"Gorilla arms, industrial", vendor:"Militech surplus", price:9400, bus:2.0, heat:26, drift:3.5,
+      ref:2, per:0, arm:6, syn:-1, blurb:"Hydraulic. Loud. Runs hot enough that you will feel it in your teeth in a cold room."},
+
+    // CIRCULATORY
+    {slot:"heart", id:"biomon", name:"Biomonitor + auto-inject", vendor:"Bioform Medical", price:6800, bus:2.5, heat:9, drift:0,
+      ref:0, per:1, arm:5, syn:2, blurb:"Reads twelve markers and pushes a clotting agent before you notice you are bleeding."},
+    {slot:"heart", id:"secondheart", name:"Second heart, retrofit", vendor:"Zetatech", price:29500, bus:3.0, heat:31, drift:4.0,
+      ref:2, per:0, arm:11, syn:0, blurb:"Sits under the original and takes over on arrest. Adds 31 W you must budget for permanently."},
+    {slot:"heart", id:"filter", name:"Hepatic filter loop", vendor:"Grey clinic, Kestrel", price:3600, bus:1.0, heat:7, drift:1.0,
+      ref:0, per:0, arm:3, syn:1, blurb:"Scrubs the stimulants your reflex chrome will make you want. Unglamorous, and it keeps clients alive."},
+
+    // SKELETON
+    {slot:"skel", id:"lacing", name:"Titanium bone lacing", vendor:"Militech", price:14600, bus:0.5, heat:12, drift:1.0,
+      ref:0, per:0, arm:10, syn:0, blurb:"Lattice through the long bones. Non-negotiable if you run heavy limbs on a 61 kg frame."},
+    {slot:"skel", id:"joints", name:"Polymer joint sheathing", vendor:"Dynalar", price:7300, bus:0.5, heat:5, drift:0,
+      ref:4, per:0, arm:3, syn:0, blurb:"Lets a boosted reflex arc finish its motion without tearing the shoulder off its socket."},
+
+    // DERMAL
+    {slot:"derm", id:"weave", name:"Subdermal weave, light", vendor:"Bioform Medical", price:8900, bus:1.0, heat:13, drift:0.5,
+      ref:0, per:0, arm:9, syn:0, blurb:"Flexible ballistic mesh under the skin. Stops fragments; will not stop a rifle."},
+    {slot:"derm", id:"plates", name:"Dermal plating, heavy", vendor:"Militech surplus", price:16400, bus:1.5, heat:34, drift:2.0,
+      ref:-2, per:0, arm:18, syn:0, blurb:"Overlapping ceramic. Thirty-four watts of heat that never leaves and a client who cannot slouch."},
+    {slot:"derm", id:"thermo", name:"Thermoregulating dermis", vendor:"Zetatech", price:12800, bus:2.0, heat:-28, drift:0.5,
+      ref:0, per:0, arm:2, syn:1, blurb:"Runs the lattice in reverse through the skin. Sheds 28 W instead of adding it — the only cooling on this bench."},
+
+    // LOCOMOTION
+    {slot:"legs", id:"reflexlegs", name:"Reflex tuning, lower", vendor:"Dynalar", price:10400, bus:3.0, heat:14, drift:2.0,
+      ref:7, per:0, arm:0, syn:0, conflicts:["sandev"],
+      blurb:"Retuned calf and ankle actuators. Standing start to full sprint in under a second — unless a Sandevistan is already driving that arc."},
+    {slot:"legs", id:"lynx", name:"Lynx double-jointed legs", vendor:"Kiroshi · custom shop", price:22100, bus:4.0, heat:20, drift:4.5,
+      ref:9, per:1, arm:-2, syn:0, blurb:"Digitigrade conversion. Three-storey falls become survivable; stairs become a personality trait."},
+    {slot:"legs", id:"shocks", name:"Fluid shock absorbers", vendor:"Bench build", price:3100, bus:0.5, heat:6, drift:1.0,
+      ref:3, per:0, arm:2, syn:0, blurb:"Cheap damping in the heel. Buys back the ankles that heavy chrome costs you."}
+  ];
+
+  var pick = {};       // slotId -> chromeId
+  var activeSlot = SLOTS[0].id;
+  var STORE = "chrome-and-bone/bench-v2";
+
+  function startClient(c){
+    stopClock(); timer.paused=false;
+    client = c; CAP = c.caps;
+    pick = {};
+    for(var k in c.preowned) pick[k] = c.preowned[k];   // prior work is on the bench already
+    activeSlot = SLOTS[0].id;
+  }
+
+  (function boot(){
+    try{
+      var raw = localStorage.getItem(STORE);
+      if(raw){
+        var st = JSON.parse(raw);
+        if(st && st.bench){
+          for(var b in bench) if(typeof st.bench[b]==="number") bench[b]=st.bench[b];
+          if(st.bench.mode==="hard"||st.bench.mode==="easy") bench.mode=st.bench.mode;
+          bench.rentDue=!!st.bench.rentDue;
+          bench.over=st.bench.over||null;
+        }
+        if(st && st.client && st.client.caps && st.client.job){
+          client = st.client;
+          if(!client.preowned) client.preowned = {};
+          if(typeof client.fee !== "number") client.fee = (client.job && client.job.fee) || 20000;
+          if(typeof client.closed !== "boolean") client.closed = false;
+          if(!client.reqs) client.reqs = [];
+          if(typeof client.started!=="boolean") client.started = !!client.closed;
+          if(typeof client.limit!=="number") client.limit = (client.job.stats&&client.job.stats.length>1)?270:210;
+          if(typeof client.remain!=="number") client.remain = client.limit;
+          CAP = client.caps;
+          pick = (st.pick && typeof st.pick === "object") ? st.pick : {};
+          return;
+        }
+      }
+    }catch(e){}
+    startClient(rollClient());
+  })();
+
+  function byId(id){ for(var i=0;i<CHROME.length;i++) if(CHROME[i].id===id) return CHROME[i]; return null; }
+  function isPaid(slotId,c){ return client.preowned[slotId]===c.id; }
+  function activeSlotOf(c){ return c.slot; }
+  function priceOf(slotId,c){ return isPaid(slotId,c) ? 0 : c.price; }
+  function installed(){ var out=[]; for(var k in pick){ var c=byId(pick[k]); if(c) out.push(c); } return out; }
+  function fmt(n){ return n.toLocaleString("en-US"); }
+
+  function conflictsFor(c){
+    var out=[]; var list=installed();
+    for(var i=0;i<list.length;i++){
+      var o=list[i]; if(o.id===c.id) continue;
+      if((c.conflicts||[]).indexOf(o.id)>-1 || (o.conflicts||[]).indexOf(c.id)>-1) out.push(o);
+    }
+    return out;
+  }
+
+  function assess(t){
+    var faults=[];
+    var clash=false;
+    installed().forEach(function(c){ if(conflictsFor(c).length) clash=true; });
+    if(clash) faults.push({cost:55,
+      log:"SPLICE CONTESTED · two units fighting the same pathway",
+      dmg:P("The contested splice necrosed the nerve trunk. One of the two comes back out on Thursday, and the arm never fully comes back.")});
+    if(t.bus>CAP.bus) faults.push({cost:Math.min(48,(t.bus-CAP.bus)*7),
+      log:"BUS SATURATED · "+t.bus.toFixed(1)+" Gb/s on a "+CAP.bus.toFixed(1)+" trunk",
+      dmg:P("Reflex packets drop under load. {They} {v:reaches|reach} for a cup and {their} hand arrives a tenth of a second late, permanently.")});
+    if(t.heat>CAP.heat) faults.push({cost:Math.min(48,(t.heat-CAP.heat)*1.1),
+      log:"LATTICE OVERRUN · "+t.heat+" W into a "+CAP.heat+" W loop · core temp climbing",
+      dmg:P("Second-degree burns radiating from every lattice seat. {They} {v:sleeps|sleep} on a cooling mat now, and {they} will for good.")});
+    if(t.drift>CAP.drift) faults.push({cost:Math.min(48,(t.drift-CAP.drift)*7),
+      log:"DRIFT "+t.drift.toFixed(1)+P(" cd · {they} {v:is|are} not answering to {their} name"),
+      dmg:P("{They} {v:answers|answer} to {their} name about eight times in ten. The paperwork still files this one as a success.")});
+    if(t.frameStrain) faults.push({cost:t.frameStrain*11,
+      log:"FRAME STRAIN · "+t.frameStrain+" heavy assemblies, unlaced skeleton",
+      dmg:P("Both shoulders subluxed on the table. Six weeks braced before {they} can carry what you just bolted on.")});
+
+    var odds=98;
+    faults.forEach(function(f){ odds-=f.cost; });
+    if(t.drift>CAP.drift*.75 && t.drift<=CAP.drift) odds-=8;
+    if(t.heat>CAP.heat*.8 && t.heat<=CAP.heat) odds-=7;
+    if(pick.heart) odds+=4;
+    if(pick.skel==="lacing") odds+=3;
+    // a body does not average its failures out: each hard fault caps the ceiling
+    if(faults.length>=1) odds=Math.min(odds,58);
+    if(faults.length>=2) odds=Math.min(odds,31);
+    if(faults.length>=3) odds=Math.min(odds,13);
+    odds=Math.max(2,Math.min(99,Math.round(odds)));
+    return {faults:faults, odds:odds};
+  }
+
+  function totals(){
+    var t={money:0,bus:0,heat:0,drift:0,ref:10,per:10,arm:10,syn:10};
+    for(var k in pick){
+      var c=byId(pick[k]); if(!c) continue;
+      t.money+=priceOf(k,c); t.bus+=c.bus; t.heat+=c.heat; t.drift+=c.drift;
+      t.ref+=c.ref; t.per+=c.per; t.arm+=c.arm; t.syn+=c.syn;
+    }
+    // heavy limbs on an unlaced skeleton punish the frame
+    var heavy = (pick.hands==="gorilla"?1:0) + (pick.derm==="plates"?1:0) + (pick.legs==="lynx"?1:0);
+    t.frameStrain = (heavy>=2 && pick.skel!=="lacing") ? heavy : 0;
+    if(t.frameStrain){ t.arm -= 3*t.frameStrain; t.ref -= 2*t.frameStrain; }
+    t.bus=Math.round(t.bus*10)/10; t.drift=Math.round(t.drift*10)/10;
+    t.heat=Math.max(0,t.heat);
+    return t;
+  }
+
+  /* ---------- rendering ---------- */
+
+  var slotList=document.getElementById("slotList");
+  var somaNodes=document.getElementById("somaNodes");
+  var rack=document.getElementById("rack");
+  var NS="http://www.w3.org/2000/svg";
+  var nodeDots={};          // slot id -> every dot drawn for it, so paired sites light together
+
+  SLOTS.forEach(function(s){
+    var li=document.createElement("li");
+    var b=document.createElement("button");
+    b.className="slot"; b.type="button"; b.id="slot-"+s.id;
+    b.setAttribute("role","tab"); b.dataset.slot=s.id;
+    b.innerHTML='<span class="pin"></span>'+
+                '<span class="slot-name"></span>'+
+                '<span class="slot-code">'+s.code+'</span>'+
+                '<span class="slot-fit"></span>';
+    b.querySelector(".slot-name").textContent=s.name;
+    b.addEventListener("click",function(){ activeSlot=s.id; render(); });
+    li.appendChild(b); slotList.appendChild(li);
+
+    nodeDots[s.id]=[];
+    s.pts.forEach(function(pt){
+      var g=document.createElementNS(NS,"g");
+      g.setAttribute("class","node"); g.dataset.slot=s.id;
+      var hit=document.createElementNS(NS,"circle");
+      hit.setAttribute("cx",pt[0]); hit.setAttribute("cy",pt[1]); hit.setAttribute("r","9");
+      hit.setAttribute("fill","transparent"); hit.setAttribute("class","hit");
+      var dot=document.createElementNS(NS,"circle");
+      dot.setAttribute("cx",pt[0]); dot.setAttribute("cy",pt[1]); dot.setAttribute("r","3");
+      dot.setAttribute("class","dot"); dot.setAttribute("fill","#2A2734");
+      var title=document.createElementNS(NS,"title"); title.textContent=s.name;
+      g.appendChild(hit); g.appendChild(dot); g.appendChild(title);
+      g.addEventListener("click",function(){ activeSlot=s.id; render(); });
+      somaNodes.appendChild(g);
+      nodeDots[s.id].push(dot);
+    });
+  });
+
+  function render(){
+    var t=totals();
+    renderClient(t);
+    renderBench();
+    renderSite(t);
+    renderForecast(t);
+    renderDrawers();
+    renderClock();
+    renderVeil();
+    var me=document.getElementById("modeEasy"), mh=document.getElementById("modeHard");
+    me.className = bench.mode==="easy" ? "on" : ""; mh.className = bench.mode==="hard" ? "on" : "";
+    me.disabled = mh.disabled = !!bench.mode;
+    me.title = mh.title = bench.mode ? "Set at the start of a run · close the bench to change it" : "";
+    var pb=document.getElementById("pauseBtn");
+    pb.disabled = client.closed || !client.started;
+    pb.textContent = timer.paused ? "Resume" : "Pause";
+    var slot=null; for(var i=0;i<SLOTS.length;i++) if(SLOTS[i].id===activeSlot) slot=SLOTS[i];
+
+    // rail
+    var n=0;
+    SLOTS.forEach(function(s){
+      var btn=document.getElementById("slot-"+s.id);
+      var c=byId(pick[s.id]);
+      var conf=c?conflictsFor(c).length>0:false;
+      btn.className="slot"+(c?" filled":"")+(conf?" conflict":"");
+      btn.setAttribute("aria-selected", s.id===activeSlot?"true":"false");
+      btn.querySelector(".slot-fit").textContent = c ? c.name : "— empty —";
+      if(c) n++;
+      (nodeDots[s.id]||[]).forEach(function(dot){
+        dot.setAttribute("fill", conf?"#FF2D6F":(c?"#FFB347":"#2A2734"));
+        dot.setAttribute("r", s.id===activeSlot?"5":(c?"4":"3"));
+        dot.setAttribute("stroke", s.id===activeSlot?"#FFB347":"none");
+        dot.setAttribute("stroke-width", s.id===activeSlot?"1":"0");
+        dot.setAttribute("fill-opacity","1");
+      });
+    });
+    document.getElementById("slotcount").textContent=n+"/8";
+
+    // catalog
+    document.getElementById("catTitle").textContent=slot.name+" · "+slot.code;
+    document.getElementById("catBlurb").textContent=slot.blurb;
+    rack.innerHTML="";
+    CHROME.filter(function(c){return c.slot===activeSlot;}).forEach(function(c){
+      var chosen = pick[activeSlot]===c.id;
+      var cur = byId(pick[activeSlot]);
+      var swing = t.money - (cur?priceOf(activeSlot,cur):0) + priceOf(activeSlot,c);
+      var owned = isPaid(activeSlot,c);
+      var afford = chosen || owned || swing <= CAP.money;
+      var clash = conflictsFor(c);
+      var b=document.createElement("button");
+      b.type="button";
+      b.className="item"+(afford?"":" locked");
+      b.setAttribute("aria-pressed", chosen?"true":"false");
+
+      var specs='<span class="spec">'+c.bus.toFixed(1)+' Gb/s</span>'+
+                '<span class="spec'+(c.heat<0?' up':'')+'">'+(c.heat<0?'−':'+')+Math.abs(c.heat)+' W</span>'+
+                '<span class="spec'+(c.drift>=6?' dn':'')+'">'+c.drift.toFixed(1)+' cd</span>';
+      [["REF",c.ref],["PER",c.per],["ARM",c.arm],["SYN",c.syn]].forEach(function(p){
+        if(!p[1]) return;
+        specs+='<span class="spec '+(p[1]>0?"up":"dn")+'">'+p[0]+' '+(p[1]>0?"+":"−")+Math.abs(p[1])+'</span>';
+      });
+
+      b.innerHTML=
+        '<span><span class="nm"></span><br><span class="vendor"></span></span>'+
+        '<span class="price">'+(owned?'<span class="paid">PAID</span>':fmt(c.price))+'<small>'+(owned?'already fitted':'€$')+'</small></span>'+
+        '<span class="blurb"></span>'+
+        '<span class="specs">'+specs+'</span>'+
+        (clash.length?'<span class="strike">▲ refuses to run alongside '+clash.map(function(x){return x.name;}).join(", ")+'</span>':'')+
+        (afford?'':'<span class="strike">▲ short by '+fmt(swing-CAP.money)+' €$</span>');
+      b.querySelector(".nm").textContent=c.name;
+      b.querySelector(".vendor").textContent=c.vendor;
+      b.querySelector(".blurb").textContent=c.blurb;
+
+      b.addEventListener("click",function(){
+        if(!afford) return;
+        if(pick[activeSlot]===c.id) delete pick[activeSlot]; else pick[activeSlot]=c.id;
+        save(); render();
+      });
+      rack.appendChild(b);
+    });
+
+    // gauges
+    gauge("Money", t.money, CAP.money, "vMoney","fMoney", fmt(t.money)+" / "+fmt(CAP.money), .85);
+    gauge("Bus", t.bus, CAP.bus, "vBus","fBus", t.bus.toFixed(1)+" / "+CAP.bus.toFixed(1)+" Gb/s", .9);
+    gauge("Heat", t.heat, CAP.heat, "vHeat","fHeat", t.heat+" / "+CAP.heat+" W", .8);
+    gauge("Drift", t.drift, CAP.drift, "vDrift","fDrift", t.drift.toFixed(1)+" / "+CAP.drift.toFixed(1)+" cd", .75);
+
+    attr("aRef","dRef",t.ref); attr("aPer","dPer",t.per);
+    attr("aArm","dArm",t.arm); attr("aSyn","dSyn",t.syn);
+
+    // flags
+    var f=document.getElementById("flags"); f.innerHTML="";
+    var fatal=false;
+    function flag(cls,txt){ var d=document.createElement("div"); d.className="flag "+cls; d.textContent=txt; f.appendChild(d); }
+
+    var clashPairs={};
+    installed().forEach(function(c){
+      conflictsFor(c).forEach(function(o){
+        var key=[c.id,o.id].sort().join("|");
+        if(clashPairs[key]) return; clashPairs[key]=1;
+        flag("bad","▲ "+c.name+" and "+o.name+" will not run on the same nervous system. Pull one.");
+        fatal=true;
+      });
+    });
+    if(t.bus>CAP.bus){ flag("bad","▲ Bus over by "+(t.bus-CAP.bus).toFixed(1)+" Gb/s. Reflex packets will drop mid-motion."); fatal=true; }
+    if(t.heat>CAP.heat){ flag("bad","▲ Thermal load exceeds the lattice by "+(t.heat-CAP.heat)+" W. "+P("This cooks {them}.")); fatal=true; }
+    else if(t.heat>CAP.heat*.8) flag("warn","▲ Running "+t.heat+" W — past the "+Math.round(CAP.heat*.8)+" W redline. "+P("{They} will not sleep well."));
+    if(t.drift>CAP.drift){ flag("bad","▲ Drift at "+t.drift.toFixed(1)+" cd. Past "+CAP.drift.toFixed(1)+" you are installing chrome into someone else."); fatal=true; }
+    else if(t.drift>CAP.drift*.75) flag("warn","▲ Drift "+t.drift.toFixed(1)+" cd. Expect tremors and lost hours by month three.");
+    if(t.frameStrain) flag("warn","▲ "+t.frameStrain+" heavy assemblies on an unlaced skeleton. "+P("{Their} joints are the weak link."));
+    if(pick.derm==="thermo") flag("ok","✓ Thermoregulating dermis is buying back 28 W of headroom.");
+    if(!installed().length) flag("ok","Rack is clean. Pick a site on the map to start.");
+    else if(!f.children.length) flag("ok","✓ Everything fits. Bus, lattice and cortex all inside tolerance.");
+
+    var tag=document.getElementById("riskTag");
+    tag.textContent = fatal?"CRITICAL" : (t.heat>CAP.heat*.8||t.drift>CAP.drift*.75||t.frameStrain)?"MARGINAL":"NOMINAL";
+    tag.style.color = fatal?"var(--magenta)" : (tag.textContent==="MARGINAL"?"var(--amber)":"var(--good)");
+
+    var btn=document.getElementById("installBtn");
+    if(client.closed){
+      btn.disabled=true;
+      btn.textContent=P("Bench closed · {they} {v:is|are} in recovery");
+    } else {
+      btn.disabled = !installed().length;
+      btn.textContent = installed().length
+        ? "Run install · "+installed().length+" pc · fee "+fmt(client.fee)+" €$"
+        : "Rack is empty";
+    }
+  }
+
+  function gauge(_l,val,cap,vid,fid,text,warnAt){
+    document.getElementById(vid).textContent=text;
+    var el=document.getElementById(fid);
+    var pct=Math.min(100,(val/cap)*100);
+    el.style.width=pct+"%";
+    el.className="fill "+(val>cap?"over":(val>cap*warnAt?"warn":"ok"));
+  }
+  function attr(vid,did,v){
+    var el=document.getElementById(vid);
+    var d=document.getElementById(did);
+    el.childNodes[0].nodeValue=String(v);
+    var delta=v-10;
+    d.textContent = delta===0?"":(delta>0?"▲"+delta:"▼"+Math.abs(delta));
+    d.style.color = delta<0?"var(--magenta)":"var(--amber)";
+  }
+  function save(){
+    try{ localStorage.setItem(STORE, JSON.stringify({client:client, pick:pick, bench:bench})); }catch(e){}
+  }
+
+  var ATTR_LABEL = {ref:"REFLEX", per:"PERCEP", arm:"ARMOR", syn:"SYNC"};
+
+  var TURN_AWAY_COST = 6;
+  var DOOR_COST = 2;
+
+  function rentAmount(){ return Math.round(RENT_BASE*repTier().cred/500)*500; }
+  function untilRent(){ return RENT_EVERY - (bench.cycle % RENT_EVERY); }
+
+  // one client off the book: the fixer counts them whether they walked out or not
+  function resolveClient(){
+    bench.cycle++;
+    if(bench.cycle % RENT_EVERY === 0) bench.rentDue=true;
+    checkOver();
+  }
+
+  function checkOver(){
+    if(bench.over) return true;
+    if(bench.strikes>=3){ bench.over="evicted"; stopClock(); return true; }
+    if(bench.rep<=0){ bench.over="blacklist"; stopClock(); return true; }
+    return false;
+  }
+
+  function onClock(){ return bench.mode==="hard" && client.started && !client.closed; }
+  function stopClock(){ if(timer.id){ clearInterval(timer.id); timer.id=null; } }
+  function startClock(){
+    stopClock();
+    if(!onClock()) return;
+    timer.id=setInterval(function(){
+      if(timer.paused || !onClock()) return;
+      client.remain--;
+      if(client.remain<=0){ client.remain=0; stopClock(); renderClock(); outOfTime(); return; }
+      renderClock();
+      if(client.remain%5===0) save();
+    },1000);
+  }
+  function mmss(n){
+    var m=Math.floor(n/60), s=n%60;
+    return m+":"+(s<10?"0":"")+s;
+  }
+  function renderClock(){
+    var el=document.getElementById("clock");
+    if(!bench.mode){ el.textContent="—"; el.className=""; return; }
+    if(bench.mode!=="hard"){ el.textContent="untimed"; el.className=""; return; }
+    if(client.closed){ el.textContent="closed"; el.className=""; return; }
+    if(!client.started){ el.textContent=mmss(client.limit); el.className=""; return; }
+    el.textContent=mmss(client.remain)+(timer.paused?" ⏸":"");
+    el.className = client.remain<=20 ? "bad" : (client.remain<=60 ? "warn" : "");
+  }
+
+  var veilAct=null, veilAct2=null, veilWasUp=false, veilSnap=false;
+
+  // the veil covers the page but the page underneath still scrolls, so lock it while
+  // it is up and put the bench back at the top when it comes down
+  function lockScroll(on){
+    try{ document.documentElement.style.overflow = on ? "hidden" : ""; }catch(e){}
+  }
+  function veilDown(){
+    document.getElementById("veil").hidden=true;
+    lockScroll(false);
+    if(veilWasUp && veilSnap){
+      veilWasUp=false;
+      try{
+        var soft = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        if(window.scrollTo) window.scrollTo({top:0, left:0, behavior: soft ? "smooth" : "auto"});
+      }catch(e){ try{ window.scrollTo(0,0); }catch(e2){} }
+    }
+  }
+
+  function showVeil(o){
+    document.getElementById("veilEyebrow").textContent=o.eyebrow;
+    document.getElementById("veilTitle").textContent=o.title;
+    document.getElementById("veilText").textContent=o.text||"";
+    var big=document.getElementById("veilBig");
+    big.hidden=!o.big; if(o.big) big.textContent=o.big;
+    var brief=document.getElementById("veilBrief");
+    brief.hidden=!o.brief; if(o.brief) brief.innerHTML=o.brief;
+    var b1=document.getElementById("veilBtn");
+    b1.textContent=o.btn; veilAct=o.act;
+    var b2=document.getElementById("veilBtn2");
+    b2.hidden=!o.btn2; if(o.btn2) b2.textContent=o.btn2; veilAct2=o.act2||null;
+    document.getElementById("veil").hidden=false;
+    lockScroll(true);
+    veilWasUp=true;
+    veilSnap=!!o.snap;              // a new client starts you at the top; a pause leaves you where you were
+  }
+
+  function corridorBrief(){
+    var c=client, prior=[];
+    for(var k in c.preowned){ var x=byId(c.preowned[k]); if(x) prior.push(x.name); }
+    return '<div class="full"><i>Contract</i><b class="job">'+c.job.name+'</b></div>'+
+      '<div class="full"><i>Wants</i><b>'+c.reqs.map(function(r){ return ATTR_LABEL[r[0]]+" "+r[1]; }).join(" · ")+
+        '  (ceiling '+c.reqs.map(function(r){ return c.ceiling[r[0]]; }).join(" · ")+')</b></div>'+
+      '<div><i>Pays</i><b>'+fmt(c.fee)+' €$</b></div>'+
+      '<div><i>Credit line</i><b>'+fmt(c.caps.money)+' €$</b></div>'+
+      '<div><i>Trunk</i><b>'+c.caps.bus.toFixed(1)+' Gb/s</b></div>'+
+      '<div><i>Lattice</i><b>'+c.caps.heat+' W</b></div>'+
+      '<div><i>Drift ceiling</i><b>'+c.caps.drift.toFixed(1)+' cd</b></div>'+
+      '<div><i>Frame</i><b>'+(c.sex==="N"?"NB":c.sex)+'/'+c.age+' · '+c.kg+'kg · '+pr().set+'</b></div>'+
+      '<div class="full"><i>Prior work</i><b>'+(prior.length?prior.join(" · "):"None on record")+'</b></div>';
+  }
+
+  function renderVeil(){
+    if(!bench.mode){
+      showVeil({
+        eyebrow:"Before you open",
+        title:"Pick your bench",
+        text:"This is set for the whole run. Closing the bench and starting over is the only way to change it.",
+        btn:"Easy · untimed",
+        btn2:"Hard · on the clock",
+        act:function(){ setMode("easy"); },
+        act2:function(){ setMode("hard"); }
+      });
+      return;
+    }
+    if(bench.over){
+      var why = bench.over==="evicted"
+        ? "Three rent days missed. The people who own sublevel 4 came down and took the table, the lamp and the autoclave."
+        : "Street rep at zero. The arcade stopped sending anyone, and a ripperdoc nobody walks to is not a ripperdoc.";
+      showVeil({
+        eyebrow:"Bench closed for good",
+        title: bench.over==="evicted" ? "They took the bench" : "Blacklisted on the level",
+        text: why+"  Final book: "+fmt(bench.take)+" €$ · "+bench.done+" delivered · "+
+              bench.lost+" lost · "+bench.refused+" turned away.",
+        btn:"Open a new book",
+        act:function(){
+          bench={rep:50, take:0, done:0, lost:0, refused:0, streak:0, mode:null,
+                 cycle:0, strikes:0, rentDue:false, over:null};
+          stopClock(); timer.paused=false;
+          startClient(rollClient()); save(); render();
+        }
+      });
+      return;
+    }
+    if(bench.rentDue){
+      var rent=rentAmount(), short=rent-bench.take;
+      showVeil({
+        eyebrow:"Rent day · sublevel 4",
+        title: short>0 ? "You are short" : "The fixer's cut",
+        text: short>0
+          ? "Kestrel wants "+fmt(rent)+" €$ for the room. You have "+fmt(bench.take)+" €$. They take all of it and write your name down. "+
+            (bench.strikes>=1 ? "That is strike "+(bench.strikes+1)+" of three." : "Three strikes and they take the bench.")
+          : "Kestrel wants "+fmt(rent)+" €$ for the room. You have "+fmt(bench.take)+" €$. Pay it and the door stays yours.",
+        big:fmt(rent)+" €$",
+        btn: short>0 ? "Take the warning" : "Pay the rent",
+        act:function(){
+          if(short>0){ bench.take=0; bench.strikes++; }
+          else bench.take-=rent;
+          bench.rentDue=false;
+          if(checkOver()){ save(); render(); return; }
+          if(client.closed) nextClient();     // the last one is off the table; open the door
+          else { save(); render(); }
+        }
+      });
+      return;
+    }
+    if(timer.paused){
+      showVeil({
+        eyebrow:"Bench paused", title:"Hands off the table",
+        text:P("The clock is stopped and the client is under. Nothing moves until you say so."),
+        big: bench.mode==="hard" ? mmss(client.remain) : null,
+        btn:"Back to work",
+        act:function(){ timer.paused=false; startClock(); save(); render(); }
+      });
+      return;
+    }
+    if(!client.started && !client.closed){
+      showVeil({
+        eyebrow:"Bench closed · "+client.trade,
+        title:client.name+" is in the corridor",
+        text: bench.mode==="hard"
+          ? P("The clock starts the moment {they} {v:is|are} on the table — "+mmss(client.limit)+" to spec the rack and cut.")
+          : P("Read the job before you open {them} up. Nothing is bleeding yet."),
+        brief:corridorBrief(),
+        snap:true,
+        btn:"Bring "+P("{them}")+" in",
+        btn2:"Turn "+P("{them}")+" away at the door · −"+DOOR_COST+" rep",
+        act:function(){ client.started=true; startClock(); save(); render(); },
+        act2:function(){
+          bench.rep=Math.max(0,bench.rep-DOOR_COST);
+          bench.refused++;
+          resolveClient();
+          if(bench.over){ save(); render(); return; }
+          nextClient();
+        }
+      });
+      return;
+    }
+    veilDown();
+  }
+
+  function outOfTime(){
+    if(installed().length){ runInstall(true); return; }
+    // nothing racked: they give up on you
+    bench.rep=Math.max(0,bench.rep-10);
+    bench.refused++; bench.streak=0;
+    client.closed=true;
+    resolveClient();
+    save(); render();
+    showVeil({
+      eyebrow:"Out of time", title:P("{They} {v:walks|walk}"),
+      text:P("Twelve hours on an empty bench. {They} {v:takes|take} the contract somewhere else, and the arcade hears about it.")+
+           " Street rep −10.",
+      btn:"Next client", act:function(){ nextClient(); }
+    });
+  }
+  var SLOT_KEYS = ["chrome-and-bone/drawer-1","chrome-and-bone/drawer-2","chrome-and-bone/drawer-3"];
+
+  function snapshot(){ return {v:1, client:client, pick:pick, bench:bench, ts:Date.now()}; }
+
+  function restore(st){
+    if(!st || !st.client || !st.client.caps || !st.client.job || !st.bench) return false;
+    client=st.client;
+    if(!client.preowned) client.preowned={};
+    if(!client.reqs) client.reqs=[];
+    if(typeof client.fee!=="number") client.fee=(client.job&&client.job.fee)||20000;
+    if(typeof client.closed!=="boolean") client.closed=false;
+    if(typeof client.started!=="boolean") client.started=!!client.closed;
+    if(typeof client.limit!=="number") client.limit=(client.job.stats&&client.job.stats.length>1)?270:210;
+    if(typeof client.remain!=="number") client.remain=client.limit;
+    stopClock(); timer.paused=false;
+    CAP=client.caps;
+    pick=(st.pick&&typeof st.pick==="object")?st.pick:{};
+    for(var b in bench) if(typeof st.bench[b]==="number") bench[b]=st.bench[b];
+    if(st.bench.mode==="hard"||st.bench.mode==="easy") bench.mode=st.bench.mode;
+    bench.rentDue=!!st.bench.rentDue;
+    bench.over=st.bench.over||null;
+    activeSlot=SLOTS[0].id;
+    return true;
+  }
+
+  function readDrawer(i){
+    try{ var raw=localStorage.getItem(SLOT_KEYS[i]); return raw?JSON.parse(raw):null; }catch(e){ return null; }
+  }
+  function writeDrawer(i){
+    try{ localStorage.setItem(SLOT_KEYS[i], JSON.stringify(snapshot())); return true; }catch(e){ return false; }
+  }
+  function clearDrawer(i){ try{ localStorage.removeItem(SLOT_KEYS[i]); }catch(e){} }
+
+  function ago(ts){
+    var m=Math.floor((Date.now()-ts)/60000);
+    if(m<1) return "just now";
+    if(m<60) return m+" min ago";
+    var h=Math.floor(m/60); if(h<24) return h+" hr ago";
+    return Math.floor(h/24)+" d ago";
+  }
+
+  // two-step confirm: a destructive button asks once, in place, then does it
+  function arm(btn, label, done){
+    if(btn._armed){ clearTimeout(btn._armed); btn._armed=null; btn.textContent=btn._label; done(); return; }
+    btn._label=btn.textContent;
+    btn.textContent=label;
+    btn._armed=setTimeout(function(){ btn._armed=null; btn.textContent=btn._label; }, 3500);
+  }
+
+  function renderDrawers(){
+    var host=document.getElementById("drawers");
+    host.innerHTML="";
+    for(var i=0;i<3;i++){
+      (function(i){
+        var st=readDrawer(i);
+        var d=document.createElement("div");
+        d.className="drawer"+(st?" used":"");
+        var sum;
+        if(st && st.bench && st.client){
+          sum='<span class="who">'+st.client.name+' · '+st.client.job.name+'</span>'+
+              'rep <b>'+Math.round(st.bench.rep)+'</b> · take <b>'+fmt(st.bench.take)+'</b> €$<br>'+
+              st.bench.done+' delivered · '+st.bench.lost+' lost · '+st.bench.refused+' turned away<br>'+
+              '<span class="when">'+ago(st.ts||Date.now())+'</span>';
+        } else {
+          sum='<span class="when">Empty drawer.</span>';
+        }
+        d.innerHTML='<h3>Drawer 0'+(i+1)+'</h3><div class="sum">'+sum+'</div>'+
+          '<div class="row">'+
+            '<button class="rec-btn" data-a="save">'+(st?"Overwrite":"Save")+'</button>'+
+            '<button class="rec-btn" data-a="load"'+(st?"":" disabled")+'>Load</button>'+
+            (st?'<button class="rec-btn danger" data-a="wipe" title="Empty this drawer">✕</button>':'')+
+          '</div>';
+        var btns=d.querySelectorAll("button");
+        for(var b=0;b<btns.length;b++){
+          (function(btn){
+            var act=btn.getAttribute("data-a");
+            btn.addEventListener("click",function(){
+              if(act==="save"){
+                if(st){ arm(btn,"Overwrite?",function(){ writeDrawer(i); note("Run saved to drawer 0"+(i+1)+".",true); renderDrawers(); }); }
+                else { writeDrawer(i); note("Run saved to drawer 0"+(i+1)+".",true); renderDrawers(); }
+              } else if(act==="load"){
+                var st2=readDrawer(i);
+                if(restore(st2)){ save(); render(); note("Drawer 0"+(i+1)+" is on the bench.",true); }
+                else note("That drawer will not read.",false);
+              } else {
+                arm(btn,"Wipe?",function(){ clearDrawer(i); renderDrawers(); note("Drawer 0"+(i+1)+" emptied.",true); });
+              }
+            });
+          })(btns[b]);
+        }
+        host.appendChild(d);
+      })(i);
+    }
+  }
+
+  function note(msg, good){
+    var el=document.getElementById("chipMsg");
+    el.textContent=msg;
+    el.className=good?"ok":"bad";
+  }
+
+  function renderBench(){
+    var tier=repTier();
+    document.getElementById("repLabel").textContent=tier.label+" · "+Math.round(bench.rep);
+    var f=document.getElementById("repFill");
+    f.style.width=Math.max(2,bench.rep)+"%";
+    f.className="fill "+(bench.rep>=38?"ok":(bench.rep>=14?"warn":"over"));
+    document.getElementById("stTake").textContent=fmt(bench.take)+" €$";
+    document.getElementById("stDone").textContent=bench.done;
+    document.getElementById("stLost").textContent=bench.lost;
+    document.getElementById("stRef").textContent=bench.refused;
+    document.getElementById("stStreak").textContent=bench.streak;
+    var rentEl=document.getElementById("stRent");
+    rentEl.textContent = bench.rentDue ? "DUE "+fmt(rentAmount()) : fmt(rentAmount())+" in "+untilRent();
+    rentEl.className = bench.rentDue ? "bad" : (untilRent()===1 ? "warn" : "");
+    var takeEl=document.getElementById("stTake");
+    takeEl.className = bench.take<0 ? "bad" : "";
+    if(bench.strikes) rentEl.textContent += " · strike "+bench.strikes;
+
+    var next=document.getElementById("nextBtn");
+    next.textContent = client.closed ? "Next client" : P("Turn {them} away")+" · −"+TURN_AWAY_COST+" rep";
+    next.style.borderColor = client.closed ? "" : "var(--oxblood)";
+  }
+
+  function renderSite(t){
+    var el=document.getElementById("siteload");
+    var slot=null; for(var i=0;i<SLOTS.length;i++) if(SLOTS[i].id===activeSlot) slot=SLOTS[i];
+    var c=byId(pick[activeSlot]);
+    function cell(v,cap){
+      var tight = v<=cap*0.12;
+      return '<b class="'+(v<0?"tight":(tight?"tight":""))+'">'+v+'</b>';
+    }
+    var busLeft=Math.round((CAP.bus-t.bus)*10)/10,
+        heatLeft=CAP.heat-t.heat,
+        driftLeft=Math.round((CAP.drift-t.drift)*10)/10;
+    el.innerHTML='<i>Site load · '+slot.code+'</i>'+
+      '<div class="fitted">'+(c
+        ? c.name+' · '+c.bus.toFixed(1)+' Gb/s · '+(c.heat<0?'−':'+')+Math.abs(c.heat)+' W · '+c.drift.toFixed(1)+' cd'
+        : 'Nothing fitted at this site.')+'</div>'+
+      '<div class="headroom">Left on the whole body after everything currently racked: '+
+        cell(busLeft,CAP.bus)+' Gb/s · '+cell(heatLeft,CAP.heat)+' W · '+cell(driftLeft,CAP.drift)+' cd</div>';
+  }
+
+  function renderForecast(t){
+    var a=assess(t);
+    var o=document.getElementById("fcOdds");
+    var pay=document.getElementById("fcPay");
+    if(client.closed){
+      o.textContent="—"; o.className="";
+      pay.innerHTML=P("{They} {v:is|are} closed and in recovery. Take the next client.");
+      return;
+    }
+    if(!installed().length){
+      o.textContent="—"; o.className="";
+      pay.innerHTML="Nothing racked yet. An empty bench pays nothing.";
+      return;
+    }
+    o.textContent=a.odds+"%";
+    o.className = a.odds>=80?"ok":(a.odds>=45?"warn":"bad");
+    var jobMet = client.reqs.every(function(r){ return t[r[0]]>=r[1]; });
+    var cut=Math.round(t.money*0.18/100)*100;
+    pay.innerHTML = P("If {they} {v:lives|live} · ")+"<b>"+fmt(cut)+" €$</b> cutting fee"+
+      (jobMet ? " + <b>"+fmt(client.fee)+" €$</b> contract bonus"
+              : " · <s>"+fmt(client.fee)+" €$ bonus</s> forfeited, spec not met")+
+      (a.faults.length ? "<br>"+a.faults.length+" fault"+(a.faults.length>1?"s":"")+" on the bench — "+P("{they} will not walk out whole.") : "");
+  }
+
+  function renderClient(t){
+    var c=client;
+    document.getElementById("bioName").textContent=c.name;
+    document.getElementById("bioFrame").textContent=
+      (c.sex==="N"?"NB":c.sex)+"/"+c.age+" · "+c.kg+"kg · type "+c.blood;
+    document.getElementById("bioPron").textContent=pr().set;
+    document.getElementById("bioCool").textContent=coolantName(CAP.heat)+" · "+CAP.heat+" W";
+    var prior=[];
+    for(var k in c.preowned){ var ch=byId(c.preowned[k]); if(ch) prior.push(ch.name); }
+    document.getElementById("bioPrior").textContent = prior.length ? prior.join(" · ") : "None on record";
+
+    document.getElementById("jobName").textContent=c.job.name;
+    document.getElementById("jobLine").textContent=
+      c.trade.charAt(0).toUpperCase()+c.trade.slice(1)+". "+P(c.job.line);
+    var box=document.getElementById("jobReqs"); box.innerHTML="";
+    c.reqs.forEach(function(r){
+      var el=document.createElement("span");
+      var met=t[r[0]]>=r[1];
+      el.className="req"+(met?" met":"");
+      el.textContent=(met?"✓ ":"· ")+ATTR_LABEL[r[0]]+" "+t[r[0]]+" / "+r[1];
+      box.appendChild(el);
+    });
+
+    var ceil=document.getElementById("jobCeiling");
+    if(c.ceiling){
+      var many=c.reqs.length>1;
+      ceil.innerHTML=P("{Their} clean ceiling — no fault-free rack on this body beats ")+
+        c.reqs.map(function(r){ return "<b>"+ATTR_LABEL[r[0]]+" "+c.ceiling[r[0]]+"</b>"; }).join(" · ")+
+        (many ? ", and not both at once. The contract is written to be met together."
+              : ". The contract is written just under it.");
+    } else { ceil.textContent=""; }
+
+    document.getElementById("rlMoney").textContent=fmt(CAP.money)+" €$";
+    document.getElementById("rlMoneyNote").textContent=
+      P("{Theirs} to spend today. Whatever you leave unspent, {they} {v:walks|walk} out with — and you bill no fee on it.");
+    document.getElementById("rlBus").textContent=CAP.bus.toFixed(1)+" Gb/s";
+    document.getElementById("rlHeat").textContent=CAP.heat+" W";
+    document.getElementById("rlDrift").textContent=CAP.drift.toFixed(1)+" cd";
+    document.getElementById("rlHeatNote").textContent=
+      "A "+coolantName(CAP.heat).toLowerCase()+". Past "+Math.round(CAP.heat*.8)+
+      P(" W {they} {v:cooks|cook} from the inside out and never {v:sleeps|sleep} right again.");
+    document.getElementById("rlDriftNote").textContent=
+      "Over "+(CAP.drift*.75).toFixed(1)+" cd buys tremors and lost hours. Over "+CAP.drift.toFixed(1)+
+      " cd buys a different person.";
+  }
+
+  /* ---------- the install ---------- */
+
+  document.getElementById("resetBtn").addEventListener("click",function(){
+    pick={};
+    for(var k in client.preowned) pick[k]=client.preowned[k];
+    save(); render();
+  });
+
+  document.getElementById("veilBtn").addEventListener("click",function(){ if(veilAct) veilAct(); });
+  document.getElementById("veilBtn2").addEventListener("click",function(){ if(veilAct2) veilAct2(); });
+
+  document.getElementById("pauseBtn").addEventListener("click",function(){
+    if(client.closed || !client.started) return;
+    timer.paused=!timer.paused;
+    if(!timer.paused) startClock();
+    render();
+  });
+
+  function setMode(m){
+    if(bench.mode) return;              // set once, at the start of a run
+    bench.mode=m;
+    if(m==="hard" && client.started && !client.closed) startClock();
+    save(); render();
+  }
+
+  document.getElementById("restartBtn").addEventListener("click",function(){
+    var btn=this;
+    arm(btn,"Confirm · wipes rep and take",function(){
+      bench={rep:50, take:0, done:0, lost:0, refused:0, streak:0, mode:null,
+             cycle:0, strikes:0, rentDue:false, over:null};
+      stopClock(); timer.paused=false;
+      startClient(rollClient());
+      save(); render();
+      note("Bench closed and reopened. Fresh book, fresh client.",true);
+    });
+  });
+
+  document.getElementById("exportBtn").addEventListener("click",function(){
+    try{
+      var code=btoa(unescape(encodeURIComponent(JSON.stringify(snapshot()))));
+      var box=document.getElementById("codeBox");
+      box.value=code; box.focus(); box.select();
+      if(typeof navigator!=="undefined" && navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(code).then(function(){ note("Chip written and copied.",true); },
+                                                 function(){ note("Chip written. Copy it yourself.",true); });
+      } else note("Chip written. Copy it yourself.",true);
+    }catch(e){ note("Could not write the chip.",false); }
+  });
+
+  document.getElementById("importBtn").addEventListener("click",function(){
+    var raw=document.getElementById("codeBox").value.trim();
+    if(!raw){ note("Nothing in the reader.",false); return; }
+    try{
+      var st=JSON.parse(decodeURIComponent(escape(atob(raw))));
+      if(restore(st)){ save(); render(); note("Chip read. That run is on the bench.",true); }
+      else note("That chip is not a bench run.",false);
+    }catch(e){ note("That chip is unreadable.",false); }
+  });
+
+  function nextClient(){
+    stopClock(); timer.paused=false;
+    startClient(rollClient()); save(); render();
+  }
+  document.getElementById("nextBtn").addEventListener("click",function(){
+    if(!client.closed && client.started){
+      bench.rep=Math.max(0,bench.rep-TURN_AWAY_COST);
+      bench.refused++;
+      bench.streak=0;
+      resolveClient();
+      if(bench.over){ save(); render(); return; }
+    }
+    nextClient();
+  });
+
+  function runInstall(auto){
+    var t=totals(); var list=installed();
+    var jobMet = client.reqs.every(function(r){ return t[r[0]]>=r[1]; });
+    var A=assess(t), faults=A.faults, odds=A.odds;
+
+    var lines=[];
+    if(auto) lines.push(["r", P("OUT OF TIME · you close {them} up as {they} {v:is|are}.")]);
+    lines.push(["t","BENCH 04 · "+list.length+" assemblies · "+fmt(t.money)+" €$ settled"]);
+    lines.push(["t","client under. vitals steady. cutting."]);
+    list.forEach(function(c){
+      var bad = conflictsFor(c).length>0;
+      lines.push([bad?"r":"a", "› "+c.name]);
+      lines.push([bad?"r":"g", "  "+(bad?"REJECT · nerve trunk contested":"seated · "+c.bus.toFixed(1)+" Gb/s · "+(c.heat<0?"−":"+")+Math.abs(c.heat)+" W")]);
+    });
+    faults.forEach(function(f){ lines.push(["r","  "+f.log]); });
+    lines.push(["t", faults.length ? P("closing early. nine hours ten. {they} {v:is|are} not stable.")
+                                   : "closing. six hours forty."]);
+    lines.push([jobMet?"g":"r", "contract · "+client.job.name+" · "+(jobMet?"specs met":"SPECS NOT MET")]);
+    lines.push(["a","survival estimate · "+odds+"%"]);
+
+    var roll=Math.random()*100;
+    var lived = roll < odds;
+
+    var host=document.createElement("div");
+    host.className="op"; host.setAttribute("role","dialog"); host.setAttribute("aria-modal","true");
+    host.innerHTML=
+      '<div class="op-card">'+
+        '<h3>Install in progress</h3>'+
+        '<div class="op-sub">'+client.name+' · bench 04 · no anesthesia past hour six</div>'+
+        '<div class="oplog" id="oplog" aria-live="polite"></div>'+
+        '<div class="verdict" id="verdict"></div>'+
+        '<div class="verdict-note" id="vnote"></div>'+
+        '<button class="op-close" id="opClose">Close the bench</button>'+
+      '</div>';
+    document.body.appendChild(host);
+    var log=host.querySelector("#oplog");
+    var close=host.querySelector("#opClose");
+    close.addEventListener("click",function(){ host.remove(); });
+    host.addEventListener("click",function(e){ if(e.target===host) host.remove(); });
+    document.addEventListener("keydown",function esc(e){
+      if(e.key==="Escape"){ host.remove(); document.removeEventListener("keydown",esc); }
+    });
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var i=0;
+    function step(){
+      if(i>=lines.length){
+        var v=host.querySelector("#verdict");
+        var note=host.querySelector("#vnote");
+        if(!lived){
+          v.className="verdict flat";
+          v.textContent = faults.length
+            ? "◆ Flatline at hour seven. The chrome survived."
+            : P("◆ Lost {them} anyway. Clean rack, bad heart. It happens.");
+          note.innerHTML="";
+          if(faults.length){
+            var d0=document.createElement("div");
+            d0.textContent = faults.length===1
+              ? "One fault on the bench, and it was the one that mattered."
+              : faults.length+" faults on the bench. Any one of them was enough.";
+            note.appendChild(d0);
+          }
+        } else if(faults.length){
+          v.className="verdict wounded";
+          v.textContent=P("◆ {They} {v:walks|walk} out. Not on {their} own, and not the same.");
+          note.innerHTML="";
+          faults.forEach(function(f){
+            var d=document.createElement("div"); d.textContent=f.dmg; note.appendChild(d);
+          });
+        } else {
+          v.className="verdict live";
+          v.textContent=P("◆ {They} {v:walks|walk} out clean. Come back in six weeks for the tuning.");
+          note.innerHTML="";
+        }
+        if(lived){
+          var j=document.createElement("div");
+          j.textContent = jobMet
+            ? P("{They} can take the ")+client.job.name+P(" job. The fee clears Friday, and {they} {v:is|are} back here inside a year.")
+            : P("{They} cannot take the ")+client.job.name+P(" job. {They} spent every eddie and still came up short of the spec.");
+          note.appendChild(j);
+        }
+
+        // settle the bench: cutting fee on the work, contract bonus only on spec
+        var cut = lived ? Math.round(t.money*0.18/100)*100 : 0;
+        var bonus = (lived && jobMet) ? client.fee : 0;
+
+        // a dead client cannot pay for the parts you fronted. some come back out of the body.
+        var sunk=0, sunkCount=0, savedCount=0;
+        if(!lived){
+          list.forEach(function(c){
+            if(isPaid(activeSlotOf(c), c)) return;          // prior work was never yours to front
+            if(Math.random()<SALVAGE_ODDS) savedCount++;
+            else { sunk+=c.price; sunkCount++; }
+          });
+        }
+        var drep;
+        if(!lived){ drep=-16; bench.lost++; bench.streak=0; }
+        else if(jobMet && !faults.length){ drep=9; bench.done++; bench.streak++; }
+        else if(jobMet){ drep=4; bench.done++; bench.streak=0; }
+        else if(!faults.length){ drep=1; bench.done++; bench.streak=0; }
+        else { drep=-4; bench.done++; bench.streak=0; }
+
+        var run = (bench.streak>0 && bench.streak%3===0) ? 3 : 0;
+        bench.rep=Math.max(0,Math.min(100,bench.rep+drep+run));
+        bench.take+=cut+bonus;
+        client.closed=true;
+
+        bench.take-=sunk;
+
+        if(!lived && (sunkCount||savedCount)){
+          var sal=document.createElement("div");
+          sal.textContent = sunkCount
+            ? "You pull "+savedCount+" of "+(savedCount+sunkCount)+" assemblies back out on the table. "+
+              sunkCount+" "+(sunkCount>1?"go":"goes")+" to the coroner with "+P("{them}")+" — "+
+              fmt(sunk)+" €$ of fronted parts you will not see again."
+            : "All "+savedCount+" assemblies came back out clean. The supplier is square, at least.";
+          note.appendChild(sal);
+        }
+
+        var led=document.createElement("div");
+        led.textContent = (lived
+            ? "Bench take · "+fmt(cut)+" €$ cutting fee"+(bonus?" + "+fmt(bonus)+" €$ contract bonus":" · no contract bonus")
+            : "Bench take · nothing billed"+(sunk?", "+fmt(sunk)+" €$ written off":"")+". You do not bill a family.")
+          + " · street rep "+(drep>=0?"+":"−")+Math.abs(drep)+(run?" +"+run+" (three clean in a row)":"");
+        note.appendChild(led);
+
+        resolveClient();
+
+        stopClock(); save(); render();
+        close.focus();
+        return;
+      }
+      var d=document.createElement("div");
+      d.className=lines[i][0]; d.textContent=lines[i][1];
+      log.appendChild(d); log.scrollTop=log.scrollHeight;
+      i++;
+      if(reduce) step(); else setTimeout(step, 190);
+    }
+    step();
+  }
+
+  document.getElementById("installBtn").addEventListener("click",function(){ runInstall(false); });
+
+  render();
+  startClock();
+})();
+</script>
