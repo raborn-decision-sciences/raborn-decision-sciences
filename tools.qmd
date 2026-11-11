@@ -2,38 +2,64 @@
 title: "Tools and Projects"
 ---
 
-Raborn Decision Sciences has been involved in the creation of multiple free and open source products for performing high-quality, replicable analyses. 
+Most of what I build is free and open source. The R packages below are all on GitHub, and three of them are on CRAN.
 
-## ShortForm
+## R packages for testing and measurement
 
-[ShortForm is an R package for automated short form development, combining psychometric methods, machine learning, and reproducible statistical workflows.](https://cran.r-project.org/web/packages/ShortForm/index.html)
+Three of these packages are built on methods from my own published research. The papers are listed on the [About page](about.qmd#selected-publications).
 
-It uses proven, peer-reviewed metaheuristic algorithms to shorten assessents, scales, and other measurement tools while preserving psychometric and statistical qualities. [The package documentation is available for everyone to read.](https://cran.r-project.org/web/packages/ShortForm/ShortForm.pdf) [The source code is also publically available on GitHub.](https://www.github.com/AnthonyRaborn/ShortForm)
+### ShortForm
 
-Raborn Decision Sciences has also developed a Shiny app to demonstrate the ShortForm package with simulated data.
+ShortForm is an R package for automated short form development. It uses peer-reviewed metaheuristic algorithms to shorten assessments, scales, and other measurement tools while preserving their psychometric and statistical qualities.
+
+ShortForm started with one of my graduate school advisors, who had code from a publication and wanted it turned into a package. I expanded it with additional algorithms for later research, and I have maintained it since 2017.
+
+[CRAN](https://cran.r-project.org/package=ShortForm) · [Documentation](https://cran.r-project.org/web/packages/ShortForm/ShortForm.pdf) · [GitHub](https://github.com/AnthonyRaborn/ShortForm)
+
+### caMST
+
+Mixed computerized adaptive multistage testing: exams that adapt as the test taker answers.
+
+[CRAN](https://cran.r-project.org/package=caMST) · [GitHub](https://github.com/AnthonyRaborn/caMST)
+
+### repsd
+
+The Root Expected Proportion Squared Difference statistic for detecting DIF, which checks whether a question is unfair to one group of people.
+
+[CRAN](https://cran.r-project.org/package=repsd) · [GitHub](https://github.com/AnthonyRaborn/repsd)
+
+### mecfa
+
+Metaheuristic exploratory and confirmatory factor analysis.
+
+[GitHub](https://github.com/AnthonyRaborn/mecfa)
+
+### cvIRT
+
+Cross validation and bootstrap methods for IRT model selection.
+
+[GitHub](https://github.com/AnthonyRaborn/cvIRT)
+
+## ShinyShortForm
+
+Most of the people who build tests do not write code. ShinyShortForm wraps the ShortForm package in a Shiny interface, so you can run the short form method on simulated data without writing any R. The app calls into the package, so both always run the same code.
 
 ```{=html}
 <iframe width=100% height="750" src="https://4kve1c-anthony0raborn.shinyapps.io/ShinyShortForm/" title="ShinyShortForm"></iframe>
 ```
 
-## Direct Care Break-Even App
+## Direct Care Suite
 
-An interactive Shiny planning tool for modeling revenue, capacity, pricing, and break-even scenarios in direct care or service-based medical practices.
+Financial planning tools for small medical practices that bill patients directly instead of billing insurers. The Launch Planner models startup cost, membership growth, and revenue ramp before a practice opens. Direct Care Analytics projects break-even timing and tracks revenue from bookkeeping data after it opens.
+
+My wife was looking for forecasting for her direct specialty care practice. She and I talked about what she might find helpful for planning and tracking her finances, and this is what came out of those conversations.
+
+[Visit directcareanalytics.com](https://directcareanalytics.com){.btn .btn-outline-secondary}
 
 ## Psychometric Quarto Reporting App
 
-An interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats. 
+An interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats. It is not publicly released.
 
-## Programmatic Tools
+## Built with
 
-Some of the tools used to create these products were:
-
-- [R](www.cran.r-project.org), an open source statistical programming language.
-- [Shiny](https://shiny.posit.co/), an open source software for creating web applications.
-- [Quarto](quarto.org), an open source scientific and technical publishing system.
-- [LaTeX](https://www.latex-project.org/), an open source document preparation system.
-- [Git](https://git-scm.com/), an open source distributed version control system.
-- [Fedora Linux](https://fedoraproject.org), an open source operating system using the Linux kernel.
-- [Positron](https://positron.posit.co) and [RStudio](https://posit.co/products/open-source/rstudio), integrated development environments for R and other languages.
-
-This website itself is built on a combination of Quarto, Git, and Positron. Its code lives in a GitHub repository and is published via Quarto within a continuous integration/continuous deployment process. 
+Everything here is built with [R](https://cran.r-project.org), [Shiny](https://shiny.posit.co/), [Quarto](https://quarto.org), and [Git](https://git-scm.com/). This website is a Quarto project. Its code lives in a GitHub repository and is published through continuous deployment.

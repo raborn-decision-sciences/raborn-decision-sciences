@@ -54,7 +54,7 @@ website:
               href: "https://github.com/raborn-decision-sciences"
               aria-label: "GitHub"
         
-    google-analytics: "G-XXXXXXXXXX"
+    # google-analytics: "G-XXXXXXXXXX"  # placeholder: add the real measurement ID, then uncomment
     #cookie-consent: 
     #    type: express
     #    style: interstitial

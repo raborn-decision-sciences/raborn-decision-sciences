@@ -35,7 +35,7 @@ const CHAPTERS=[
  tech:`<p>ShortForm begins in October 2017 and is still maintained. The seven R projects here come to 79,726 lines and 1,280 commits over nine calendar years, covering short form construction, adaptive testing, differential item functioning, factor analysis, model selection, and one deployed product. The counts are of public repositories only, which is why 2025 reads as empty: that year's R work was internal tooling for an employer and could not be released.</p>`,
  plain:`<p>Psychometrics is the statistics of testing, which means working out whether a test measures what it claims to and whether it scores people fairly; these are the tools for doing that work in R.</p>
    <p>I have kept most of them running and added to them as the research needed it, in some cases for most of a decade, and the chart has a gap at 2025 because the R I wrote that year went to an employer who kept it in house.</p>`,
- comm:`<p>I am a trained and employed psychometrician, which is part of why I am still maintaining the R packages for psychometrics that I first wrote in graduate school.</p>
+ comm:`<p>I am a trained and practicing psychometrician, which is part of why I am still maintaining the R packages for psychometrics that I first wrote in graduate school.</p>
    <p>The gap at 2025 is not a year off; I was writing a good deal of R that year, scripts and packages to automate workflows for the job, but it was specific enough to the industry to count as a trade secret and that employer had relatively strict policies about producing open source, so none of it could be shared and none of it is counted here.</p>`,
  // the map behind this chapter already is the timeline, so the figure takes the other
  // cut: how the nine years were actually spent, counted across all seven repositories
@@ -219,7 +219,7 @@ const CHAPTERS=[
    <p>It takes measurement, operations and planning questions and turns them into something you can use, which might be an analysis, a repeatable workflow, or a web app you log into; the first product line does financial planning for small medical practices.</p>
    <p>If you have a question like that, the contact page is at <a href="https://raborndecisionsciences.com" target="_blank" rel="noopener noreferrer">raborndecisionsciences.com</a>.</p>`,
  comm:`<p>The consultancy came out of the same conversations as the apps. My wife needed forecasting for her practice, we worked out what would help her plan and track the money, and it became clear the question was not specific to her.</p>
-   <p>I was also between jobs at the time and decided to begin building out a consulting practice in case I could not find a standard job. I found one, and I have kept building this anyway.</p>`,
+   <p>As I've been consulting off and on since graduate school, Raborn Decision Sciences gives that work a permanent home.</p>`,
  fig(f){
   f.box(14,40,250,56,"raborn decision sciences","applied analytics in R and Shiny","hot-s");
   [["assessment","psychometrics and measurement"],["decision tools","r and shiny apps"],

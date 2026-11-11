@@ -1,5 +1,5 @@
 ---
-title: "Contact Raborn Decision Sciences"
+title: "Contact"
 about:
     template: jolla
     image-shape: rounded
@@ -135,7 +135,7 @@ Have a measurement, analytics, reporting, or R/Shiny tool problem? Send a short 
           type="text"
           name="Date"
           maxlength="25"
-          placeholder="dd-MMM-yyyy"
+          placeholder="e.g. 15-Jan-2027"
         />
         <p class="rds-help-text">
           When would you like to start working on your solution?
@@ -149,7 +149,7 @@ Have a measurement, analytics, reporting, or R/Shiny tool problem? Send a short 
           type="text"
           name="Date1"
           maxlength="25"
-          placeholder="dd-MMM-yyyy"
+          placeholder="e.g. 15-Jan-2027"
         />
         <p class="rds-help-text">
           When do you need the project completed?
@@ -164,4 +164,4 @@ Have a measurement, analytics, reporting, or R/Shiny tool problem? Send a short 
 </div>
 ```
 
-Additionally, you can contact Raborn Decision Sciences on Bluesky, GitHub, LinkedIn, or via email directly, with all links provided below.
+You can also reach me on Bluesky, GitHub, LinkedIn, or by email, using the links below.

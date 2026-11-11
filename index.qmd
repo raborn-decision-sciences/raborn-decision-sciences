@@ -1,19 +1,45 @@
 ---
-title: "Raborn Decision Sciences"
-description: "Applied analytics and custom R/Shiny tools for measurement, operations, and planning."
+pagetitle: "Raborn Decision Sciences"
+description-meta: "Psychometrics, applied analytics, and custom R/Shiny tools for testing programs, education agencies, and small practices."
 page-layout: full
+toc: false
 ---
 
 ::: {.hero}
-# Applied analytics and R-powered tools for better decisions
+# Psychometrics and decision tools in R
 
-Raborn Decision Sciences helps individuals and organizations translate complex measurement, operational, and planning questions into defensible analyses, reproducible workflows, and usable decision-support tools.
+I'm Anthony Raborn, a psychometrician and statistician. I work with testing programs, education agencies, and small medical practices on measurement, analysis, and planning questions. What you get back is something you can keep using: a report, a repeatable workflow, or a web app.
 
-[Explore services](services.qmd){.btn .btn-primary} 
-[View tools](tools.qmd){.btn .btn-secondary} 
-[Contact me](contact.qmd){.btn .btn-tertiary}
+[Get in touch](contact.qmd){.btn .btn-primary}
+[See the work](tools.qmd){.btn .btn-outline-secondary}
 
 :::
+
+[The record]{.rds-kicker}
+
+:::: {.grid .rds-record}
+
+::: {.g-col-12 .g-col-md-4 .rds-stat}
+[9 years]{.rds-stat-num}
+
+writing and maintaining psychometric software in R
+:::
+
+::: {.g-col-12 .g-col-md-4 .rds-stat}
+[5 R packages]{.rds-stat-num}
+
+for testing and measurement, 3 of them on CRAN
+:::
+
+::: {.g-col-12 .g-col-md-4 .rds-stat}
+[1 product]{.rds-stat-num}
+
+deployed, for direct care practices
+:::
+
+::::
+
+The counts, dates, and papers behind these numbers are in the [interactive CV](cv/index.html){target="_self"}.
 
 ## What I do
 
@@ -21,110 +47,57 @@ Raborn Decision Sciences helps individuals and organizations translate complex m
 
 ::: {.g-col-12 .g-col-md-4}
 ::: {.rds-card}
+[Testing programs and education]{.rds-kicker}
+
 ### Assessment & Psychometrics
 
-Item analysis, form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.
+I work out whether a test measures what it claims to and whether it scores people fairly.
+
+Item and form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.
 :::
 :::
 
 ::: {.g-col-12 .g-col-md-4}
 ::: {.rds-card}
+[Analytics and research teams]{.rds-kicker}
+
 ### R/Shiny Decision Tools
 
-Custom interactive applications, Quarto reporting workflows, R package development and support, dashboards, and analytic automation.
+I build the software around an analysis, so it runs the same way every time and people who do not write code can use it.
+
+Shiny applications, Quarto reporting workflows, R package development, dashboards, and analytic automation.
 :::
 :::
 
 ::: {.g-col-12 .g-col-md-4}
 ::: {.rds-card}
+[Direct care and small practices]{.rds-kicker}
+
 ### Operations & Planning Models
 
-Break-even tools, capacity planning, pricing scenarios, and interactive models for  service-based organizations.
+I build models that answer money questions, such as when a practice will break even.
+
+Break-even tools, capacity planning, pricing scenarios, and interactive models for service-based organizations.
 :::
 :::
 
 ::::
+
+[More on each service](services.qmd)
 
 ::: {.decision-point}
-**Decision point:** The goal is not just analysis. The goal is a tool, workflow, or report that helps someone make a clearer decision.
+**Decision point:** What I deliver is a tool, workflow, or report that helps someone make a clearer decision.
 :::
 
-## Decision-making tools you can trust
+## A working example
 
-![](assets/ShinyShortForm-Screenshot.png)
+![ShinyShortForm running the ant colony optimization algorithm on simulated data.](assets/ShinyShortForm-Screenshot.png){fig-alt="Screenshot of the ShinyShortForm app, with algorithm options on the left and the manual page and output on the right."}
 
-Built on psychometrics, statistical programming, reproducible research, and practical decision support.
+Most of the people who build tests do not write code. ShinyShortForm puts my ShortForm package behind a web page, so you can run the short form method without writing any R. [Try it on the Tools page.](tools.qmd)
 
-```{=html}
-<style>
-/* 1. The container hides everything outside its bounds */
-.ticker-container {
-  width: 100%;
-  overflow: hidden;
-  background: $body-bg;
-  color: $body-color;
-  padding: 10px 0;
-  white-space: nowrap;
-}
+## Who you would be working with
 
-/* 2. The wrapper contains two identical sets of content */
-.ticker-wrapper {
-  display: inline-block;
-  animation: seamless-scroll 20s linear infinite;
-}
+You work directly with me. I have a PhD in Research and Evaluation Methodology from the University of Florida, and the methods in my packages are published in peer-reviewed measurement journals.
 
-.ticker-item {
-  display: inline-block;
-  padding: 0 40px;
-  font-weight: bold;
-}
-
-/* 3. Animate exactly half the total width of the wrapper */
-@keyframes seamless-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* Pause on hover for readability */
-.ticker-container:hover .ticker-wrapper {
-  animation-play-state: paused;
-}
-</style>
-
-<div class="ticker-container">
-  <div class="ticker-wrapper">
-        <!-- Set 1 -->
-        <div class="ticker-item">R</div>
-        <div class="ticker-item">Shiny</div>
-        <div class="ticker-item">Quarto</div>
-        <div class="ticker-item">SQL</div>
-        <div class="ticker-item">Git/GitHub</div>
-        <div class="ticker-item">Winsteps</div>
-        <div class="ticker-item">flexMIRT</div>
-        <div class="ticker-item">Mplus</div>
-        <div class="ticker-item">Python</div>
-        <!-- Set 2 -->
-        <div class="ticker-item">R</div>
-        <div class="ticker-item">Shiny</div>
-        <div class="ticker-item">Quarto</div>
-        <div class="ticker-item">SQL</div>
-        <div class="ticker-item">Git/GitHub</div>
-        <div class="ticker-item">Winsteps</div>
-        <div class="ticker-item">flexMIRT</div>
-        <div class="ticker-item">Mplus</div>
-        <div class="ticker-item">Python</div>
-    </div>
-</div>
-```
-
-:::: {.grid .align-items-center}
-
-::: {.g-col-12}
-## Expert-led quantitative consulting
-
-Raborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny tools.
-
-[About Anthony](about.qmd){.btn .btn-outline-secondary}
-:::
-
-::::
+[About me](about.qmd){.btn .btn-outline-secondary}
+[Interactive CV](cv/index.html){.btn .btn-outline-secondary target="_self"}

@@ -9,135 +9,142 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Raborn Decision Sciences",
+    "title": "Psychometrics and decision tools in R",
     "section": "",
-    "text": "Raborn Decision Sciences helps individuals and organizations translate complex measurement, operational, and planning questions into defensible analyses, reproducible workflows, and usable decision-support tools.\nExplore services View tools Contact me"
+    "text": "I’m Anthony Raborn, a psychometrician and statistician. I work with testing programs, education agencies, and small medical practices on measurement, analysis, and planning questions. What you get back is something you can keep using: a report, a repeatable workflow, or a web app.\nGet in touch See the work\nThe record\nThe counts, dates, and papers behind these numbers are in the interactive CV."
   },
   {
     "objectID": "index.html#what-i-do",
     "href": "index.html#what-i-do",
-    "title": "Raborn Decision Sciences",
+    "title": "Psychometrics and decision tools in R",
     "section": "What I do",
-    "text": "What I do\n\n\n\nAssessment & Psychometrics\nItem analysis, form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.\n\n\n\n\nR/Shiny Decision Tools\nCustom interactive applications, Quarto reporting workflows, R package development and support, dashboards, and analytic automation.\n\n\n\n\nOperations & Planning Models\nBreak-even tools, capacity planning, pricing scenarios, and interactive models for service-based organizations.\n\n\n\n\nDecision point: The goal is not just analysis. The goal is a tool, workflow, or report that helps someone make a clearer decision."
+    "text": "What I do\n\n\n\nTesting programs and education\n\nAssessment & Psychometrics\nI work out whether a test measures what it claims to and whether it scores people fairly.\nItem and form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.\n\n\n\n\n\nAnalytics and research teams\n\nR/Shiny Decision Tools\nI build the software around an analysis, so it runs the same way every time and people who do not write code can use it.\nShiny applications, Quarto reporting workflows, R package development, dashboards, and analytic automation.\n\n\n\n\n\nDirect care and small practices\n\nOperations & Planning Models\nI build models that answer money questions, such as when a practice will break even.\nBreak-even tools, capacity planning, pricing scenarios, and interactive models for service-based organizations.\n\n\n\n\nMore on each service\n\nDecision point: What I deliver is a tool, workflow, or report that helps someone make a clearer decision."
   },
   {
-    "objectID": "index.html#decision-making-tools-you-can-trust",
-    "href": "index.html#decision-making-tools-you-can-trust",
-    "title": "Raborn Decision Sciences",
-    "section": "Decision-making tools you can trust",
-    "text": "Decision-making tools you can trust\n\nBuilt on psychometrics, statistical programming, reproducible research, and practical decision support.\n\n\n\n  \n        \n        R\n        Shiny\n        Quarto\n        SQL\n        Git/GitHub\n        Winsteps\n        flexMIRT\n        Mplus\n        Python\n        \n        R\n        Shiny\n        Quarto\n        SQL\n        Git/GitHub\n        Winsteps\n        flexMIRT\n        Mplus\n        Python"
+    "objectID": "index.html#a-working-example",
+    "href": "index.html#a-working-example",
+    "title": "Psychometrics and decision tools in R",
+    "section": "A working example",
+    "text": "A working example\n\n\n\nShinyShortForm running the ant colony optimization algorithm on simulated data.\n\n\nMost of the people who build tests do not write code. ShinyShortForm puts my ShortForm package behind a web page, so you can run the short form method without writing any R. Try it on the Tools page."
   },
   {
-    "objectID": "index.html#expert-led-quantitative-consulting",
-    "href": "index.html#expert-led-quantitative-consulting",
-    "title": "Raborn Decision Sciences",
-    "section": "Expert-led quantitative consulting",
-    "text": "Expert-led quantitative consulting\nRaborn Decision Sciences is led by Anthony Raborn, a psychometrician/statistician focused on applied measurement, reproducible analytics, and custom R/Shiny tools.\nAbout Anthony"
+    "objectID": "index.html#who-you-would-be-working-with",
+    "href": "index.html#who-you-would-be-working-with",
+    "title": "Psychometrics and decision tools in R",
+    "section": "Who you would be working with",
+    "text": "Who you would be working with\nYou work directly with me. I have a PhD in Research and Evaluation Methodology from the University of Florida, and the methods in my packages are published in peer-reviewed measurement journals.\nAbout me Interactive CV"
   },
   {
     "objectID": "posts/2026-05-12/ShinyShortForm.html",
     "href": "posts/2026-05-12/ShinyShortForm.html",
     "title": "Shiny Short Form",
     "section": "",
-    "text": "ShinyShortForm is a small app demonstrating the ShortForm package. It allows users to modify some of the parameters of the metaheuristic algorithms included in the package and see first-hand how they affect the runtime and output using simulated sample data.\n\n\n\nNot shown: the animations that play while the algorithms are running.\n\n\nAs seen in this screenshot, the app provides the modifiable parameters on the lefthand side of the screen, as well as algorithm-specific informatino and output on the righthand side of the screen. For each of the algorithms (Ant Colony Optimization, Simulated Annealing, and Tabu Search), the parameter list automatically updates, as well as the manual page. You can press the “Run Selected Algorithm” button to use the default parameters, which result in a (relatively) quick run for each algorithm.\nEach algorithm additionally has its own outputs and diagnostic plots that auto-populate after the algorithm has completed its run. The plots allow you to visually inspect how the algorithm searched for its proposed solution. If you modify the parameters, you can easily see how the search changes by keeping an eye on these diagnostic plots across runs.\nNote that only a select set of parameters are modifiable on the app and there are restrictions on the values you can input for each parameter. However, you can still end up in a situation where the algorithm takes a long time to find a solution–that’s expected! As long as the Algorithm Output is showing the ASCII animation, the application is working and you can expect a solution eventually.\nHave any questions, comments, or ideas? Reach out and let us know!"
+    "text": "ShinyShortForm is a small app demonstrating the ShortForm package. It allows users to modify some of the parameters of the metaheuristic algorithms included in the package and see first-hand how they affect the runtime and output using simulated sample data.\n\n\n\nNot shown: the animations that play while the algorithms are running.\n\n\nAs seen in this screenshot, the app provides the modifiable parameters on the lefthand side of the screen, as well as algorithm-specific information and output on the righthand side of the screen. For each of the algorithms (Ant Colony Optimization, Simulated Annealing, and Tabu Search), the parameter list automatically updates, as well as the manual page. You can press the “Run Selected Algorithm” button to use the default parameters, which result in a (relatively) quick run for each algorithm.\nEach algorithm additionally has its own outputs and diagnostic plots that auto-populate after the algorithm has completed its run. The plots allow you to visually inspect how the algorithm searched for its proposed solution. If you modify the parameters, you can easily see how the search changes by keeping an eye on these diagnostic plots across runs.\nNote that only a select set of parameters are modifiable on the app and there are restrictions on the values you can input for each parameter. However, you can still end up in a situation where the algorithm takes a long time to find a solution–that’s expected! As long as the Algorithm Output is showing the ASCII animation, the application is working and you can expect a solution eventually.\nHave any questions, comments, or ideas? Reach out and let me know!"
   },
   {
     "objectID": "services.html",
     "href": "services.html",
     "title": "Services",
     "section": "",
-    "text": "Item analysis\nForm analysis\nDIF/fairness analyses\nEquating\nStandard setting\nValidity evidence\nTechnical reports\nDocumentation\nAssessment program review\n\nFor credentialing, licensing, certification, education, and assessment programs that need defensible analyses and clear technical documentation."
+    "text": "Each service below is described twice: once in plain terms, and once in the terms a psychometrician or analyst would use."
   },
   {
     "objectID": "services.html#assessment-psychometrics",
     "href": "services.html#assessment-psychometrics",
     "title": "Services",
-    "section": "",
-    "text": "Item analysis\nForm analysis\nDIF/fairness analyses\nEquating\nStandard setting\nValidity evidence\nTechnical reports\nDocumentation\nAssessment program review\n\nFor credentialing, licensing, certification, education, and assessment programs that need defensible analyses and clear technical documentation."
+    "section": "Assessment & Psychometrics",
+    "text": "Assessment & Psychometrics\nFor education agencies, credentialing and licensing bodies, and research teams that run or rely on a test.\nIn plain terms I check whether a test measures what it claims to, whether it scores people fairly, and whether a score means the same thing from one form to the next. You get the analysis and the documentation you need to defend it.\nIn technical terms Item and form analysis, DIF/fairness analyses, equating, linking, and scaling, standard setting support, validity and reliability evidence, technical reports, and assessment program review."
   },
   {
     "objectID": "services.html#r-shiny-reproducible-tools",
     "href": "services.html#r-shiny-reproducible-tools",
     "title": "Services",
     "section": "R, Shiny, & Reproducible Tools",
-    "text": "R, Shiny, & Reproducible Tools\n\nShiny dashboards\nDecision-support apps\nQuarto reports\nR package development, deployment, and support\nWorkflow automation\nCode review and refactoring\nReproducible reporting pipelines\n\nBuilding tools that help teams repeat analyses, explain results, and make decisions without relying on fragile spreadsheet workflows."
+    "text": "R, Shiny, & Reproducible Tools\nFor teams that rerun the same analysis or rebuild the same report by hand.\nIn plain terms I build the software around an analysis, so it runs the same way every time and people who do not write code can use it. That might be a web app, an automated report, or an R package, and it replaces fragile spreadsheet workflows.\nIn technical terms Shiny dashboards and decision-support apps, Quarto reports and reproducible reporting pipelines, R package development, deployment, and support, workflow automation, and code review and refactoring."
   },
   {
     "objectID": "services.html#operations-planning-models",
     "href": "services.html#operations-planning-models",
     "title": "Services",
     "section": "Operations & Planning Models",
-    "text": "Operations & Planning Models\n\nBreak-even modeling\nCapacity planning\nPricing scenarios\nService-line planning\nForecasing/sensitivity analysis\nInteractive planning tools\n\nFor new or small service-based businesses planning for their future."
+    "text": "Operations & Planning Models\nFor direct care practices and other new or small service-based businesses.\nIn plain terms I build models that answer money questions: when you will break even, what happens if membership grows more slowly than planned, and how much the owner can take home.\nIn technical terms Break-even modeling, capacity planning, pricing scenarios, service-line planning, forecasting and sensitivity analysis, and interactive planning tools.\nIf you run a direct care practice, this work already exists as a product at Direct Care Analytics."
   },
   {
-    "objectID": "services.html#engagement-types",
-    "href": "services.html#engagement-types",
+    "objectID": "services.html#ways-to-work-together",
+    "href": "services.html#ways-to-work-together",
     "title": "Services",
-    "section": "Engagement Types",
-    "text": "Engagement Types\n\nFocused analysis project\nTechnical report or documentation\nPrototype Shiny app\nOngoing analytics support\nCode/workflow review\nAdvisory consultant"
+    "section": "Ways to work together",
+    "text": "Ways to work together\n\nA focused analysis project\nA technical report or documentation\nA prototype Shiny app\nOngoing analytics support\nA code or workflow review\nAdvisory consulting"
   },
   {
-    "objectID": "services.html#call-to-action",
-    "href": "services.html#call-to-action",
+    "objectID": "services.html#get-in-touch",
+    "href": "services.html#get-in-touch",
     "title": "Services",
-    "section": "Call to Action",
-    "text": "Call to Action\nHave a measurement, analytics, or decision-tool problem? Let’s talk."
+    "section": "Get in touch",
+    "text": "Get in touch\nHave a measurement, analytics, or decision-tool problem? Let’s talk."
   },
   {
     "objectID": "contact.html",
     "href": "contact.html",
-    "title": "Contact Raborn Decision Sciences",
+    "title": "Contact",
     "section": "",
-    "text": "Have a measurement, analytics, reporting, or R/Shiny tool problem? Send a short note below.\n\n\n  \n    \n    \n    \n    \n      \n      \n      \n        Tell me what you are trying to solve, what tools or data are involved,\n        and what timeline you are working toward.\n      \n    \n    \n      \n        \n          First name *\n        \n        \n      \n      \n        \n          Last name *\n        \n        \n      \n    \n    \n      \n        Email *\n      \n      \n    \n    \n      \n        Organization *\n      \n      \n      \n        If not affiliated with an organization, please put “Self” or “N/A.”\n      \n    \n    \n      \n        What are you trying to solve? *\n      \n      \n      Please be as descriptive as you can.\n    \n    \n      \n        Timeline to start\n        \n        \n          When would you like to start working on your solution?\n        \n      \n      \n        Deadline for completion\n        \n        \n          When do you need the project completed?\n        \n      \n    \n    \n      Submit inquiry\n    \n  \n\nAdditionally, you can contact Raborn Decision Sciences on Bluesky, GitHub, LinkedIn, or via email directly, with all links provided below."
+    "text": "Have a measurement, analytics, reporting, or R/Shiny tool problem? Send a short note below.\n\n\n  \n    \n    \n    \n    \n      \n      \n      \n        Tell me what you are trying to solve, what tools or data are involved,\n        and what timeline you are working toward.\n      \n    \n    \n      \n        \n          First name *\n        \n        \n      \n      \n        \n          Last name *\n        \n        \n      \n    \n    \n      \n        Email *\n      \n      \n    \n    \n      \n        Organization *\n      \n      \n      \n        If not affiliated with an organization, please put “Self” or “N/A.”\n      \n    \n    \n      \n        What are you trying to solve? *\n      \n      \n      Please be as descriptive as you can.\n    \n    \n      \n        Timeline to start\n        \n        \n          When would you like to start working on your solution?\n        \n      \n      \n        Deadline for completion\n        \n        \n          When do you need the project completed?\n        \n      \n    \n    \n      Submit inquiry\n    \n  \n\nYou can also reach me on Bluesky, GitHub, LinkedIn, or by email, using the links below."
   },
   {
     "objectID": "tools.html",
     "href": "tools.html",
     "title": "Tools and Projects",
     "section": "",
-    "text": "Raborn Decision Sciences has been involved in the creation of multiple free and open source products for performing high-quality, replicable analyses."
+    "text": "Most of what I build is free and open source. The R packages below are all on GitHub, and three of them are on CRAN."
   },
   {
-    "objectID": "tools.html#shortform",
-    "href": "tools.html#shortform",
+    "objectID": "tools.html#r-packages-for-testing-and-measurement",
+    "href": "tools.html#r-packages-for-testing-and-measurement",
     "title": "Tools and Projects",
-    "section": "ShortForm",
-    "text": "ShortForm\nShortForm is an R package for automated short form development, combining psychometric methods, machine learning, and reproducible statistical workflows.\nIt uses proven, peer-reviewed metaheuristic algorithms to shorten assessents, scales, and other measurement tools while preserving psychometric and statistical qualities. The package documentation is available for everyone to read. The source code is also publically available on GitHub.\nRaborn Decision Sciences has also developed a Shiny app to demonstrate the ShortForm package with simulated data."
+    "section": "R packages for testing and measurement",
+    "text": "R packages for testing and measurement\nThree of these packages are built on methods from my own published research. The papers are listed on the About page.\n\nShortForm\nShortForm is an R package for automated short form development. It uses peer-reviewed metaheuristic algorithms to shorten assessments, scales, and other measurement tools while preserving their psychometric and statistical qualities.\nShortForm started with one of my graduate school advisors, who had code from a publication and wanted it turned into a package. I expanded it with additional algorithms for later research, and I have maintained it since 2017.\nCRAN · Documentation · GitHub\n\n\ncaMST\nMixed computerized adaptive multistage testing: exams that adapt as the test taker answers.\nCRAN · GitHub\n\n\nrepsd\nThe Root Expected Proportion Squared Difference statistic for detecting DIF, which checks whether a question is unfair to one group of people.\nCRAN · GitHub\n\n\nmecfa\nMetaheuristic exploratory and confirmatory factor analysis.\nGitHub\n\n\ncvIRT\nCross validation and bootstrap methods for IRT model selection.\nGitHub"
   },
   {
-    "objectID": "tools.html#direct-care-break-even-app",
-    "href": "tools.html#direct-care-break-even-app",
+    "objectID": "tools.html#shinyshortform",
+    "href": "tools.html#shinyshortform",
     "title": "Tools and Projects",
-    "section": "Direct Care Break-Even App",
-    "text": "Direct Care Break-Even App\nAn interactive Shiny planning tool for modeling revenue, capacity, pricing, and break-even scenarios in direct care or service-based medical practices."
+    "section": "ShinyShortForm",
+    "text": "ShinyShortForm\nMost of the people who build tests do not write code. ShinyShortForm wraps the ShortForm package in a Shiny interface, so you can run the short form method on simulated data without writing any R. The app calls into the package, so both always run the same code."
+  },
+  {
+    "objectID": "tools.html#direct-care-suite",
+    "href": "tools.html#direct-care-suite",
+    "title": "Tools and Projects",
+    "section": "Direct Care Suite",
+    "text": "Direct Care Suite\nFinancial planning tools for small medical practices that bill patients directly instead of billing insurers. The Launch Planner models startup cost, membership growth, and revenue ramp before a practice opens. Direct Care Analytics projects break-even timing and tracks revenue from bookkeeping data after it opens.\nMy wife was looking for forecasting for her direct specialty care practice. She and I talked about what she might find helpful for planning and tracking her finances, and this is what came out of those conversations.\nVisit directcareanalytics.com"
   },
   {
     "objectID": "tools.html#psychometric-quarto-reporting-app",
     "href": "tools.html#psychometric-quarto-reporting-app",
     "title": "Tools and Projects",
     "section": "Psychometric Quarto Reporting App",
-    "text": "Psychometric Quarto Reporting App\nAn interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats."
+    "text": "Psychometric Quarto Reporting App\nAn interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats. It is not publicly released."
   },
   {
-    "objectID": "tools.html#programmatic-tools",
-    "href": "tools.html#programmatic-tools",
+    "objectID": "tools.html#built-with",
+    "href": "tools.html#built-with",
     "title": "Tools and Projects",
-    "section": "Programmatic Tools",
-    "text": "Programmatic Tools\nSome of the tools used to create these products were:\n\nR, an open source statistical programming language.\nShiny, an open source software for creating web applications.\nQuarto, an open source scientific and technical publishing system.\nLaTeX, an open source document preparation system.\nGit, an open source distributed version control system.\nFedora Linux, an open source operating system using the Linux kernel.\nPositron and RStudio, integrated development environments for R and other languages.\n\nThis website itself is built on a combination of Quarto, Git, and Positron. Its code lives in a GitHub repository and is published via Quarto within a continuous integration/continuous deployment process."
+    "section": "Built with",
+    "text": "Built with\nEverything here is built with R, Shiny, Quarto, and Git. This website is a Quarto project. Its code lives in a GitHub repository and is published through continuous deployment."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Anthony Raborn is a psychometrician/statistician specializing in applied measurement, reproducible analytics, and custom R/Shiny decision tools.\nMy work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data. I strive to provide tools that make work easier to repeat, explain, and use for all levels of technical expertise."
+    "text": "I’m Anthony Raborn, a psychometrician and statistician. I specialize in applied measurement, reproducible analytics, and custom R/Shiny decision tools.\nMy work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data. I try to build tools that are easy to repeat, explain, and use at any level of technical expertise.\nI’ve been consulting off and on since graduate school, and I now do that work as Raborn Decision Sciences."
   },
   {
     "objectID": "about.html#education",
     "href": "about.html#education",
     "title": "About",
     "section": "Education",
-    "text": "Education\nUniversity of Florida | Gainesville, FL | May 2019\nPhD in Research and Evaluation Methodology, Minor in Statistics"
+    "text": "Education\nPhD in Research and Evaluation Methodology, Minor in Statistics\nUniversity of Florida | Gainesville, FL | May 2019"
   },
   {
     "objectID": "about.html#areas-of-expertise",
@@ -147,11 +154,18 @@
     "text": "Areas of expertise\n\nPsychometrics and assessment analytics\nItem analysis, DIF, equating, standard setting, and technical reporting\nR package development, deployment, and reproducible workflows\nShiny dashboards and decision-support tools\nQuarto reports and technical documentation\nOperations and break-even modeling"
   },
   {
+    "objectID": "about.html#selected-publications",
+    "href": "about.html#selected-publications",
+    "title": "About",
+    "section": "Selected publications",
+    "text": "Selected publications\nThe first four describe the methods used in my R packages. The last is from my applied work on clinical trials. The full list is on ORCID.\n\nRaborn & Leite (2018). ShortForm: An R package to select scale short forms with the ant colony optimization algorithm. Applied Psychological Measurement.\nRaborn, Leite & Marcoulides (2020). A comparison of metaheuristic optimization algorithms for scale short-form development. Educational and Psychological Measurement.\nRaborn & Sarı (2021). Mixed adaptive multistage testing: A new approach. Journal of Measurement and Evaluation in Education and Psychology.\nHuggins-Manley, Raborn, et al. (2024). A nonparametric composite group DIF index for focal groups stemming from multicategorical variables. Journal of Educational Measurement.\nRaborn et al. (2025). Psychometric analysis of the Neuro-QoL Fatigue in generalized myasthenia gravis using data from a phase 3 trial. Quality of Life Research."
+  },
+  {
     "objectID": "about.html#technical-toolkit",
     "href": "about.html#technical-toolkit",
     "title": "About",
     "section": "Technical toolkit",
-    "text": "Technical toolkit\n\n  \n    \n      \n      R\n      Shiny\n      Quarto\n      SQL\n      Git/GitHub\n      Winsteps\n      flexMIRT\n      Mplus\n      Python\n      \n      R\n      Shiny\n      Quarto\n      SQL\n      Git/GitHub\n      Winsteps\n      flexMIRT\n      Mplus\n      Python"
+    "text": "Technical toolkit\nProgramming and reporting R, Shiny, Quarto, SQL, Git/GitHub, Python\nPsychometric and statistical software Winsteps, flexMIRT, Mplus"
   },
   {
     "objectID": "about.html#resumecv",

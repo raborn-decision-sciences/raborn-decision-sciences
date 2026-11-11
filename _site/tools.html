@@ -45,9 +45,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-a3ffc900db29c1fd40e75c4e08dce7be.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3a8be5d14af04f56fcc5aea43d9c2414.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-ca2dcce25a0a07138166a25d4d1b72cd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-3a8be5d14af04f56fcc5aea43d9c2414.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c1d49df1f41aed2de518077decc47053.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-96db99eb24c2d9427b11e67b95dff65b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-c1d49df1f41aed2de518077decc47053.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,15 +75,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-
-<script type="text/javascript">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
-</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
 
@@ -329,10 +320,18 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#shortform" id="toc-shortform" class="nav-link active" data-scroll-target="#shortform">ShortForm</a></li>
-  <li><a href="#direct-care-break-even-app" id="toc-direct-care-break-even-app" class="nav-link" data-scroll-target="#direct-care-break-even-app">Direct Care Break-Even App</a></li>
+  <li><a href="#r-packages-for-testing-and-measurement" id="toc-r-packages-for-testing-and-measurement" class="nav-link active" data-scroll-target="#r-packages-for-testing-and-measurement">R packages for testing and measurement</a>
+  <ul class="collapse">
+  <li><a href="#shortform" id="toc-shortform" class="nav-link" data-scroll-target="#shortform">ShortForm</a></li>
+  <li><a href="#camst" id="toc-camst" class="nav-link" data-scroll-target="#camst">caMST</a></li>
+  <li><a href="#repsd" id="toc-repsd" class="nav-link" data-scroll-target="#repsd">repsd</a></li>
+  <li><a href="#mecfa" id="toc-mecfa" class="nav-link" data-scroll-target="#mecfa">mecfa</a></li>
+  <li><a href="#cvirt" id="toc-cvirt" class="nav-link" data-scroll-target="#cvirt">cvIRT</a></li>
+  </ul></li>
+  <li><a href="#shinyshortform" id="toc-shinyshortform" class="nav-link" data-scroll-target="#shinyshortform">ShinyShortForm</a></li>
+  <li><a href="#direct-care-suite" id="toc-direct-care-suite" class="nav-link" data-scroll-target="#direct-care-suite">Direct Care Suite</a></li>
   <li><a href="#psychometric-quarto-reporting-app" id="toc-psychometric-quarto-reporting-app" class="nav-link" data-scroll-target="#psychometric-quarto-reporting-app">Psychometric Quarto Reporting App</a></li>
-  <li><a href="#programmatic-tools" id="toc-programmatic-tools" class="nav-link" data-scroll-target="#programmatic-tools">Programmatic Tools</a></li>
+  <li><a href="#built-with" id="toc-built-with" class="nav-link" data-scroll-target="#built-with">Built with</a></li>
   </ul>
 </nav>
     </div>
@@ -359,35 +358,55 @@ gtag('config', 'G-XXXXXXXXXX', { 'anonymize_ip': true});
 </header>
 
 
-<p>Raborn Decision Sciences has been involved in the creation of multiple free and open source products for performing high-quality, replicable analyses.</p>
-<section id="shortform" class="level2">
-<h2 class="anchored" data-anchor-id="shortform">ShortForm</h2>
-<p><a href="https://cran.r-project.org/web/packages/ShortForm/index.html">ShortForm is an R package for automated short form development, combining psychometric methods, machine learning, and reproducible statistical workflows.</a></p>
-<p>It uses proven, peer-reviewed metaheuristic algorithms to shorten assessents, scales, and other measurement tools while preserving psychometric and statistical qualities. <a href="https://cran.r-project.org/web/packages/ShortForm/ShortForm.pdf">The package documentation is available for everyone to read.</a> <a href="https://www.github.com/AnthonyRaborn/ShortForm">The source code is also publically available on GitHub.</a></p>
-<p>Raborn Decision Sciences has also developed a Shiny app to demonstrate the ShortForm package with simulated data.</p>
+<p>Most of what I build is free and open source. The R packages below are all on GitHub, and three of them are on CRAN.</p>
+<section id="r-packages-for-testing-and-measurement" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages-for-testing-and-measurement">R packages for testing and measurement</h2>
+<p>Three of these packages are built on methods from my own published research. The papers are listed on the <a href="./about.html#selected-publications">About page</a>.</p>
+<section id="shortform" class="level3">
+<h3 class="anchored" data-anchor-id="shortform">ShortForm</h3>
+<p>ShortForm is an R package for automated short form development. It uses peer-reviewed metaheuristic algorithms to shorten assessments, scales, and other measurement tools while preserving their psychometric and statistical qualities.</p>
+<p>ShortForm started with one of my graduate school advisors, who had code from a publication and wanted it turned into a package. I expanded it with additional algorithms for later research, and I have maintained it since 2017.</p>
+<p><a href="https://cran.r-project.org/package=ShortForm">CRAN</a> · <a href="https://cran.r-project.org/web/packages/ShortForm/ShortForm.pdf">Documentation</a> · <a href="https://github.com/AnthonyRaborn/ShortForm">GitHub</a></p>
+</section>
+<section id="camst" class="level3">
+<h3 class="anchored" data-anchor-id="camst">caMST</h3>
+<p>Mixed computerized adaptive multistage testing: exams that adapt as the test taker answers.</p>
+<p><a href="https://cran.r-project.org/package=caMST">CRAN</a> · <a href="https://github.com/AnthonyRaborn/caMST">GitHub</a></p>
+</section>
+<section id="repsd" class="level3">
+<h3 class="anchored" data-anchor-id="repsd">repsd</h3>
+<p>The Root Expected Proportion Squared Difference statistic for detecting DIF, which checks whether a question is unfair to one group of people.</p>
+<p><a href="https://cran.r-project.org/package=repsd">CRAN</a> · <a href="https://github.com/AnthonyRaborn/repsd">GitHub</a></p>
+</section>
+<section id="mecfa" class="level3">
+<h3 class="anchored" data-anchor-id="mecfa">mecfa</h3>
+<p>Metaheuristic exploratory and confirmatory factor analysis.</p>
+<p><a href="https://github.com/AnthonyRaborn/mecfa">GitHub</a></p>
+</section>
+<section id="cvirt" class="level3">
+<h3 class="anchored" data-anchor-id="cvirt">cvIRT</h3>
+<p>Cross validation and bootstrap methods for IRT model selection.</p>
+<p><a href="https://github.com/AnthonyRaborn/cvIRT">GitHub</a></p>
+</section>
+</section>
+<section id="shinyshortform" class="level2">
+<h2 class="anchored" data-anchor-id="shinyshortform">ShinyShortForm</h2>
+<p>Most of the people who build tests do not write code. ShinyShortForm wraps the ShortForm package in a Shiny interface, so you can run the short form method on simulated data without writing any R. The app calls into the package, so both always run the same code.</p>
 <iframe width="100%" height="750" src="https://4kve1c-anthony0raborn.shinyapps.io/ShinyShortForm/" title="ShinyShortForm"></iframe>
 </section>
-<section id="direct-care-break-even-app" class="level2">
-<h2 class="anchored" data-anchor-id="direct-care-break-even-app">Direct Care Break-Even App</h2>
-<p>An interactive Shiny planning tool for modeling revenue, capacity, pricing, and break-even scenarios in direct care or service-based medical practices.</p>
+<section id="direct-care-suite" class="level2">
+<h2 class="anchored" data-anchor-id="direct-care-suite">Direct Care Suite</h2>
+<p>Financial planning tools for small medical practices that bill patients directly instead of billing insurers. The Launch Planner models startup cost, membership growth, and revenue ramp before a practice opens. Direct Care Analytics projects break-even timing and tracks revenue from bookkeeping data after it opens.</p>
+<p>My wife was looking for forecasting for her direct specialty care practice. She and I talked about what she might find helpful for planning and tracking her finances, and this is what came out of those conversations.</p>
+<p><a href="https://directcareanalytics.com" class="btn btn-outline-secondary">Visit directcareanalytics.com</a></p>
 </section>
 <section id="psychometric-quarto-reporting-app" class="level2">
 <h2 class="anchored" data-anchor-id="psychometric-quarto-reporting-app">Psychometric Quarto Reporting App</h2>
-<p>An interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats.</p>
+<p>An interactive Shiny app that produces a branded technical report in .docx, .html, and .pdf formats. It is not publicly released.</p>
 </section>
-<section id="programmatic-tools" class="level2">
-<h2 class="anchored" data-anchor-id="programmatic-tools">Programmatic Tools</h2>
-<p>Some of the tools used to create these products were:</p>
-<ul>
-<li><a href="www.cran.r-project.org">R</a>, an open source statistical programming language.</li>
-<li><a href="https://shiny.posit.co/">Shiny</a>, an open source software for creating web applications.</li>
-<li><a href="quarto.org">Quarto</a>, an open source scientific and technical publishing system.</li>
-<li><a href="https://www.latex-project.org/">LaTeX</a>, an open source document preparation system.</li>
-<li><a href="https://git-scm.com/">Git</a>, an open source distributed version control system.</li>
-<li><a href="https://fedoraproject.org">Fedora Linux</a>, an open source operating system using the Linux kernel.</li>
-<li><a href="https://positron.posit.co">Positron</a> and <a href="https://posit.co/products/open-source/rstudio">RStudio</a>, integrated development environments for R and other languages.</li>
-</ul>
-<p>This website itself is built on a combination of Quarto, Git, and Positron. Its code lives in a GitHub repository and is published via Quarto within a continuous integration/continuous deployment process.</p>
+<section id="built-with" class="level2">
+<h2 class="anchored" data-anchor-id="built-with">Built with</h2>
+<p>Everything here is built with <a href="https://cran.r-project.org">R</a>, <a href="https://shiny.posit.co/">Shiny</a>, <a href="https://quarto.org">Quarto</a>, and <a href="https://git-scm.com/">Git</a>. This website is a Quarto project. Its code lives in a GitHub repository and is published through continuous deployment.</p>
 
 
 </section>

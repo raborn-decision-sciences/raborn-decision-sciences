@@ -20,16 +20,17 @@ about:
 toc: false
 ---
 
-Anthony Raborn is a psychometrician/statistician specializing in applied measurement, reproducible analytics, and custom R/Shiny decision tools.
+I'm Anthony Raborn, a psychometrician and statistician. I specialize in applied measurement, reproducible analytics, and custom R/Shiny decision tools.
 
-My work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data. I strive to provide tools that make work easier to repeat, explain, and use for all levels of technical expertise.
+My work combines psychometric methods, statistical programming, and practical software development to help organizations make clearer decisions from complex assessment and operational data. I try to build tools that are easy to repeat, explain, and use at any level of technical expertise.
 
+I've been consulting off and on since graduate school, and I now do that work as Raborn Decision Sciences.
 
 ## Education
 
-University of Florida | Gainesville, FL | May 2019
-
 PhD in Research and Evaluation Methodology, Minor in Statistics
+
+University of Florida | Gainesville, FL | May 2019
 
 ## Areas of expertise
 
@@ -40,37 +41,29 @@ PhD in Research and Evaluation Methodology, Minor in Statistics
 - Quarto reports and technical documentation
 - Operations and break-even modeling
 
+## Selected publications
+
+The first four describe the methods used in my R packages. The last is from my applied work on clinical trials. The full list is on [ORCID](https://orcid.org/0000-0002-8083-4739).
+
+::: {.rds-cites}
+Raborn & Leite (2018). [ShortForm: An R package to select scale short forms with the ant colony optimization algorithm](https://doi.org/10.1177/0146621617752993). *Applied Psychological Measurement*.
+
+Raborn, Leite & Marcoulides (2020). [A comparison of metaheuristic optimization algorithms for scale short-form development](https://doi.org/10.1177/0013164420906600). *Educational and Psychological Measurement*.
+
+Raborn & Sarı (2021). [Mixed adaptive multistage testing: A new approach](https://doi.org/10.21031/epod.871014). *Journal of Measurement and Evaluation in Education and Psychology*.
+
+Huggins-Manley, Raborn, et al. (2024). [A nonparametric composite group DIF index for focal groups stemming from multicategorical variables](https://doi.org/10.1111/jedm.12394). *Journal of Educational Measurement*.
+
+Raborn et al. (2025). [Psychometric analysis of the Neuro-QoL Fatigue in generalized myasthenia gravis using data from a phase 3 trial](https://doi.org/10.1007/s11136-025-03998-9). *Quality of Life Research*.
+:::
+
 ## Technical toolkit
 
-```{=html}
-<div class="ticker-outer">
-  <div class="ticker-container">
-    <div class="ticker-wrapper">
-      <!-- Set 1 -->
-      <span class="ticker-item">R</span>
-      <span class="ticker-item">Shiny</span>
-      <span class="ticker-item">Quarto</span>
-      <span class="ticker-item">SQL</span>
-      <span class="ticker-item">Git/GitHub</span>
-      <span class="ticker-item">Winsteps</span>
-      <span class="ticker-item">flexMIRT</span>
-      <span class="ticker-item">Mplus</span>
-      <span class="ticker-item">Python</span>
+[Programming and reporting]{.rds-kicker}
+R, Shiny, Quarto, SQL, Git/GitHub, Python
 
-      <!-- Set 2 -->
-      <span class="ticker-item">R</span>
-      <span class="ticker-item">Shiny</span>
-      <span class="ticker-item">Quarto</span>
-      <span class="ticker-item">SQL</span>
-      <span class="ticker-item">Git/GitHub</span>
-      <span class="ticker-item">Winsteps</span>
-      <span class="ticker-item">flexMIRT</span>
-      <span class="ticker-item">Mplus</span>
-      <span class="ticker-item">Python</span>
-    </div>
-  </div>
-</div>
-```
+[Psychometric and statistical software]{.rds-kicker}
+Winsteps, flexMIRT, Mplus
 
 ## Resume/CV
 

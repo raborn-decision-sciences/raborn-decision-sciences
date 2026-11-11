@@ -1,9 +1,9 @@
 meta:
   name: "Raborn Decision Sciences"
   link:
-    github: "https://github.com/AnthonyRaborn"
-    bluesky: "https://bsky.app/profile/anthony-raborn.bsky.social"
-    home: "https://raborn.decisionsciences.com"
+    github: "https://github.com/raborn-decision-sciences"
+    bluesky: "https://bsky.app/profile/raborndecisionsciences.com"
+    home: "https://raborndecisionsciences.com"
 
 logo:
   images:
@@ -14,7 +14,7 @@ logo:
       path: assets/logo-rds.svg
       alt: "Raborn Decision Sciences logo"
     horizontal-dark:
-      path: assets/logo-rds-rds.svg
+      path: assets/logo-rds-dark.svg
       alt: "Raborn Decision Sciences logo"
   small: icon
   medium: horizontal
