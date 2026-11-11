@@ -1,0 +1,161 @@
+/* ── tokens ─────────────────────────────────────────────────────────────── */
+:root{
+  --bg:#d7d7d4; --panel:#e9e9e6; --ink:#17181a; --muted:#6a6c70;
+  --line:#9a9c9e; --accent:#0d6f7a; --accent-ink:#07474e;
+  --frame:1400px; --rail:52px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+
+/* ── the fixed diagram layer ────────────────────────────────────────────── */
+#scene{position:fixed;inset:0;z-index:0;pointer-events:none}
+#scene svg{width:100%;height:100%;display:block}
+.node rect{fill:none;stroke:var(--line);stroke-width:1.25;vector-effect:non-scaling-stroke}
+.node.hot rect{stroke:var(--accent);stroke-width:2}
+.node text{font-family:var(--mono);font-size:11px;fill:var(--muted);
+  text-transform:uppercase;letter-spacing:.08em}
+.node.hot text{fill:var(--accent-ink)}
+.node .meta{font-size:9px;letter-spacing:.04em;text-transform:none}
+#grid line{stroke:var(--line);stroke-width:.5;opacity:.25;vector-effect:non-scaling-stroke}
+#grid .axis-lab{font-family:var(--mono);font-size:10px;fill:var(--muted);opacity:.65;
+  letter-spacing:.08em}
+
+/* ── the per-chapter figure layer ───────────────────────────────────────── */
+#figs{position:fixed;z-index:5;pointer-events:none;right:2vw;top:50%;
+  transform:translateY(-50%);width:min(46vw,640px);
+  max-width:max(300px,calc(100vw - 650px));aspect-ratio:520/420}
+#figs svg{width:100%;height:100%;display:block;overflow:visible}
+.fig{opacity:0}
+.f-line{stroke:var(--ink);stroke-width:1.1;fill:none;vector-effect:non-scaling-stroke}
+.f-rect{stroke:var(--line);stroke-width:1.1;fill:none;vector-effect:non-scaling-stroke}
+.f-bar{stroke:var(--line);fill:none;vector-effect:none}
+.f-text{font-family:var(--mono);font-size:9px;fill:var(--muted);letter-spacing:.04em}
+.f-ttl{font-size:9.5px;fill:var(--ink);text-transform:uppercase;letter-spacing:.09em}
+.f-sub{font-size:8px;fill:var(--muted);letter-spacing:.02em}
+.hot-s{stroke:var(--accent)!important;stroke-width:1.9}
+.dim{stroke:var(--line);opacity:.45}
+.dash{stroke-dasharray:4 4;stroke:var(--line);fill:none}
+
+/* ── live embeds: the project itself, where its schematic would have gone ─
+   Inert behind a shield until asked for, so scrolling past a game is not
+   swallowed by the game. */
+#live{position:fixed;inset:0;z-index:6;pointer-events:none}
+.live{position:absolute;right:2vw;top:50%;transform:translateY(-50%);
+  width:min(44vw,600px);max-width:calc(100vw - 650px);
+  aspect-ratio:520/420;opacity:0;pointer-events:none;transition:opacity .3s}
+.live-frame{position:absolute;inset:0;border:1px solid var(--line);
+  background:var(--panel);overflow:hidden}
+.live-frame iframe{width:100%;height:100%;border:0;display:block}
+.shot .live-frame{background:#0b0c0e}
+.shot .live-frame img{width:100%;height:100%;object-fit:contain;display:block}
+.live-shield{position:absolute;inset:0;appearance:none;border:0;cursor:pointer;
+  background:color-mix(in srgb,var(--bg) 70%,transparent);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--mono);color:var(--ink)}
+.live.playing .live-shield{display:none}
+.live-play{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--ink);padding:8px 18px}
+.live-shield:hover .live-play{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.live-note{font-size:9.5px;letter-spacing:.06em;color:var(--muted)}
+.live-cap{position:absolute;left:0;right:0;top:calc(100% + 9px);margin:0;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;color:var(--muted)}
+
+/* ── rail ───────────────────────────────────────────────────────────────── */
+#rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:30;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}
+#rail button{appearance:none;border:0;background:transparent;padding:4px 6px;cursor:pointer;
+  display:block;line-height:0}
+#rail i{display:block;width:var(--w,16px);height:2px;background:var(--line);
+  transition:background .25s,width .25s}
+#rail button[aria-current="true"] i{background:var(--accent);width:calc(var(--w,16px) + 14px);height:3px}
+#rail button:hover i{background:var(--ink)}
+#rail .idx{position:absolute;left:var(--rail);font-family:var(--mono);font-size:10px;
+  color:var(--muted);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none}
+
+/* ── version switch ─────────────────────────────────────────────────────── */
+.vers{position:fixed;top:18px;right:20px;z-index:30;display:flex;gap:0;
+  border:1px solid var(--line);background:var(--panel)}
+.vers button{appearance:none;border:0;background:transparent;cursor:pointer;
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 13px;color:var(--muted);border-right:1px solid var(--line)}
+.vers button:last-child{border-right:0}
+.vers button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+
+#readout{position:fixed;left:var(--rail);bottom:16px;z-index:30;font-family:var(--mono);
+  font-size:10px;color:var(--muted);letter-spacing:.06em}
+
+/* ── chapters ───────────────────────────────────────────────────────────── */
+main{position:relative;z-index:10;max-width:var(--frame);margin:0 auto;
+  padding:0 40px 0 calc(var(--rail) + 28px);pointer-events:none}
+.panel{pointer-events:auto}
+.stage{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.stage:last-child{min-height:80vh}
+.ver{display:none}
+.ver.on{display:block}
+.beat{min-height:100vh;display:flex;align-items:center}
+.stage:first-child .beat,.stage:last-child .beat{min-height:100vh}
+.panel{background:var(--panel);border:1px solid var(--line);padding:26px 30px;max-width:520px;
+  box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.panel .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--muted);
+  text-transform:uppercase;margin:0 0 14px}
+.panel .kicker b{color:var(--accent-ink);font-weight:600}
+.panel h2{font-size:25px;line-height:1.2;margin:0 0 12px;font-weight:600;letter-spacing:-.01em}
+.panel p{margin:0 0 11px;color:#2c2e31}
+.panel p:last-child{margin-bottom:0}
+.panel .tag{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--muted);
+  border:1px solid var(--line);padding:2px 7px;margin:12px 6px 0 0;letter-spacing:.05em}
+.panel .todo{color:var(--muted);font-style:italic}
+.figs{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px;
+  border-top:1px solid var(--line);padding-top:10px;letter-spacing:.03em}
+
+/* ── no-JS / failure fallback: every version, stacked, in order ─────────── */
+html:not([data-started]) #scene,html:not([data-started]) #figs,html:not([data-started]) #rail,
+html:not([data-started]) .vers,html:not([data-started]) #readout,
+html:not([data-started]) #live{display:none}
+html:not([data-started]) .ver{display:block;border-top:1px solid var(--line);margin-top:10px}
+html:not([data-started]) .beat{min-height:0;display:block}
+html:not([data-started]) .stage{min-height:0;padding:28px 0}
+html:not([data-started]) main{padding:28px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:1040px){#figs,.live{width:min(52vw,560px);
+  max-width:max(300px,calc(100vw - 650px));right:1.5vw}}
+@media (max-width:760px){
+  :root{--rail:0px}
+  #figs,.live{right:auto;left:4vw;width:92vw;max-width:none;top:64px;transform:none}
+  .live-cap{position:static;margin-top:8px}
+  #rail{display:none}
+  #readout{left:18px}
+  main{padding:0 18px}
+  .panel{max-width:none}
+  .beat{min-height:92vh;align-items:flex-end;padding-bottom:7vh}
+}
+
+/* ── the link across to the other page ──────────────────────────────────── */
+.panel a.sib{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--accent)}
+.panel a.sib:hover{background:var(--accent);color:var(--bg);border-bottom-color:transparent}
+.sitemark{position:fixed;top:20px;left:calc(var(--rail) + 8px);z-index:30;font-family:var(--mono);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sitemark b{color:var(--ink);font-weight:600}
+/* the two pages, always one click apart; the current one is marked, not linked away from */
+.sitemark a{margin-left:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid transparent}
+.sitemark a:hover,.sitemark a:focus-visible{color:var(--accent-ink);border-bottom-color:var(--accent)}
+.sitemark a[aria-current]{color:var(--accent-ink);border-bottom-color:var(--accent)}
+/* the name goes back to the business site, which these pages sit inside */
+.sitemark a.home{margin-left:0;border-bottom:0}
+.sitemark a.home:hover b,.sitemark a.home:focus-visible b{color:var(--accent-ink)}
+@media (max-width:760px){.sitemark{left:18px;top:auto;bottom:34px}}
+
+/* ── outbound links on a chapter panel ──────────────────────────────────── */
+.panel .links{margin:12px 0 0;display:flex;flex-wrap:wrap;gap:7px}
+.panel .links a{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);border:1px solid var(--line);padding:3px 9px;text-decoration:none;
+  transition:background .15s,color .15s,border-color .15s}
+.panel .links a:hover,.panel .links a:focus-visible{background:var(--accent);color:var(--bg);
+  border-color:var(--accent)}
+.panel .links a[data-gone]{opacity:.6;text-decoration:line-through}

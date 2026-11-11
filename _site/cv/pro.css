@@ -1,0 +1,63 @@
+/* The professional page takes after raborndecisionsciences.com, the way the hobby page
+   takes after the hobby projects: navy bar, off-white page, white cards, teal accent,
+   Atkinson Hyperlegible. Loaded after site.css, on index.html only, and it overrides by
+   token where it can, so the layout and the engine are untouched. The fonts are the one
+   webfont on the site, linked from index.html; the stacks fall back to the system. */
+:root{
+  --bg:#f8fafc; --panel:#ffffff; --ink:#172033; --muted:#5b6475;
+  --line:#cbd5e1; --accent:#14b8a6; --accent-ink:#0f766e;
+  --navy:#172033; --bar:56px;
+  --sans:"Atkinson Hyperlegible",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:"Atkinson Hyperlegible Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+
+/* the business site's top bar, carrying the name, the page switch and the narration switch */
+body::before{content:"";position:fixed;left:0;right:0;top:0;height:var(--bar);z-index:25;
+  background:var(--navy);pointer-events:none}
+.sitemark{color:#94a3b8;top:21px}
+.sitemark b{color:#f8fafc}
+.sitemark a{color:#cbd5e1}
+.sitemark a:hover,.sitemark a:focus-visible,.sitemark a[aria-current]{color:#5eead4;
+  border-bottom-color:var(--accent)}
+.sitemark a.home:hover b,.sitemark a.home:focus-visible b{color:#5eead4}
+.vers{top:12px;background:transparent;border-color:#334155}
+.vers button{color:#cbd5e1;border-right-color:#334155}
+.vers button:hover{color:#f8fafc}
+.vers button[aria-pressed="true"]{background:var(--accent);color:var(--navy)}
+
+/* cards, as on the business site: white, a hairline, a teal edge on top */
+.panel{max-width:548px;padding:28px 34px;border:1px solid #e2e8f0;
+  border-top:3px solid var(--accent);
+  box-shadow:0 1px 3px rgba(23,32,51,.06),0 12px 32px -18px rgba(23,32,51,.28)}
+.panel h2{font-size:28px;line-height:1.18;font-weight:700;letter-spacing:-.005em;
+  margin-bottom:14px}
+.panel p{font-size:17px;line-height:1.6;color:#2f3a4a}
+.panel p code{font-family:var(--mono);font-size:14px}
+.panel .kicker{color:var(--muted)}
+.panel .figs{border-top-color:#e2e8f0}
+.panel a.sib{color:var(--accent-ink);border-bottom-color:var(--accent)}
+.panel a.sib:hover{background:var(--accent);color:var(--navy)}
+.panel .links a{border-color:var(--line);color:var(--muted)}
+.panel .links a:hover,.panel .links a:focus-visible{background:var(--accent);color:var(--navy);
+  border-color:var(--accent)}
+
+#rail button[aria-current="true"] i{background:var(--accent)}
+.live-shield:hover .live-play{color:var(--navy)}
+
+/* the map and the figures stay quiet so the cards read first */
+#grid line{opacity:.35}
+.node.hot rect{stroke:var(--accent)}
+
+/* on a phone the name and page switch drop to the bottom, off the bar, so they go dark again */
+@media (max-width:760px){
+  .sitemark{top:auto;color:var(--muted)}
+  .sitemark b{color:var(--ink)}
+  .sitemark a{color:var(--muted)}
+  .sitemark a[aria-current]{color:var(--accent-ink)}
+  .sitemark a.home:hover b,.sitemark a.home:focus-visible b{color:var(--accent-ink)}
+}
+
+/* the research chapter's reference list, hanging indent the way a paper sets one */
+.panel p.cite{font-size:14px;line-height:1.45;padding-left:1.4em;text-indent:-1.4em;margin-bottom:8px}
+.panel a.cite{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--accent)}
+.panel a.cite:hover{background:var(--accent);color:var(--navy)}

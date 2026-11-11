@@ -1,0 +1,1779 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mnemonic Log Deck</title>
+<link rel="icon" id="favicon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" id="fontLink" href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap">
+<style>
+  /* ---- SODIUM (default): sodium-lamp amber + ice on violet ink ---- */
+  :root{
+    --void:#0d0b12; --panel:#16121c; --panel-2:#1d1726; --grid:#2a2136;
+    --amber:#ff8a1f; --amber-dim:#a35a14; --ice:#7fd4ff; --crit:#ff2d55;
+    --clear:#5fbf7a; --violet:#b48cff;
+    --text:#e9e2f2; --dim:#8a7f9c; --faint:#5c5470;
+  }
+  /* ---- NEON RAIN: the classic cyan/magenta wet-street palette ---- */
+  :root[data-theme="rain"]{
+    --void:#06080f; --panel:#0d1220; --panel-2:#131a2c; --grid:#1e2940;
+    --amber:#00e5ff; --amber-dim:#0a7d8c; --ice:#ff4fd8; --crit:#ff3355;
+    --clear:#3dffa8; --violet:#b98cff;
+    --text:#dff3ff; --dim:#7f93b3; --faint:#4d5e7a;
+  }
+  /* ---- ACID: green-phosphor terminal. Statuses read by brightness. ---- */
+  :root[data-theme="acid"]{
+    --void:#050a06; --panel:#0a1410; --panel-2:#0f1d16; --grid:#1b3324;
+    --amber:#7dff4f; --amber-dim:#3d7d28; --ice:#d4ff5f; --crit:#ff5f3d;
+    --clear:#2fe08a; --violet:#a8ffb0;
+    --text:#d6ffd9; --dim:#6f9a78; --faint:#45664c;
+  }
+  /* ---- OUTRUN: synthwave hot pink + cyan on deep indigo ---- */
+  :root[data-theme="outrun"]{
+    --void:#0c0620; --panel:#160c30; --panel-2:#1e1140; --grid:#2e1e5c;
+    --amber:#ff2e88; --amber-dim:#8f1a4c; --ice:#2ff0ff; --crit:#ff5c3a;
+    --clear:#4dffb8; --violet:#b47cff;
+    --text:#f2e6ff; --dim:#9a86c4; --faint:#63538f;
+  }
+  /* ---- RUST: warm, grimy orange with patina-teal accents ---- */
+  :root[data-theme="rust"]{
+    --void:#0f0906; --panel:#1a100a; --panel-2:#241710; --grid:#3a2718;
+    --amber:#ff7a2f; --amber-dim:#9c4416; --ice:#6fd3c7; --crit:#e8324a;
+    --clear:#9dc24a; --violet:#bfa3c9;
+    --text:#f0e4d8; --dim:#a08b78; --faint:#6b5847;
+  }
+
+  /* Derived tints. Declared once; they recompute from whichever
+     palette wins the cascade, so a new theme needs only the block above. */
+  :root{
+    --glow-a:color-mix(in srgb, var(--amber) 10%, transparent);
+    --glow-b:color-mix(in srgb, var(--ice) 7%, transparent);
+    --tint:color-mix(in srgb, var(--amber) 5%, transparent);
+    --tint-bad:color-mix(in srgb, var(--crit) 6%, transparent);
+    --glow-clock:color-mix(in srgb, var(--amber) 32%, transparent);
+    --glow-sweep:color-mix(in srgb, var(--amber) 5.5%, transparent);
+    --mono:"Share Tech Mono",ui-monospace,"SF Mono",Consolas,Menlo,monospace;
+    --disp:"Share Tech Mono",ui-monospace,monospace;
+    --fs:1;            /* global type scale, set per font pairing */
+    --chamfer:12px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  /* A class with its own display would otherwise beat the [hidden] attribute. */
+  [hidden]{display:none !important}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:
+      radial-gradient(120% 80% at 82% -10%, var(--glow-a), transparent 60%),
+      radial-gradient(90% 70% at 5% 105%, var(--glow-b), transparent 65%),
+      var(--void);
+    color:var(--text); font-family:var(--disp); font-size:calc(15px * var(--fs)); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .veil{
+    position:fixed; inset:0; pointer-events:none; z-index:90; mix-blend-mode:multiply;
+    background:repeating-linear-gradient(to bottom,
+      rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,.20) 3px, rgba(0,0,0,0) 4px);
+  }
+  .veil::after{content:""; position:absolute; inset:0;
+    background:radial-gradient(130% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.5))}
+  .sweep{
+    position:fixed; left:0; right:0; height:140px; z-index:89; pointer-events:none;
+    background:linear-gradient(to bottom, transparent, var(--glow-sweep), transparent);
+    animation:sweep 9s linear infinite;
+  }
+  @keyframes sweep{ from{transform:translateY(-160px)} to{transform:translateY(105vh)} }
+
+  .wrap{max-width:1240px; margin:0 auto; padding:18px 16px 40px; position:relative; z-index:1}
+
+  /* rail */
+  .rail{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    border:1px solid var(--grid);
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    padding:10px 14px; margin-bottom:16px;
+    clip-path:polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+  .brand{font-weight:700; font-size:calc(18px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--amber); white-space:nowrap}
+  .brand span{color:var(--faint)}
+  @media (max-width:620px){
+    .brand{white-space:normal; font-size:calc(15px * var(--fs))}
+    .rail-meta{margin-left:0}
+    .pcode{white-space:normal; text-align:right}
+  }
+  .rail-meta{margin-left:auto; display:flex; gap:14px; flex-wrap:wrap; font-family:var(--mono); font-size:calc(12.5px * var(--fs)); color:var(--dim); letter-spacing:.06em}
+  .rail-meta b{color:var(--text); font-weight:500}
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--clear);box-shadow:0 0 8px var(--clear);margin-right:6px;vertical-align:middle}
+  .dot.off{background:var(--faint);box-shadow:none}
+  .dot.warn{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+
+  .deck{display:grid; grid-template-columns:1.6fr 1fr; gap:16px; align-items:start}
+  @media (max-width:880px){.deck{grid-template-columns:1fr}}
+  .stack{display:grid; gap:16px}
+
+  .panel{
+    position:relative; padding:16px 18px 18px;
+    background:linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 38%);
+    border:1px solid var(--grid);
+    clip-path:polygon(0 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, var(--chamfer) 100%, 0 calc(100% - var(--chamfer)));
+  }
+  .panel::before{content:""; position:absolute; top:0; left:0; width:38%; height:2px;
+    background:linear-gradient(90deg, var(--amber), transparent)}
+  .phead{display:flex; align-items:baseline; gap:10px; margin-bottom:14px; padding-bottom:10px; border-bottom:1px dashed var(--grid)}
+  .ptitle{font-weight:600; font-size:calc(14px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; margin:0}
+  .pcode{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--dim); letter-spacing:.1em; margin-left:auto; white-space:nowrap}
+
+  /* forms */
+  input[type=text], input[type=date], input[type=time], textarea, select{
+    font-family:var(--mono); font-size:calc(14px * var(--fs)); color:var(--text);
+    background:var(--void); border:1px solid var(--grid); padding:9px 11px; outline:none;
+  }
+  input[type=text]{width:100%}
+  input[type=text]::placeholder{color:var(--faint)}
+  input[type=text]:focus, input[type=date]:focus, input[type=time]:focus, textarea:focus{
+    border-color:var(--ice); box-shadow:0 0 0 1px var(--ice)}
+
+  /* backdating */
+  .bd-row{display:flex; gap:7px; align-items:center; flex-wrap:wrap; margin-top:9px}
+  .bd-fields{display:flex; gap:7px; align-items:center; flex-wrap:wrap}
+  .bd-fields input{padding:6px 8px; font-size:calc(13px * var(--fs))}
+  .bd-target{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.08em;
+    color:var(--ice); overflow-wrap:anywhere}
+  .bd-target.bad{color:var(--crit)}
+
+  button{
+    font-family:var(--disp); font-weight:600; font-size:calc(13px * var(--fs)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--void); background:var(--amber); border:none; padding:10px 16px; cursor:pointer;
+    clip-path:polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    transition:filter .12s ease;
+  }
+  button:hover:not(:disabled){filter:brightness(1.15)}
+  button:disabled{background:var(--grid); color:var(--faint); cursor:not-allowed}
+  button:focus-visible{outline:2px solid var(--ice); outline-offset:2px}
+  button.ghost{background:transparent; color:var(--dim); border:1px solid var(--grid); clip-path:none; padding:7px 11px}
+  button.ghost:hover:not(:disabled){color:var(--text); border-color:var(--ice); filter:none}
+
+  /* status segmented control */
+  .segs{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px}
+  .seg{
+    font-family:var(--mono); font-size:calc(12.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
+    background:var(--void); color:var(--faint); border:1px solid var(--grid);
+    padding:6px 10px; cursor:pointer; clip-path:none; font-weight:500;
+  }
+  .seg:hover{color:var(--text)}
+  .seg[aria-pressed="true"]{color:var(--void); font-weight:700}
+  .seg[data-s="TODO"][aria-pressed="true"]{background:var(--amber); border-color:var(--amber)}
+  .seg[data-s="IN PROGRESS"][aria-pressed="true"]{background:var(--ice); border-color:var(--ice)}
+  .seg[data-s="DONE"][aria-pressed="true"]{background:var(--clear); border-color:var(--clear)}
+  .seg[data-s="ON HOLD"][aria-pressed="true"]{background:var(--crit); border-color:var(--crit)}
+  .seg[data-s="NOTE"][aria-pressed="true"]{background:var(--violet); border-color:var(--violet)}
+  .seg[data-f][aria-pressed="true"]{background:var(--ice); border-color:var(--ice); color:var(--void); font-weight:700}
+  #backdateToggle[aria-pressed="true"]{background:var(--amber); border-color:var(--amber); color:var(--void); font-weight:700}
+  .seg .k{opacity:.55; margin-left:5px; font-size:calc(10.5px * var(--fs))}
+
+  .composer-row{display:flex; gap:8px; align-items:stretch}
+  .composer-row input{flex:1 1 auto; min-width:0}
+  .composer-row button{flex:0 0 auto}
+
+  .hint{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--dim); letter-spacing:.08em; margin-top:8px; text-transform:uppercase}
+
+  .notice{
+    font-family:var(--mono); font-size:calc(12.5px * var(--fs)); line-height:1.65; color:var(--dim);
+    border:1px dashed var(--amber-dim); background:var(--tint);
+    padding:10px 12px; margin-bottom:13px;
+  }
+  .notice b{color:var(--amber); font-weight:500}
+  .notice.bad{border-color:var(--crit); background:var(--tint-bad)}
+  .notice.bad b{color:var(--crit)}
+  .notice code{color:var(--ice)}
+
+  /* stream */
+  .filters{display:flex; gap:6px; flex-wrap:wrap; margin:14px 0 10px}
+  .stream{list-style:none; margin:0; padding:0; display:grid; gap:6px; max-height:52vh; overflow-y:auto}
+  .entry{
+    display:flex; gap:11px; align-items:flex-start;
+    background:var(--void); border:1px solid var(--grid); border-left:3px solid var(--faint);
+    padding:9px 12px;
+  }
+  .entry[data-s="TODO"]{border-left-color:var(--amber)}
+  .entry[data-s="IN PROGRESS"]{border-left-color:var(--ice)}
+  .entry[data-s="DONE"]{border-left-color:var(--clear)}
+  .entry[data-s="ON HOLD"]{border-left-color:var(--crit)}
+  .entry[data-s="NOTE"]{border-left-color:var(--violet)}
+  .entry.dim{opacity:.45}
+  .e-body{flex:1 1 auto; min-width:0}
+  .e-text{font-size:calc(15.5px * var(--fs)); overflow-wrap:anywhere}
+  .e-meta{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.1em; color:var(--dim); margin-top:3px; display:flex; gap:10px; flex-wrap:wrap}
+  .e-meta .st{font-weight:700}
+  .st-TODO{color:var(--amber)} .st-IN.PROGRESS{color:var(--ice)}
+  .e-meta .st[data-s="IN PROGRESS"]{color:var(--ice)}
+  .e-meta .st[data-s="TODO"]{color:var(--amber)}
+  .e-meta .st[data-s="DONE"]{color:var(--clear)}
+  .e-meta .st[data-s="ON HOLD"]{color:var(--crit)}
+  .e-meta .st[data-s="NOTE"]{color:var(--violet)}
+  .e-actions{flex:0 0 auto; display:flex; gap:4px}
+  .mini{
+    background:transparent; color:var(--faint); border:1px solid transparent;
+    font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.06em; padding:3px 6px; clip-path:none; text-transform:none;
+  }
+  .mini:hover:not(:disabled){color:var(--ice); border-color:var(--ice); filter:none}
+
+  .empty{font-family:var(--mono); font-size:calc(13px * var(--fs)); color:var(--faint); padding:14px 0; text-align:center}
+
+  /* week nav */
+  .weeknav{display:flex; align-items:center; gap:8px; margin-bottom:12px}
+  .weekid{font-family:var(--mono); font-size:calc(20px * var(--fs)); font-weight:700; color:var(--amber); letter-spacing:.04em; flex:1 1 auto; text-align:center}
+  .pathline{
+    font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--dim); overflow-wrap:anywhere;
+    background:var(--void); border:1px solid var(--grid); padding:8px 10px; line-height:1.6;
+  }
+  .pathline b{color:var(--ice); font-weight:500}
+
+  /* tally */
+  .tally{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--grid)}
+  .tcell{background:var(--panel); padding:10px 12px; display:flex; align-items:baseline; gap:8px}
+  .tcell .n{font-family:var(--mono); font-size:calc(22px * var(--fs)); font-weight:700; font-variant-numeric:tabular-nums; min-width:1.6em}
+  .tcell .l{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.13em; text-transform:uppercase; color:var(--dim)}
+  .tcell[data-s="TODO"] .n{color:var(--amber)}
+  .tcell[data-s="IN PROGRESS"] .n{color:var(--ice)}
+  .tcell[data-s="DONE"] .n{color:var(--clear)}
+  .tcell[data-s="ON HOLD"] .n{color:var(--crit)}
+  .tcell[data-s="NOTE"] .n{color:var(--violet)}
+  .tcell[data-s="ALL"] .n{color:var(--text)}
+
+  /* chrono */
+  .clock{font-family:var(--mono); font-weight:700; font-size:clamp(calc(28px * var(--fs)), 6vw, calc(38px * var(--fs))); line-height:1;
+    color:var(--amber); font-variant-numeric:tabular-nums; text-shadow:0 0 22px var(--glow-clock)}
+  .clock .sec{font-size:.5em; color:var(--amber-dim)}
+  .chrono-sub{font-family:var(--mono); font-size:calc(12.5px * var(--fs)); color:var(--dim); letter-spacing:.08em; margin-top:7px; text-transform:uppercase}
+  .stamp-preview{font-family:var(--mono); font-size:calc(12.5px * var(--fs)); color:var(--ice); margin-top:9px; word-break:break-all}
+
+  /* raw */
+  textarea{width:100%; min-height:190px; resize:vertical; line-height:1.7; display:block; white-space:pre; overflow-wrap:normal; overflow-x:auto}
+  .rawbar{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px}
+  .savestate{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--faint); margin-left:auto}
+  .savestate.ok{color:var(--clear)} .savestate.pending{color:var(--amber)} .savestate.bad{color:var(--crit)}
+  .savestate.warn{color:var(--ice)}
+
+  .foot{margin-top:22px; font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.1em; color:var(--faint); text-align:center; text-transform:uppercase}
+
+  /* integrity */
+  .issues{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+  .issue{
+    background:var(--void); border:1px solid var(--grid); border-left:3px solid var(--amber);
+    padding:8px 10px; font-family:var(--mono); font-size:calc(12.5px * var(--fs)); line-height:1.55;
+  }
+  .issue[data-k="fatal"]{border-left-color:var(--crit)}
+  .issue[data-k="drift"]{border-left-color:var(--ice)}
+  .issue[data-k="dupe"], .issue[data-k="whitespace"], .issue[data-k="tab"]{border-left-color:var(--faint)}
+  .issue .ln{color:var(--faint); letter-spacing:.1em}
+  .issue .msg{color:var(--text); display:block; margin-top:2px}
+  .issue .src{color:var(--dim); display:block; margin-top:4px; white-space:pre-wrap; overflow-wrap:anywhere; opacity:.75}
+  .issue .act{margin-top:6px; display:flex; gap:5px}
+  .clean{font-family:var(--mono); font-size:calc(13px * var(--fs)); color:var(--clear); letter-spacing:.08em; padding:6px 0}
+  .clean.none{color:var(--faint)}
+
+  /* integrity check grid: what was actually verified */
+  .checks{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--grid); margin-bottom:12px;
+  }
+  @media (max-width:430px){ .checks{grid-template-columns:repeat(2,1fr)} }
+  .chk{background:var(--panel); padding:7px 8px; display:flex; flex-direction:column; gap:2px}
+  .chk-k{
+    font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em;
+    text-transform:uppercase; color:var(--faint);
+  }
+  .chk-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--clear); font-weight:700}
+  .chk[data-bad="1"] .chk-v{color:var(--crit)}
+  .chk[data-bad="1"] .chk-k{color:var(--dim)}
+
+  /* chrono: day cycle + week strip */
+  .daybar{margin-top:13px}
+  .daybar-track{height:5px; background:var(--void); border:1px solid var(--grid); position:relative; overflow:hidden}
+  .daybar-fill{position:absolute; inset:0 auto 0 0; width:0%;
+    background:linear-gradient(90deg,var(--amber-dim),var(--amber))}
+  .daybar-ends{
+    display:flex; justify-content:space-between; margin-top:5px;
+    font-family:var(--mono); font-size:calc(9.5px * var(--fs));
+    letter-spacing:.1em; color:var(--faint);
+  }
+  .weekstrip{display:grid; grid-template-columns:repeat(7,1fr); gap:3px; margin-top:13px}
+  .wd{
+    background:var(--void); border:1px solid var(--grid); padding:5px 2px 4px;
+    text-align:center; font-family:var(--mono); line-height:1.25;
+  }
+  .wd-l{font-size:calc(9.5px * var(--fs)); color:var(--faint); letter-spacing:.06em}
+  .wd-n{font-size:calc(12px * var(--fs)); color:var(--dim); font-variant-numeric:tabular-nums}
+  .wd[data-logged="1"]{border-color:var(--amber-dim)}
+  .wd[data-logged="1"] .wd-n{color:var(--amber)}
+  .wd[data-today="1"]{border-color:var(--ice); box-shadow:0 0 0 1px var(--ice)}
+  .wd[data-today="1"] .wd-l{color:var(--ice)}
+  .wd[data-future="1"]{opacity:.38}
+
+  /* font picker */
+  .font-edit{
+    flex:1 1 100%; display:flex; gap:7px; align-items:center; flex-wrap:wrap;
+    margin-top:10px; padding-top:10px; border-top:1px dashed var(--grid);
+  }
+  .font-edit select{flex:0 1 300px; min-width:0; padding:6px 9px; cursor:pointer}
+  .fs-step{display:flex; align-items:center; gap:5px}
+  .fs-step .ghost{padding:5px 10px; font-size:calc(13px * var(--fs))}
+  .fs-read{
+    font-family:var(--mono); font-size:calc(11.5px * var(--fs)); color:var(--ice);
+    min-width:4.2em; text-align:center; font-variant-numeric:tabular-nums;
+  }
+  #fontToggle[aria-pressed="true"]{background:var(--ice); border-color:var(--ice); color:var(--void); font-weight:700}
+
+  /* name editor */
+  .name-edit{
+    flex:1 1 100%; display:flex; gap:7px; align-items:center; flex-wrap:wrap;
+    margin-top:10px; padding-top:10px; border-top:1px dashed var(--grid);
+  }
+  .name-edit input{flex:0 1 190px; min-width:0; padding:6px 9px; font-size:calc(13px * var(--fs))}
+  .name-note{
+    font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.06em; color:var(--faint);
+    flex:1 1 auto; min-width:0;
+  }
+  #nameToggle[aria-pressed="true"]{background:var(--ice); border-color:var(--ice); color:var(--void); font-weight:700}
+
+  /* theme picker */
+  .themes{display:flex; gap:5px; align-items:center; margin-left:14px}
+  .swatch{
+    width:19px; height:19px; padding:0; border:1px solid var(--grid); cursor:pointer;
+    clip-path:polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
+    background:var(--sw-bg); position:relative;
+  }
+  .swatch::after{
+    content:""; position:absolute; inset:3px 3px auto 3px; height:3px; background:var(--sw-fg);
+  }
+  .swatch:hover{border-color:var(--sw-fg)}
+  .swatch[aria-pressed="true"]{border-color:var(--sw-fg); box-shadow:0 0 0 1px var(--sw-fg)}
+  .swatch:focus-visible{outline:2px solid var(--ice); outline-offset:2px}
+
+  .sr{position:absolute; left:-9999px}
+  @media (prefers-reduced-motion:reduce){
+    .sweep{display:none}
+    *{animation-duration:.001ms!important; transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="sweep" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <header class="rail">
+    <div class="brand" id="brand"></div>
+    <div class="rail-meta">
+      <span><span class="dot off" id="rootDot"></span>ROOT <b id="rootState">NOT SET</b></span>
+      <span>FILE <b id="fileState">&mdash;</b></span>
+      <span>ENTRIES <b id="entryState">0</b></span>
+      <span class="themes" id="themes" role="group" aria-label="Color scheme"></span>
+      <button type="button" class="seg" id="fontToggle" aria-pressed="false">Font</button>
+      <button type="button" class="seg" id="nameToggle" aria-pressed="false">Name</button>
+      <div class="font-edit" id="fontEdit" hidden>
+        <label for="fontPick" class="sr">Font pairing</label>
+        <select id="fontPick"></select>
+        <span class="fs-step">
+          <button type="button" class="ghost" id="fsDown" aria-label="Smaller type">&minus;</button>
+          <span class="fs-read" id="fsRead">100%</span>
+          <button type="button" class="ghost" id="fsUp" aria-label="Larger type">+</button>
+        </span>
+        <button type="button" class="ghost" id="fontReset">Reset</button>
+        <span class="name-note" id="fontNote"></span>
+      </div>
+      <div class="name-edit" id="nameEdit" hidden>
+        <label for="nameDeck" class="sr">Deck name</label>
+        <input type="text" id="nameDeck" maxlength="40" placeholder="Deck name" autocomplete="off">
+        <label for="nameProject" class="sr">Suffix</label>
+        <input type="text" id="nameProject" maxlength="40" placeholder="Suffix (optional)" autocomplete="off">
+        <button type="button" class="ghost" id="nameSave">Save</button>
+        <button type="button" class="ghost" id="nameReset">Reset</button>
+        <span class="name-note">Saved in this browser only &mdash; it doesn&rsquo;t travel with the file.</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="setupNotice"></div>
+
+  <div class="deck">
+
+    <!-- ============ LOG STREAM ============ -->
+    <section class="panel" aria-labelledby="streamTitle">
+      <div class="phead">
+        <h2 class="ptitle" id="streamTitle">Log Stream</h2>
+        <span class="pcode" id="streamCode">&mdash;</span>
+      </div>
+
+      <div id="composerNotice"></div>
+
+      <div class="segs" id="statusSegs" role="group" aria-label="Entry status">
+        <button type="button" class="seg" data-s="TODO"        aria-pressed="false">TODO<span class="k">1</span></button>
+        <button type="button" class="seg" data-s="IN PROGRESS" aria-pressed="false">In Progress<span class="k">2</span></button>
+        <button type="button" class="seg" data-s="DONE"        aria-pressed="false">Done<span class="k">3</span></button>
+        <button type="button" class="seg" data-s="ON HOLD"     aria-pressed="false">On Hold<span class="k">4</span></button>
+        <button type="button" class="seg" data-s="NOTE"        aria-pressed="true">Note<span class="k">5</span></button>
+      </div>
+
+      <form class="composer-row" id="composer">
+        <label for="entryText" class="sr">Entry text</label>
+        <input type="text" id="entryText" placeholder="Log an entry&hellip;" autocomplete="off" maxlength="600">
+        <button type="submit" id="appendBtn">Append</button>
+      </form>
+      <div class="bd-row">
+        <button type="button" class="seg" id="backdateToggle" aria-pressed="false">Backdate</button>
+        <span class="bd-fields" id="bdFields" hidden>
+          <label for="bdDate" class="sr">Entry date</label>
+          <input type="date" id="bdDate">
+          <label for="bdTime" class="sr">Entry time</label>
+          <input type="time" id="bdTime">
+          <span class="bd-target" id="bdTarget"></span>
+        </span>
+      </div>
+      <div class="hint" id="composerHint">Enter to append &middot; Alt+1&ndash;5 to switch status</div>
+
+      <div class="filters" id="filters" role="group" aria-label="Filter by status">
+        <button type="button" class="seg" data-f="ALL" aria-pressed="true">All</button>
+        <button type="button" class="seg" data-f="TODO" aria-pressed="false">TODO</button>
+        <button type="button" class="seg" data-f="IN PROGRESS" aria-pressed="false">In Progress</button>
+        <button type="button" class="seg" data-f="DONE" aria-pressed="false">Done</button>
+        <button type="button" class="seg" data-f="ON HOLD" aria-pressed="false">On Hold</button>
+        <button type="button" class="seg" data-f="NOTE" aria-pressed="false">Note</button>
+      </div>
+
+      <ul class="stream" id="stream"></ul>
+    </section>
+
+    <!-- ============ RIGHT COLUMN ============ -->
+    <div class="stack">
+
+      <section class="panel" aria-labelledby="weekTitle">
+        <div class="phead">
+          <h2 class="ptitle" id="weekTitle">Week File</h2>
+          <span class="pcode" id="weekRange">&mdash;</span>
+        </div>
+        <div class="weeknav">
+          <button type="button" class="ghost" id="prevWeek" aria-label="Previous week">&#9664;</button>
+          <span class="weekid" id="weekId">&mdash;</span>
+          <button type="button" class="ghost" id="nextWeek" aria-label="Next week">&#9654;</button>
+        </div>
+        <div class="pathline" id="pathLine">Pick a root directory to bind the deck to your log files.</div>
+        <div class="rawbar">
+          <button type="button" class="ghost" id="pickRoot">Set root&hellip;</button>
+          <button type="button" class="ghost" id="thisWeek">This week</button>
+          <button type="button" class="ghost" id="reloadFile">Reload</button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="tallyTitle">
+        <div class="phead">
+          <h2 class="ptitle" id="tallyTitle">Tally</h2>
+          <span class="pcode">THIS FILE</span>
+        </div>
+        <div class="tally" id="tally">
+          <div class="tcell" data-s="ALL"><span class="n" id="nALL">0</span><span class="l">Lines</span></div>
+          <div class="tcell" data-s="TODO"><span class="n" id="nTODO">0</span><span class="l">Todo</span></div>
+          <div class="tcell" data-s="IN PROGRESS"><span class="n" id="nIN_PROGRESS">0</span><span class="l">In progress</span></div>
+          <div class="tcell" data-s="DONE"><span class="n" id="nDONE">0</span><span class="l">Done</span></div>
+          <div class="tcell" data-s="ON HOLD"><span class="n" id="nON_HOLD">0</span><span class="l">On hold</span></div>
+          <div class="tcell" data-s="NOTE"><span class="n" id="nNOTE">0</span><span class="l">Note</span></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="integrityTitle">
+        <div class="phead">
+          <h2 class="ptitle" id="integrityTitle">Integrity</h2>
+          <span class="pcode" id="integrityCode">&mdash;</span>
+        </div>
+        <div class="checks" id="checks"></div>
+        <ul class="issues" id="issues"></ul>
+      </section>
+
+      <section class="panel" aria-labelledby="chronoTitle">
+        <div class="phead">
+          <h2 class="ptitle" id="chronoTitle">Chrono</h2>
+          <span class="pcode" id="isoNow">&mdash;</span>
+        </div>
+        <div class="clock"><span id="hhmm">--:--</span><span class="sec" id="ss">:--</span></div>
+        <div class="chrono-sub" id="dateLine">&nbsp;</div>
+        <div class="stamp-preview" id="stampPreview">&nbsp;</div>
+        <div class="daybar" aria-hidden="true">
+          <div class="daybar-track"><div class="daybar-fill" id="dayFill"></div></div>
+          <div class="daybar-ends"><span>00:00</span><span id="dayPct">&mdash;</span><span>24:00</span></div>
+        </div>
+        <div class="weekstrip" id="weekStrip" role="img" aria-label="Days logged this week"></div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ============ RAW BUFFER ============ -->
+  <section class="panel" style="margin-top:16px" aria-labelledby="rawTitle">
+    <div class="phead">
+      <h2 class="ptitle" id="rawTitle">Raw Buffer</h2>
+      <span class="pcode" id="rawCode">READ-ONLY UNTIL ROOT IS SET</span>
+    </div>
+    <label for="raw" class="sr">Raw file contents</label>
+    <textarea id="raw" spellcheck="false" placeholder="The week file's exact contents appear here."></textarea>
+    <div class="rawbar">
+      <button type="button" class="ghost" id="copyRaw">Copy</button>
+      <button type="button" class="ghost" id="downloadRaw">Download .txt</button>
+      <button type="button" id="saveRaw" disabled>Save to file</button>
+      <span class="savestate" id="saveState">&nbsp;</span>
+    </div>
+    <div class="hint">Edits here overwrite the whole week file. Every line needs its leading <code>[timestamp]</code> bracket to parse.</div>
+  </section>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STATUSES = ["TODO","IN PROGRESS","DONE","ON HOLD","NOTE"];
+  /* ===================== NAMING =====================================
+     Every user-visible mention of your project lives in this one block.
+     Change these strings to rebrand the deck; nothing else in the file
+     names the project. Behaviour is unaffected -- the file format, the
+     logs/ directory and the YYYY-Www.txt naming are fixed by the parser,
+     not by anything here.
+     ================================================================== */
+  var NAMING = {
+    deck:     "Mnemonic",          // large text in the top-left rail
+    project:  "LOG DECK",          // the greyed "// ..." after it
+    title:    "Mnemonic Log Deck", // browser tab and window title
+    parser:   "the parser",        // how Integrity messages refer to your parser
+    pickerId: "mnemonic-root"      // the browser remembers a folder per id
+  };
+
+  // Per-browser override of deck/project, set from the rail's Name control.
+  // localStorage is per origin and per browser: a name set here does NOT
+  // travel with the file. Change the defaults above for that.
+  var NAME_KEY = "mnemonic-naming";
+
+  function loadNamingOverride(){
+    try {
+      var raw = localStorage.getItem(NAME_KEY);
+      if (!raw) return;
+      var o = JSON.parse(raw);
+      if (o && typeof o.deck === "string" && o.deck.trim()) {
+        NAMING.deck = o.deck.trim();
+        NAMING.title = NAMING.deck;
+      }
+      if (o && typeof o.project === "string") NAMING.project = o.project.trim();
+    } catch(e){}
+  }
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ===================== FONT PAIRINGS ==============================
+     Each pairing carries its own type scale, because the px sizes in
+     this file were tuned for Share Tech Mono -- a thin face that sits
+     small on the body. A larger-bodied face needs the same layout set
+     a little smaller. Nudge any of these with the +/- control; the
+     value you land on is what belongs in `fs` here.
+     ================================================================== */
+  var FONTS = [
+    { id:"terminal", label:"Terminal \u2014 Share Tech Mono", fs:1,
+      link:"family=Share+Tech+Mono",
+      disp:'"Share Tech Mono",ui-monospace,monospace',
+      mono:'"Share Tech Mono",ui-monospace,"SF Mono",Consolas,Menlo,monospace' },
+    { id:"hud", label:"HUD \u2014 Chakra Petch + JetBrains Mono", fs:0.92,
+      link:"family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700",
+      disp:'"Chakra Petch","Avenir Next Condensed",system-ui,sans-serif',
+      mono:'"JetBrains Mono",ui-monospace,"SF Mono",Consolas,Menlo,monospace' },
+    { id:"noir", label:"Neon-noir \u2014 Michroma + Share Tech Mono", fs:0.84,
+      link:"family=Michroma&family=Share+Tech+Mono",
+      disp:'"Michroma","Avenir Next Condensed",system-ui,sans-serif',
+      mono:'"Share Tech Mono",ui-monospace,"SF Mono",Consolas,Menlo,monospace' },
+    { id:"tokyo", label:"Neo-Tokyo \u2014 Zen Dots + M PLUS 1 Code", fs:0.86,
+      link:"family=Zen+Dots&family=M+PLUS+1+Code:wght@400;500;700",
+      disp:'"Zen Dots","Avenir Next Condensed",system-ui,sans-serif',
+      mono:'"M PLUS 1 Code",ui-monospace,"SF Mono",Consolas,Menlo,monospace' },
+    { id:"retro", label:"Retro-future \u2014 Audiowide + Space Mono", fs:0.88,
+      link:"family=Audiowide&family=Space+Mono:wght@400;700",
+      disp:'"Audiowide","Avenir Next Condensed",system-ui,sans-serif',
+      mono:'"Space Mono",ui-monospace,"SF Mono",Consolas,Menlo,monospace' },
+    { id:"industrial", label:"Industrial \u2014 Saira Condensed + IBM Plex Mono", fs:0.95,
+      link:"family=Saira+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700",
+      disp:'"Saira Condensed","Avenir Next Condensed",system-ui,sans-serif',
+      mono:'"IBM Plex Mono",ui-monospace,"SF Mono",Consolas,Menlo,monospace' }
+  ];
+
+  var FONT_KEY = "mnemonic-font";
+  var fontState = {id:FONTS[0].id, fs:FONTS[0].fs};
+
+  function fontById(id){
+    for (var i=0;i<FONTS.length;i++) if (FONTS[i].id === id) return FONTS[i];
+    return FONTS[0];
+  }
+
+  function applyFont(){
+    var f = fontById(fontState.id);
+    // Load only the chosen families; swapping the href is enough.
+    var href = "https://fonts.googleapis.com/css2?" + f.link + "&display=swap";
+    var link = $("fontLink");
+    if (link.getAttribute("href") !== href) link.setAttribute("href", href);
+
+    var root = document.documentElement;
+    root.style.setProperty("--disp", f.disp);
+    root.style.setProperty("--mono", f.mono);
+    root.style.setProperty("--fs", String(fontState.fs));
+
+    $("fontPick").value = f.id;
+    $("fsRead").textContent = Math.round(fontState.fs * 100) + "%";
+    $("fontNote").textContent = (f.fs === fontState.fs)
+      ? "Tuned scale for this pairing."
+      : "Adjusted from " + Math.round(f.fs * 100) + "%.";
+
+    try { localStorage.setItem(FONT_KEY, JSON.stringify(fontState)); } catch(e){}
+  }
+
+  function nudgeFont(delta){
+    var v = Math.round((fontState.fs + delta) * 100) / 100;
+    fontState.fs = Math.min(1.4, Math.max(0.7, v));
+    applyFont();
+  }
+
+  function buildFonts(){
+    var sel = $("fontPick");
+    FONTS.forEach(function(f){
+      var o = document.createElement("option");
+      o.value = f.id; o.textContent = f.label;
+      sel.appendChild(o);
+    });
+    try {
+      var raw = localStorage.getItem(FONT_KEY);
+      if (raw) {
+        var o2 = JSON.parse(raw);
+        if (o2 && typeof o2.id === "string") fontState.id = fontById(o2.id).id;
+        if (o2 && typeof o2.fs === "number" && o2.fs >= 0.7 && o2.fs <= 1.4) fontState.fs = o2.fs;
+      }
+    } catch(e){}
+    sel.addEventListener("change", function(){
+      fontState.id = sel.value;
+      fontState.fs = fontById(sel.value).fs;   // adopt that pairing's tuned scale
+      applyFont();
+    });
+    $("fsDown").addEventListener("click", function(){ nudgeFont(-0.02); });
+    $("fsUp").addEventListener("click", function(){ nudgeFont(0.02); });
+    $("fontReset").addEventListener("click", function(){
+      fontState = {id:FONTS[0].id, fs:FONTS[0].fs};
+      applyFont();
+    });
+    $("fontToggle").addEventListener("click", function(){
+      var open = $("fontEdit").hidden;
+      $("fontEdit").hidden = !open;
+      $("fontToggle").setAttribute("aria-pressed", open ? "true" : "false");
+    });
+    applyFont();
+  }
+
+  function saveNaming(){
+    var deck = $("nameDeck").value.trim();
+    var project = $("nameProject").value.trim();
+    if (!deck) { $("nameDeck").focus(); return; }
+    NAMING.deck = deck;
+    NAMING.project = project;
+    NAMING.title = deck;
+    try { localStorage.setItem(NAME_KEY, JSON.stringify({deck:deck, project:project})); } catch(e){}
+    applyNaming();
+  }
+
+  function resetNaming(){
+    try { localStorage.removeItem(NAME_KEY); } catch(e){}
+    NAMING.deck = DEFAULT_NAMING.deck;
+    NAMING.project = DEFAULT_NAMING.project;
+    NAMING.title = DEFAULT_NAMING.title;
+    $("nameDeck").value = NAMING.deck;
+    $("nameProject").value = NAMING.project;
+    applyNaming();
+  }
+
+  function applyNaming(){
+    document.title = NAMING.title;
+    $("brand").innerHTML = esc(NAMING.deck) +
+      (NAMING.project ? ' <span>// ' + esc(NAMING.project) + "</span>" : "");
+    $("foot").innerHTML = esc(NAMING.title) +
+      " &mdash; writes <code>&lt;root&gt;/logs/YYYY-Www.txt</code>";
+    $("nameDeck").value = NAMING.deck;
+    $("nameProject").value = NAMING.project;
+  }
+
+  $("nameToggle").addEventListener("click", function(){
+    var open = $("nameEdit").hidden;
+    $("nameEdit").hidden = !open;
+    $("nameToggle").setAttribute("aria-pressed", open ? "true" : "false");
+    if (open) $("nameDeck").focus();
+  });
+  $("nameSave").addEventListener("click", saveNaming);
+  $("nameReset").addEventListener("click", resetNaming);
+  $("nameEdit").addEventListener("keydown", function(e){
+    if (e.key === "Enter") { e.preventDefault(); saveNaming(); }
+  });
+
+  var state = {
+    root: null,          // FileSystemDirectoryHandle
+    rootName: "",
+    fileHandle: null,
+    cursor: new Date(),  // which week is being viewed
+    status: "NOTE",
+    filter: "ALL",
+    lines: [],           // raw lines of the current week file
+    fsa: typeof window.showDirectoryPicker === "function",
+    backdate: false,     // when on, the entry's own timestamp picks the file
+    lastMod: null,       // file.lastModified as of our last read/write
+    sawCRLF: false,
+    issues: []
+  };
+
+  /* ================= ISO week ================= */
+  function isoParts(d){
+    var t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    var day = t.getUTCDay() || 7;             // Mon=1 .. Sun=7
+    t.setUTCDate(t.getUTCDate() + 4 - day);   // to that week's Thursday
+    var year = t.getUTCFullYear();
+    var jan1 = Date.UTC(year, 0, 1);
+    var week = Math.ceil(((t.getTime() - jan1) / 86400000 + 1) / 7);
+    return {year:year, week:week};
+  }
+  function pad2(n){ return n < 10 ? "0" + n : "" + n; }
+  function weekIdOf(d){ var p = isoParts(d); return p.year + "-W" + pad2(p.week); }
+  function mondayOf(d){
+    var x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    var day = x.getDay() || 7;
+    x.setDate(x.getDate() - (day - 1));
+    return x;
+  }
+  function shortDate(d){ return (d.getMonth()+1) + "/" + d.getDate(); }
+
+  /* ================= timestamp ================= */
+  function stampOf(d){
+    var h = d.getHours();
+    var ap = h < 12 ? "AM" : "PM";
+    var hh = h % 12; if (hh === 0) hh = 12;
+    return hh + ":" + pad2(d.getMinutes()) + " " + ap + " "
+         + (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear();
+  }
+
+  /* ================= line format / parse ================= */
+  // Mirrors the parser: only the leading [...] is required.
+  var LINE_RE = /^\[([^\]]*)\]\s*(.*)$/;
+  var STATUS_RE = /^(TODO|IN PROGRESS|DONE|ON HOLD)\s*:\s*([\s\S]*)$/;
+
+  function parseLine(line){
+    var m = LINE_RE.exec(line);
+    if (!m) return null;
+    var rest = m[2];
+    var sm = STATUS_RE.exec(rest);
+    if (sm) return {ts:m[1], status:sm[1], text:sm[2].trim(), raw:line};
+    return {ts:m[1], status:"NOTE", text:rest.trim(), raw:line};
+  }
+
+  function formatLine(status, text, d){
+    var clean = String(text).replace(/[\r\n\t]+/g, " ").trim();
+    var head = "[" + stampOf(d || new Date()) + "] ";
+    return status === "NOTE" ? head + clean : head + status + ": " + clean;
+  }
+
+  /* ================= chrono ================= */
+  function tick(){
+    var now = new Date();
+    $("hhmm").textContent = pad2(now.getHours()) + ":" + pad2(now.getMinutes());
+    $("ss").textContent = ":" + pad2(now.getSeconds());
+    $("dateLine").textContent = now.toLocaleDateString(undefined,
+      {weekday:"long", year:"numeric", month:"short", day:"numeric"});
+    $("isoNow").textContent = weekIdOf(now);
+    $("stampPreview").textContent = "[" + stampOf(now) + "]";
+
+    var dayFrac = (now.getHours()*3600 + now.getMinutes()*60 + now.getSeconds()) / 86400;
+    $("dayFill").style.width = (dayFrac*100).toFixed(2) + "%";
+    $("dayPct").textContent = "DAY " + Math.round(dayFrac*100) + "%";
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ================= IndexedDB: remember the root handle ================= */
+  function idb(){
+    return new Promise(function(res, rej){
+      var rq = indexedDB.open("sodium-log-deck", 1);
+      rq.onupgradeneeded = function(){ rq.result.createObjectStore("kv"); };
+      rq.onsuccess = function(){ res(rq.result); };
+      rq.onerror = function(){ rej(rq.error); };
+    });
+  }
+  function idbSet(k, v){
+    return idb().then(function(db){
+      return new Promise(function(res, rej){
+        var tx = db.transaction("kv","readwrite");
+        tx.objectStore("kv").put(v, k);
+        tx.oncomplete = res; tx.onerror = function(){ rej(tx.error); };
+      });
+    });
+  }
+  function idbGet(k){
+    return idb().then(function(db){
+      return new Promise(function(res, rej){
+        var tx = db.transaction("kv","readonly");
+        var rq = tx.objectStore("kv").get(k);
+        rq.onsuccess = function(){ res(rq.result); };
+        rq.onerror = function(){ rej(rq.error); };
+      });
+    });
+  }
+
+  /* ================= notices ================= */
+  function notice(host, html, bad){
+    var el = $(host);
+    if (!html) { el.innerHTML = ""; return; }
+    el.innerHTML = '<div class="notice' + (bad ? " bad" : "") + '">' + html + '</div>';
+  }
+
+  function renderSetup(){
+    if (!state.fsa) {
+      notice("setupNotice",
+        "<b>This browser won’t write files directly.</b> The File System Access API isn’t available here — " +
+        "use Chrome or Edge to bind a root directory. Until then the deck keeps entries in this browser only; " +
+        "use <code>Download .txt</code> and drop the file into <code>&lt;root&gt;/logs/</code> yourself.", true);
+    } else if (!state.root) {
+      notice("setupNotice",
+        "<b>No root directory bound.</b> Hit <code>Set root…</code> and pick the same folder you pass to " +
+        "your log root \u2014 the folder that holds (or will hold) <code>logs/</code>. " +
+        "The deck creates <code>logs/</code> inside it if it isn’t there yet, " +
+        "and remembers the folder next time you open this file.");
+    } else {
+      notice("setupNotice", "");
+    }
+  }
+
+  /* ================= file I/O ================= */
+  function currentWeekId(){ return weekIdOf(state.cursor); }
+  function isCurrentWeek(){ return weekIdOf(state.cursor) === weekIdOf(new Date()); }
+
+  function setRootUI(){
+    $("rootDot").className = "dot" + (state.root ? "" : " off");
+    $("rootState").textContent = state.root ? state.rootName : (state.fsa ? "NOT SET" : "UNSUPPORTED");
+    $("fileState").textContent = currentWeekId() + ".txt";
+    $("pathLine").innerHTML = state.root
+      ? "<b>" + esc(state.rootName) + "</b>/logs/<b>" + currentWeekId() + ".txt</b>"
+      : "Pick a root directory to bind the deck to your log files.";
+    $("saveRaw").disabled = !state.root;
+    $("rawCode").textContent = state.root ? "EDITS OVERWRITE THE FILE" : "BROWSER-ONLY — NOT BOUND TO DISK";
+  }
+
+  // A folder named "logs", or one already holding YYYY-Www.txt files at its
+  // top level, is almost certainly the logs directory itself rather than the
+  // root the parser is configured with.
+  function looksLikeLogsDir(dir){
+    if (dir.name === "logs") return Promise.resolve(true);
+    return (async function(){
+      try {
+        var n = 0;
+        for await (var e of dir.values()) {
+          if (e.kind === "file" && /^\d{4}-W\d{2}\.txt$/.test(e.name)) return true;
+          if (++n > 300) break;
+        }
+      } catch(err){}
+      return false;
+    })();
+  }
+
+  // Bind only after proving the handle works. The picker can hand back a
+  // directory the browser then refuses to read or write (embedded and
+  // restricted browser views do exactly this), and claiming a root that
+  // silently fails every write is worse than reporting it up front.
+  function bindRoot(dir){
+    return (dir.requestPermission
+              ? dir.requestPermission({mode:"readwrite"})
+              : Promise.resolve("granted"))
+      .then(function(perm){
+        if (perm !== "granted") { var e = new Error("permission " + perm); e.name = "NotAllowedError"; throw e; }
+        return dir.getDirectoryHandle("logs", {create:true});   // real write probe
+      })
+      .then(function(){
+        state.root = dir;
+        state.rootName = dir.name;
+        return idbSet("root", dir).catch(function(){});
+      })
+      .then(function(){
+        renderSetup(); setRootUI(); return loadWeek();
+      })
+      .catch(function(err){
+        state.root = null; state.rootName = "";
+        setRootUI();
+        if (err && err.name === "NotAllowedError") {
+          notice("setupNotice",
+            "<b>That folder was picked, but this browser won\u2019t grant it file access.</b> " +
+            "Nothing was bound, so no writes will be attempted. Embedded and restricted browser " +
+            "views do this \u2014 open the deck in Chrome or Edge directly and pick the folder again.", true);
+        } else {
+          notice("setupNotice",
+            "<b>Couldn\u2019t use that folder.</b> " + esc(err && err.message || String(err)), true);
+        }
+      });
+  }
+
+  function pickRoot(){
+    if (!state.fsa) return;
+    window.showDirectoryPicker({mode:"readwrite", id:NAMING.pickerId}).then(function(dir){
+      return looksLikeLogsDir(dir).then(function(suspect){
+        if (!suspect) return bindRoot(dir);
+        notice("setupNotice",
+          "<b>That looks like the logs folder itself.</b> You picked <code>" + esc(dir.name) +
+          "</code>. The deck wants the <em>root</em> \u2014 the folder that <em>contains</em> " +
+          "<code>logs/</code> \u2014 otherwise it writes to " +
+          "<code>" + esc(dir.name) + "/logs/</code>. " +
+          '<button type="button" class="mini" id="rootAnyway">use it anyway</button>');
+        var b = $("rootAnyway");
+        if (b) b.addEventListener("click", function(){ bindRoot(dir); });
+      });
+    }).catch(function(err){
+      if (err && err.name === "AbortError") return;
+      notice("setupNotice", "<b>Couldn\u2019t open that folder.</b> " +
+        esc(err && err.message || String(err)), true);
+    });
+  }
+
+  function restoreRoot(){
+    if (!state.fsa) { renderSetup(); setRootUI(); renderAll(); return; }
+    idbGet("root").then(function(dir){
+      if (!dir) { renderSetup(); setRootUI(); renderAll(); return; }
+      return dir.queryPermission({mode:"readwrite"}).then(function(p){
+        if (p === "granted") {
+          state.root = dir; state.rootName = dir.name;
+          renderSetup(); setRootUI(); return loadWeek();
+        }
+        notice("setupNotice",
+          "<b>Root folder remembered:</b> <code>" + esc(dir.name) + "</code>. " +
+          "The browser needs you to re-grant write access — hit <code>Set root…</code> and pick it again.");
+        setRootUI(); renderAll();
+      });
+    }).catch(function(){ renderSetup(); setRootUI(); renderAll(); });
+  }
+
+  function getFileHandle(create){
+    if (!state.root) return Promise.resolve(null);
+    return state.root.getDirectoryHandle("logs", {create:true}).then(function(logs){
+      return logs.getFileHandle(currentWeekId() + ".txt", {create: !!create});
+    });
+  }
+
+  // Reads the week file fresh off disk. Resolves {lines, lastMod, crlf, missing}.
+  function readDisk(){
+    return getFileHandle(false).then(function(fh){
+      state.fileHandle = fh;
+      return fh.getFile();
+    }).then(function(f){
+      return f.text().then(function(t){
+        return {lines: splitLines(t), lastMod: f.lastModified, crlf: /\r\n/.test(t), missing:false};
+      });
+    }).catch(function(err){
+      if (err && err.name === "NotFoundError") {
+        state.fileHandle = null;
+        return {lines:[], lastMod:null, crlf:false, missing:true};
+      }
+      throw err;
+    });
+  }
+
+  function loadWeek(){
+    setRootUI();
+    if (!state.root) { renderAll(); return Promise.resolve(); }
+    return readDisk().then(function(d){
+      state.lines = d.lines;
+      state.lastMod = d.lastMod;
+      state.sawCRLF = d.crlf;
+      setSave(d.missing ? "No file yet for this week" : "Loaded " + new Date().toLocaleTimeString(),
+              d.missing ? "" : "ok");
+      renderAll();
+    }).catch(function(err){
+      notice("setupNotice", "<b>Read failed.</b> " + esc(err && err.message || String(err)), true);
+      renderAll();
+    });
+  }
+
+  function splitLines(text){
+    return String(text || "").split(/\r?\n/).filter(function(l){ return l.trim() !== ""; });
+  }
+
+  function writeLines(lines){
+    if (!state.root) return Promise.reject(new Error("no root bound"));
+    var body = lines.join("\n");
+    if (body.length) body += "\n";
+    return getFileHandle(true).then(function(fh){
+      state.fileHandle = fh;
+      return fh.createWritable();
+    }).then(function(w){
+      return w.write(body).then(function(){ return w.close(); });
+    }).then(function(){
+      // Re-stat so the guard compares against what we just wrote.
+      return state.fileHandle.getFile().then(function(f){ state.lastMod = f.lastModified; });
+    });
+  }
+
+  /* ================= staleness guard =================
+     Every write re-reads the file first. An append merges onto whatever
+     is on disk (appends never conflict, so nothing is lost). A rewrite
+     refuses, because silently discarding lines another window added is
+     worse than making you reload. */
+
+  function externallyChanged(d){
+    return state.lastMod !== null && d.lastMod !== null && d.lastMod !== state.lastMod;
+  }
+
+  function safeAppend(line){
+    if (!state.root) {
+      state.lines.push(line);
+      renderAll();
+      setSave("Browser only — not written to disk", "");
+      return Promise.resolve();
+    }
+    setSave("Writing" + "…", "pending");
+    return readDisk().then(function(d){
+      var merged = externallyChanged(d);
+      if (merged) { state.lines = d.lines.slice(); state.sawCRLF = d.crlf; }
+      state.lines.push(line);
+      return writeLines(state.lines).then(function(){
+        if (merged) {
+          setSave("Merged outside edits, then appended", "warn");
+          notice("setupNotice",
+            "<b>Picked up outside edits.</b> <code>" + esc(currentWeekId()) + ".txt</code> had changed " +
+            "on disk, so the deck reloaded it and appended onto the current contents. Nothing was lost.");
+        } else {
+          setSave("Appended " + new Date().toLocaleTimeString(), "ok");
+        }
+        renderAll();
+      });
+    }).catch(function(err){
+      setSave("Write failed", "bad");
+      notice("setupNotice", "<b>Write failed.</b> " + esc(err && err.message || String(err)), true);
+    });
+  }
+
+  function safeReplace(nextLines, label){
+    if (!state.root) { state.lines = nextLines; renderAll(); return Promise.resolve(); }
+    setSave("Writing" + "…", "pending");
+    return readDisk().then(function(d){
+      if (externallyChanged(d)) {
+        setSave("Refused — file changed on disk", "bad");
+        notice("setupNotice",
+          "<b>Refused to overwrite.</b> Another window or editor wrote to <code>" +
+          esc(currentWeekId()) + ".txt</code> since the deck loaded it. Hit <code>Reload</code> " +
+          "to pick up those lines, then redo this edit.", true);
+        return;
+      }
+      state.lines = nextLines;
+      return writeLines(state.lines).then(function(){
+        setSave(label + " " + new Date().toLocaleTimeString(), "ok");
+        renderAll();
+      });
+    }).catch(function(err){
+      setSave("Write failed", "bad");
+      notice("setupNotice", "<b>Write failed.</b> " + esc(err && err.message || String(err)), true);
+    });
+  }
+
+  /* ================= backdating =================
+     The timestamp decides the file, always. Live entries stamp "now" and
+     land in the current week; a backdated entry routes to whichever week
+     file its own timestamp falls in, so filename and contents agree. */
+
+  function toDateValue(d){
+    return ("000" + d.getFullYear()).slice(-4) + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate());
+  }
+  function toTimeValue(d){ return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
+
+  // The Date the composer will stamp. Null when the backdate fields are unusable.
+  function composerDate(){
+    if (!state.backdate) return new Date();
+    var dv = $("bdDate").value, tv = $("bdTime").value;
+    if (!dv || !tv) return null;
+    var dp = dv.split("-"), tp = tv.split(":");
+    if (dp.length !== 3 || tp.length < 2) return null;
+    var d = new Date(parseInt(dp[0],10), parseInt(dp[1],10)-1, parseInt(dp[2],10),
+                     parseInt(tp[0],10), parseInt(tp[1],10));
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function renderBackdateTarget(){
+    var el = $("bdTarget");
+    if (!state.backdate) { el.textContent = ""; return; }
+    var d = composerDate();
+    if (!d) { el.textContent = "set a date and time"; el.className = "bd-target bad"; return; }
+    el.textContent = "\u2192 " + weekIdOf(d) + ".txt  [" + stampOf(d) + "]";
+    el.className = "bd-target";
+  }
+
+  function setBackdate(on){
+    state.backdate = !!on;
+    $("backdateToggle").setAttribute("aria-pressed", state.backdate ? "true" : "false");
+    $("bdFields").hidden = !state.backdate;
+    if (state.backdate) {
+      // Seed the fields for the week being viewed, but leave a date the
+      // user already set alone when it is in that week.
+      var held = composerDate();
+      if (!held || weekIdOf(held) !== currentWeekId()) {
+        var seed;
+        if (isCurrentWeek()) seed = new Date();
+        else { seed = mondayOf(state.cursor); seed.setHours(9, 0, 0, 0); }
+        $("bdDate").value = toDateValue(seed);
+        $("bdTime").value = toTimeValue(seed);
+      }
+    }
+    renderBackdateTarget();
+    renderWeek();
+  }
+
+  $("backdateToggle").addEventListener("click", function(){ setBackdate(!state.backdate); });
+  $("bdDate").addEventListener("input", renderBackdateTarget);
+  $("bdTime").addEventListener("input", renderBackdateTarget);
+
+  // Jump the week cursor to a YYYY-Www id (Jan 4 is always in ISO week 1).
+  function gotoWeek(weekId){
+    var m = /^(\d{4})-W(\d{2})$/.exec(weekId);
+    if (!m) return;
+    var d = mondayOf(new Date(parseInt(m[1],10), 0, 4));
+    d.setDate(d.getDate() + (parseInt(m[2],10) - 1) * 7);
+    state.cursor = d;
+    notice("composerNotice", "");
+    loadWeek();
+  }
+
+  // Send a line to whichever week file it belongs to.
+  function appendRouted(line, target){
+    if (target === currentWeekId()) return safeAppend(line);
+
+    if (!state.root) {
+      notice("composerNotice",
+        "<b>Can't reach that week's file.</b> Writing to <code>" + esc(target) +
+        ".txt</code> needs a bound root directory. Set one, or switch backdating off.", true);
+      return Promise.resolve();
+    }
+
+    setSave("Writing to " + target + ".txt\u2026", "pending");
+    return appendToFile(target, line).then(function(){
+      setSave("Appended to " + target + ".txt", "ok");
+      notice("composerNotice",
+        "<b>Logged to " + esc(target) + ".txt.</b> That timestamp falls outside " +
+        esc(currentWeekId()) + ", so it went to its own week file. " +
+        '<button type="button" class="mini" id="jumpBtn">open ' + esc(target) + "</button>");
+      var jb = $("jumpBtn");
+      if (jb) jb.addEventListener("click", function(){ gotoWeek(target); });
+    }).catch(function(err){
+      setSave("Write failed", "bad");
+      notice("composerNotice", "<b>Write failed.</b> " + esc(err && err.message || String(err)), true);
+    });
+  }
+
+  /* ================= append ================= */
+  function append(){
+    var input = $("entryText");
+    var text = input.value.trim();
+    if (!text) return;
+
+    var when = composerDate();
+    if (!when) {
+      notice("composerNotice",
+        "<b>Backdating needs a date and a time.</b> Fill both fields, or switch backdating off.", true);
+      return;
+    }
+
+    if (!state.backdate && !isCurrentWeek()) {
+      notice("composerNotice",
+        "<b>Viewing an archived week.</b> A live entry carries today\u2019s timestamp, so it " +
+        "belongs in <code>" + weekIdOf(new Date()) + ".txt</code>. Turn on <code>Backdate</code> " +
+        "to log into this week instead.", true);
+      return;
+    }
+
+    var line = formatLine(state.status, text, when);
+    input.value = "";
+    appendRouted(line, weekIdOf(when));
+    input.focus();
+  }
+
+  function removeLine(idx){
+    var next = state.lines.slice();
+    next.splice(idx, 1);
+    safeReplace(next, "Removed");
+  }
+
+  // Where each open status advances to. Coming off hold means the work
+  // has resumed, not finished, so ON HOLD returns to IN PROGRESS.
+  var ADVANCE_TO = {
+    "TODO":        "IN PROGRESS",
+    "ON HOLD":     "IN PROGRESS",
+    "IN PROGRESS": "DONE"
+  };
+
+  // Advance: append a NEW line rather than rewriting history.
+  function advance(entry, newStatus){
+    $("entryText").value = entry.text;
+    setStatus(newStatus);
+    $("entryText").focus();
+  }
+
+  /* ================= lint + drift =================
+     The parser is deliberately lenient, so a malformed line is
+     accepted silently and corrupts the data downstream instead of
+     erroring here. This is the one place a human is present to catch it. */
+
+  var TS_RE = /^(\d{1,2}):(\d{2})\s*(AM|PM)\s+(\d{1,2})\/(\d{1,2})\/(\d{4})$/i;
+
+  // Strict read of the documented stamp: H:MM AM/PM M/D/YYYY. Null if it
+  // doesn't conform, which is a warning, not an error -- the parser accepts it.
+  function parseStamp(ts){
+    var m = TS_RE.exec(String(ts).trim());
+    if (!m) return null;
+    var hh = parseInt(m[1],10);
+    if (hh < 1 || hh > 12) return null;
+    var h = hh % 12;
+    if (/PM/i.test(m[3])) h += 12;
+    var mo = parseInt(m[4],10), da = parseInt(m[5],10), yr = parseInt(m[6],10);
+    var d = new Date(yr, mo-1, da, h, parseInt(m[2],10));
+    // Reject rollover (13/45/2026 would otherwise become a valid Date).
+    if (d.getFullYear() !== yr || d.getMonth() !== mo-1 || d.getDate() !== da) return null;
+    return d;
+  }
+
+  // Normalised status keyword -> the exact spelling the parser requires.
+  var STATUS_CANON = {"TODO":"TODO","INPROGRESS":"IN PROGRESS","DONE":"DONE","ONHOLD":"ON HOLD"};
+
+  function lint(){
+    var issues = [];
+    var seen = {};
+    var fileWeek = currentWeekId();
+
+    if (state.sawCRLF) {
+      issues.push({kind:"crlf", n:0,
+        msg:"File uses CRLF line endings. Saving from the deck normalises them to LF."});
+    }
+
+    state.lines.forEach(function(raw, i){
+      var n = i + 1;
+
+      if (raw !== raw.trim()) {
+        issues.push({kind:"whitespace", n:n, line:raw,
+          msg:"Leading or trailing whitespace."});
+      }
+      if (raw.indexOf("\t") !== -1) {
+        issues.push({kind:"tab", n:n, line:raw, msg:"Contains a tab character."});
+      }
+
+      var pl = parseLine(raw);
+      if (!pl) {
+        issues.push({kind:"fatal", n:n, line:raw,
+          msg:"No leading [timestamp] bracket \u2014 " + NAMING.parser + " rejects this line."});
+        return;
+      }
+
+      // Status keyword that is close but not exact -- silently becomes NOTE.
+      if (pl.status === "NOTE") {
+        var ci = pl.text.indexOf(":");
+        if (ci > 0 && ci <= 20) {
+          var prefix = pl.text.slice(0, ci);
+          var norm = prefix.toUpperCase().replace(/[^A-Z]/g, "");
+          if (STATUS_CANON[norm] && prefix !== STATUS_CANON[norm]) {
+            issues.push({kind:"status", n:n, line:raw, fix:STATUS_CANON[norm],
+              msg:'Parses as NOTE. "' + prefix + '" is not an exact keyword \u2014 expected "' +
+                  STATUS_CANON[norm] + '".'});
+          }
+        }
+      }
+
+      var d = parseStamp(pl.ts);
+      if (!d) {
+        issues.push({kind:"stamp", n:n, line:raw,
+          msg:'Timestamp "' + pl.ts + '" is not H:MM AM/PM M/D/YYYY. The parser accepts it, ' +
+              'but its week cannot be verified.'});
+      } else {
+        var w = weekIdOf(d);
+        if (w !== fileWeek) {
+          issues.push({kind:"drift", n:n, line:raw, target:w,
+            msg:"Dated " + (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear() +
+                ", which falls in " + w + ", not " + fileWeek + "."});
+        }
+      }
+
+      if (seen[raw]) {
+        issues.push({kind:"dupe", n:n, line:raw, msg:"Identical to line " + seen[raw] + "."});
+      } else {
+        seen[raw] = n;
+      }
+    });
+
+    return issues;
+  }
+
+  // Rewrite one line's status keyword to the exact spelling.
+  function fixStatus(issue){
+    var idx = issue.n - 1;
+    var pl = parseLine(state.lines[idx]);
+    if (!pl) return;
+    var ci = pl.text.indexOf(":");
+    var rest = pl.text.slice(ci + 1).trim();
+    var next = state.lines.slice();
+    next[idx] = "[" + pl.ts + "] " + issue.fix + ": " + rest;
+    safeReplace(next, "Fixed line " + issue.n);
+  }
+
+  // Append one line to an arbitrary week's file (not necessarily the one on
+  // screen). Reads that file fresh immediately before writing to it.
+  function appendToFile(weekId, line){
+    return state.root.getDirectoryHandle("logs", {create:true}).then(function(logs){
+      return logs.getFileHandle(weekId + ".txt", {create:true});
+    }).then(function(fh){
+      return fh.getFile().then(function(f){ return f.text(); }).then(function(t){
+        var lines = splitLines(t);
+        lines.push(line);
+        return fh.createWritable().then(function(w){
+          return w.write(lines.join("\n") + "\n").then(function(){ return w.close(); });
+        });
+      });
+    });
+  }
+
+  // Move a drifted line into the week file its timestamp actually belongs to.
+  // Appends to the target FIRST: a failure part-way leaves a duplicate,
+  // which is recoverable, rather than dropping the line entirely.
+  function moveLine(issue){
+    if (!state.root) return;
+    var idx = issue.n - 1;
+    var line = state.lines[idx];
+    setSave("Moving\u2026", "pending");
+    appendToFile(issue.target, line).then(function(){
+      var next = state.lines.slice();
+      next.splice(idx, 1);
+      return safeReplace(next, "Moved to " + issue.target + ".txt \u2014");
+    }).catch(function(err){
+      setSave("Move failed", "bad");
+      notice("setupNotice", "<b>Move failed.</b> " + esc(err && err.message || String(err)) +
+        " The line may now exist in both files \u2014 check before logging more.", true);
+    });
+  }
+
+  /* ================= render ================= */
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  function renderStream(){
+    var ul = $("stream");
+    ul.textContent = "";
+
+    var parsed = state.lines.map(function(l, i){
+      var p = parseLine(l);
+      return p ? {p:p, i:i} : {p:{ts:"UNPARSED", status:"NOTE", text:l, raw:l, bad:true}, i:i};
+    });
+
+    var shown = parsed.filter(function(x){
+      return state.filter === "ALL" || x.p.status === state.filter;
+    }).reverse();
+
+    if (!shown.length) {
+      var li = document.createElement("li");
+      li.className = "empty";
+      li.textContent = state.lines.length
+        ? "No entries match this filter."
+        : (state.root ? "This week's file is empty. Log the first entry." : "Nothing logged yet.");
+      ul.appendChild(li);
+      return;
+    }
+
+    shown.forEach(function(x){
+      var e = x.p;
+      var li = document.createElement("li");
+      li.className = "entry" + (e.status === "DONE" ? " dim" : "");
+      li.setAttribute("data-s", e.status);
+
+      var body = document.createElement("div");
+      body.className = "e-body";
+
+      var t = document.createElement("div");
+      t.className = "e-text";
+      t.textContent = e.text;
+      body.appendChild(t);
+
+      var meta = document.createElement("div");
+      meta.className = "e-meta";
+      var st = document.createElement("span");
+      st.className = "st"; st.setAttribute("data-s", e.status); st.textContent = e.status;
+      meta.appendChild(st);
+      var ts = document.createElement("span");
+      ts.textContent = e.ts;
+      meta.appendChild(ts);
+      if (e.bad) {
+        var w = document.createElement("span");
+        w.textContent = "⚠ NO [ ] BRACKET — WON’T PARSE";
+        w.style.color = "var(--crit)";
+        meta.appendChild(w);
+      }
+      body.appendChild(meta);
+
+      var acts = document.createElement("div");
+      acts.className = "e-actions";
+      var nextStatus = ADVANCE_TO[e.status];
+      if (nextStatus) {
+        var adv = document.createElement("button");
+        adv.type = "button"; adv.className = "mini"; adv.textContent = "advance";
+        adv.title = "Draft a follow-up line marked " + nextStatus;
+        adv.setAttribute("aria-label", "Advance to " + nextStatus + ": " + e.text);
+        adv.addEventListener("click", function(){ advance(e, nextStatus); });
+        acts.appendChild(adv);
+      }
+      var del = document.createElement("button");
+      del.type = "button"; del.className = "mini"; del.innerHTML = "&#10005;";
+      del.title = "Delete this line from the file";
+      del.setAttribute("aria-label", "Delete line: " + e.text);
+      del.addEventListener("click", function(){ removeLine(x.i); });
+      acts.appendChild(del);
+
+      li.appendChild(body);
+      li.appendChild(acts);
+      ul.appendChild(li);
+    });
+  }
+
+  function renderTally(){
+    var counts = {"TODO":0,"IN PROGRESS":0,"DONE":0,"ON HOLD":0,"NOTE":0};
+    state.lines.forEach(function(l){
+      var p = parseLine(l);
+      var s = p ? p.status : "NOTE";
+      if (counts[s] !== undefined) counts[s]++;
+    });
+    $("nALL").textContent = state.lines.length;
+    $("nTODO").textContent = counts["TODO"];
+    $("nIN_PROGRESS").textContent = counts["IN PROGRESS"];
+    $("nDONE").textContent = counts["DONE"];
+    $("nON_HOLD").textContent = counts["ON HOLD"];
+    $("nNOTE").textContent = counts["NOTE"];
+    $("entryState").textContent = state.lines.length;
+  }
+
+  function renderWeek(){
+    var id = currentWeekId();
+    $("weekId").textContent = id;
+    var mon = mondayOf(state.cursor);
+    var sun = new Date(mon); sun.setDate(sun.getDate() + 6);
+    $("weekRange").textContent = shortDate(mon) + " – " + shortDate(sun);
+    $("streamCode").textContent = id + (isCurrentWeek() ? " · CURRENT" : " · ARCHIVE");
+    $("fileState").textContent = id + ".txt";
+
+    var blocked = !isCurrentWeek() && !state.backdate;
+    $("entryText").disabled = blocked;
+    $("appendBtn").disabled = blocked;
+    $("composerHint").textContent = blocked
+      ? "Archived week \u2014 switch to This week, or turn on Backdate"
+      : (state.backdate
+          ? "Backdating \u2014 the entry's own timestamp picks its week file"
+          : "Enter to append \u00b7 Alt+1\u20135 to switch status");
+    if (!blocked && !state.backdate) notice("composerNotice", "");
+    renderBackdateTarget();
+  }
+
+  function renderRaw(){
+    if (document.activeElement === $("raw")) return;
+    $("raw").value = state.lines.join("\n") + (state.lines.length ? "\n" : "");
+  }
+
+  function renderIntegrity(){
+    var ul = $("issues");
+    ul.textContent = "";
+    var issues = lint();
+    state.issues = issues;
+
+    var fatal = 0;
+    issues.forEach(function(x){ if (x.kind === "fatal") fatal++; });
+    renderChecks(issues);
+
+    $("integrityCode").textContent = issues.length
+      ? (issues.length + (issues.length === 1 ? " ISSUE" : " ISSUES") + (fatal ? " \u00b7 " + fatal + " FATAL" : ""))
+      : "CLEAN";
+
+    if (!issues.length) {
+      var ok = document.createElement("li");
+      ok.className = "clean" + (state.lines.length ? "" : " none");
+      ok.textContent = state.lines.length
+        ? "\u2713 " + state.lines.length + " line" + (state.lines.length === 1 ? "" : "s") + " parse cleanly."
+        : "Nothing to check yet.";
+      ul.appendChild(ok);
+      return;
+    }
+
+    issues.forEach(function(x){
+      var li = document.createElement("li");
+      li.className = "issue";
+      li.setAttribute("data-k", x.kind);
+
+      var ln = document.createElement("span");
+      ln.className = "ln";
+      ln.textContent = x.n ? "LINE " + x.n : "FILE";
+      li.appendChild(ln);
+
+      var msg = document.createElement("span");
+      msg.className = "msg";
+      msg.textContent = x.msg;
+      li.appendChild(msg);
+
+      if (x.line) {
+        var src = document.createElement("span");
+        src.className = "src";
+        src.textContent = x.line;
+        li.appendChild(src);
+      }
+
+      if (x.kind === "status" || x.kind === "drift") {
+        var act = document.createElement("div");
+        act.className = "act";
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "mini";
+        if (x.kind === "status") {
+          b.textContent = "fix keyword";
+          b.addEventListener("click", function(){ fixStatus(x); });
+        } else {
+          b.textContent = "move to " + x.target + ".txt";
+          b.disabled = !state.root;
+          b.addEventListener("click", function(){ moveLine(x); });
+        }
+        act.appendChild(b);
+        li.appendChild(act);
+      }
+
+      ul.appendChild(li);
+    });
+  }
+
+  // Which days of the viewed week actually carry entries, from the
+  // timestamps already parsed for the integrity pass.
+  function loggedDays(){
+    var set = {};
+    state.lines.forEach(function(raw){
+      var pl = parseLine(raw);
+      if (!pl) return;
+      var d = parseStamp(pl.ts);
+      if (d) set[d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate()] = true;
+    });
+    return set;
+  }
+
+  var DAY_LETTERS = ["M","T","W","T","F","S","S"];
+
+  function renderWeekStrip(){
+    var host = $("weekStrip");
+    host.textContent = "";
+    var logged = loggedDays();
+    var mon = mondayOf(state.cursor);
+    var today = new Date();
+    var todayKey = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+
+    for (var i = 0; i < 7; i++) {
+      var d = new Date(mon);
+      d.setDate(d.getDate() + i);
+      var key = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+
+      var cell = document.createElement("div");
+      cell.className = "wd";
+      if (logged[key]) cell.setAttribute("data-logged", "1");
+      if (key === todayKey) cell.setAttribute("data-today", "1");
+      if (d > today && key !== todayKey) cell.setAttribute("data-future", "1");
+
+      var l = document.createElement("div");
+      l.className = "wd-l"; l.textContent = DAY_LETTERS[i];
+      var n = document.createElement("div");
+      n.className = "wd-n"; n.textContent = d.getDate();
+      cell.appendChild(l); cell.appendChild(n);
+      host.appendChild(cell);
+    }
+  }
+
+  // The six checks the integrity pass runs, shown even when everything
+  // passes -- otherwise a clean file says nothing about what was verified.
+  var CHECK_ROWS = [
+    {k:"Bracket",  kinds:["fatal"]},
+    {k:"Keyword",  kinds:["status"]},
+    {k:"Week",     kinds:["drift"]},
+    {k:"Stamp",    kinds:["stamp"]},
+    {k:"Dupes",    kinds:["dupe"]},
+    {k:"Encoding", kinds:["whitespace","tab","crlf"]}
+  ];
+
+  function renderChecks(issues){
+    var host = $("checks");
+    host.textContent = "";
+    CHECK_ROWS.forEach(function(row){
+      var n = 0;
+      issues.forEach(function(x){ if (row.kinds.indexOf(x.kind) !== -1) n++; });
+      var cell = document.createElement("div");
+      cell.className = "chk";
+      cell.setAttribute("data-bad", n ? "1" : "0");
+      var k = document.createElement("span");
+      k.className = "chk-k"; k.textContent = row.k;
+      var v = document.createElement("span");
+      v.className = "chk-v";
+      v.textContent = n ? String(n) : "\u2713";
+      cell.appendChild(k); cell.appendChild(v);
+      cell.title = n ? (n + " line" + (n === 1 ? "" : "s") + " flagged") : "No problems found";
+      host.appendChild(cell);
+    });
+  }
+
+  function renderAll(){
+    renderWeek(); renderStream(); renderTally(); renderRaw(); renderIntegrity();
+    renderWeekStrip(); setRootUI();
+  }
+
+  /* ================= controls ================= */
+  function setStatus(s){
+    state.status = s;
+    Array.prototype.forEach.call($("statusSegs").children, function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-s") === s ? "true" : "false");
+    });
+  }
+  Array.prototype.forEach.call($("statusSegs").children, function(b){
+    b.addEventListener("click", function(){ setStatus(b.getAttribute("data-s")); $("entryText").focus(); });
+  });
+
+  Array.prototype.forEach.call($("filters").children, function(b){
+    b.addEventListener("click", function(){
+      state.filter = b.getAttribute("data-f");
+      Array.prototype.forEach.call($("filters").children, function(x){
+        x.setAttribute("aria-pressed", x === b ? "true" : "false");
+      });
+      renderStream();
+    });
+  });
+
+  $("composer").addEventListener("submit", function(e){ e.preventDefault(); append(); });
+
+  document.addEventListener("keydown", function(e){
+    if (e.altKey && !e.ctrlKey && !e.metaKey && e.key >= "1" && e.key <= "5") {
+      e.preventDefault();
+      setStatus(STATUSES[parseInt(e.key, 10) - 1]);
+      $("entryText").focus();
+    }
+  });
+
+  function shiftWeek(days){
+    var d = new Date(state.cursor);
+    d.setDate(d.getDate() + days);
+    state.cursor = d;
+    loadWeek();
+  }
+  $("prevWeek").addEventListener("click", function(){ shiftWeek(-7); });
+  $("nextWeek").addEventListener("click", function(){ shiftWeek(7); });
+  $("thisWeek").addEventListener("click", function(){ state.cursor = new Date(); loadWeek(); });
+  $("reloadFile").addEventListener("click", function(){ loadWeek(); });
+  $("pickRoot").addEventListener("click", pickRoot);
+
+  /* ---- raw buffer ---- */
+  function setSave(msg, cls){
+    var el = $("saveState");
+    el.textContent = msg;
+    el.className = "savestate" + (cls ? " " + cls : "");
+  }
+
+  $("saveRaw").addEventListener("click", function(){
+    safeReplace(splitLines($("raw").value), "Saved");
+  });
+
+  $("copyRaw").addEventListener("click", function(){
+    var text = $("raw").value;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(function(){ setSave("Copied to clipboard", "ok"); })
+        .catch(function(){ setSave("Copy blocked by browser", "bad"); });
+    } else {
+      $("raw").select(); setSave("Select and copy manually", "");
+    }
+  });
+
+  $("downloadRaw").addEventListener("click", function(){
+    var blob = new Blob([$("raw").value], {type:"text/plain;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = currentWeekId() + ".txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    setSave("Downloaded " + currentWeekId() + ".txt", "ok");
+  });
+
+  /* ================= themes ================= */
+  var THEMES = [
+    {id:"sodium", name:"Sodium",    bg:"#0d0b12", fg:"#ff8a1f"},
+    {id:"rain",   name:"Neon Rain", bg:"#06080f", fg:"#00e5ff"},
+    {id:"acid",   name:"Acid",      bg:"#050a06", fg:"#7dff4f"},
+    {id:"outrun", name:"Outrun",    bg:"#0c0620", fg:"#ff2e88"},
+    {id:"rust",   name:"Rust",      bg:"#0f0906", fg:"#ff7a2f"}
+  ];
+
+  function faviconFor(t){
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
+      + '<rect width="32" height="32" fill="' + t.bg + '"/>'
+      + '<path d="M13 6 H6 V26 H13" fill="none" stroke="' + t.fg + '" stroke-width="3.2"/>'
+      + '<path d="M19 6 H26 V26 H19" fill="none" stroke="' + t.fg + '" stroke-width="3.2"/>'
+      + '<rect x="14.4" y="14.4" width="3.2" height="3.2" fill="' + t.fg + '"/>'
+      + '</svg>';
+    return "data:image/svg+xml," + encodeURIComponent(svg);
+  }
+
+  function applyTheme(id){
+    var t = null;
+    for (var i = 0; i < THEMES.length; i++) if (THEMES[i].id === id) t = THEMES[i];
+    if (!t) t = THEMES[0];
+
+    if (t.id === "sodium") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", t.id);
+
+    $("favicon").setAttribute("href", faviconFor(t));
+
+    Array.prototype.forEach.call($("themes").children, function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-t") === t.id ? "true" : "false");
+    });
+
+    try { localStorage.setItem("sodium-theme", t.id); } catch(e){}
+  }
+
+  function buildThemes(){
+    var host = $("themes");
+    THEMES.forEach(function(t){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "swatch";
+      b.setAttribute("data-t", t.id);
+      b.setAttribute("aria-pressed", "false");
+      b.setAttribute("title", t.name);
+      b.setAttribute("aria-label", "Colour scheme: " + t.name);
+      b.style.setProperty("--sw-bg", t.bg);
+      b.style.setProperty("--sw-fg", t.fg);
+      b.addEventListener("click", function(){ applyTheme(t.id); });
+      host.appendChild(b);
+    });
+    var saved = null;
+    try { saved = localStorage.getItem("sodium-theme"); } catch(e){}
+    applyTheme(saved || "sodium");
+  }
+
+  /* ================= boot ================= */
+  var DEFAULT_NAMING = {deck:NAMING.deck, project:NAMING.project, title:NAMING.title};
+  loadNamingOverride();
+  applyNaming();
+  buildFonts();
+  buildThemes();
+  setStatus("NOTE");
+  renderSetup();
+  restoreRoot();
+  $("entryText").focus();
+
+})();
+</script>
+</body>
+</html>
