@@ -1,0 +1,265 @@
+/* The optional styles from the business site, carried onto the two pages here. Loaded
+   last, on both pages, and keyed to html[data-rds-style], which styles.js sets from the
+   reader's saved choice. With no choice saved nothing below the picker applies, and each
+   page keeps its own skin. Tokens are overridden where that is enough; the rest undoes
+   the page skins (pro.css, hobby.css) rule by rule. */
+
+/* ── the picker: a small control in the bottom right corner ─────────────── */
+.stylepick{position:fixed;right:20px;bottom:12px;z-index:30;display:flex;align-items:center;
+  gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted)}
+.stylepick select{font:inherit;letter-spacing:.04em;text-transform:none;color:inherit;
+  background:var(--panel);border:1px solid var(--line);border-radius:0;padding:3px 6px}
+.stylepick select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+html:not([data-started]) .stylepick{display:none}
+@media (max-width:760px){.stylepick{right:14px;bottom:10px}.stylepick label{display:none}}
+
+/* ── cyberpunk ──────────────────────────────────────────────────────────────
+   The hobby page's own register, so on that page this changes nothing. On the
+   professional page it swaps the navy bar and white cards for the dark rig. */
+html[data-rds-style="cyberpunk"]{
+  --bg:#0a0d10; --panel:#111820; --ink:#d2dce4; --muted:#6a7a86;
+  --line:#243139; --accent:#2fe0c0; --accent-ink:#7df3dd; --navy:#06211c;
+  color-scheme:dark}
+html[data-rds-style="cyberpunk"] body{background:
+  radial-gradient(120% 90% at 72% 18%, #16202a 0%, #0a0d10 62%), var(--bg);
+  text-shadow:0 0 18px rgba(47,224,192,.045)}
+html[data-rds-style="cyberpunk"] body::before{display:none}
+html[data-rds-style="cyberpunk"] body::after{content:"";position:fixed;inset:0;z-index:40;
+  pointer-events:none;background:repeating-linear-gradient(to bottom,
+    rgba(255,255,255,.010) 0 1px, transparent 1px 4px)}
+html[data-rds-style="cyberpunk"] .panel{
+  background:linear-gradient(180deg, rgba(23,32,41,.96), rgba(14,20,26,.96));
+  border:1px solid var(--line);border-left:2px solid var(--accent);
+  box-shadow:0 0 0 1px rgba(47,224,192,.05), 0 18px 48px -24px rgba(0,0,0,.9),
+             inset 0 1px 0 rgba(125,243,221,.05)}
+html[data-rds-style="cyberpunk"] .panel h2{text-shadow:0 0 24px rgba(47,224,192,.16)}
+html[data-rds-style="cyberpunk"] .panel p{color:#b9c6d0}
+html[data-rds-style="cyberpunk"] .panel .kicker{color:var(--accent-ink);opacity:.75}
+html[data-rds-style="cyberpunk"] .panel .kicker b{color:var(--accent)}
+html[data-rds-style="cyberpunk"] .panel .figs{border-top-color:#1d2831;color:var(--muted)}
+html[data-rds-style="cyberpunk"] .panel .links a{border-color:#243139;color:#7d8d99}
+html[data-rds-style="cyberpunk"] .panel .links a:hover,
+html[data-rds-style="cyberpunk"] .panel .links a:focus-visible{background:var(--accent);
+  color:#06211c;border-color:var(--accent);box-shadow:0 0 20px -5px rgba(47,224,192,.7)}
+html[data-rds-style="cyberpunk"] .panel a.sib,
+html[data-rds-style="cyberpunk"] .panel a.cite{color:var(--accent-ink);border-bottom-color:var(--accent)}
+html[data-rds-style="cyberpunk"] .panel a.sib:hover,
+html[data-rds-style="cyberpunk"] .panel a.cite:hover{background:var(--accent);color:#06211c}
+html[data-rds-style="cyberpunk"] .vers{background:rgba(10,14,18,.86);border-color:var(--line)}
+html[data-rds-style="cyberpunk"] .vers button{color:var(--muted);border-right-color:var(--line)}
+html[data-rds-style="cyberpunk"] .vers button:hover{color:var(--accent-ink)}
+html[data-rds-style="cyberpunk"] .vers button[aria-pressed="true"]{background:var(--accent);
+  color:#06211c;box-shadow:0 0 22px -4px rgba(47,224,192,.65)}
+html[data-rds-style="cyberpunk"] #rail button[aria-current="true"] i{box-shadow:0 0 14px rgba(47,224,192,.9)}
+html[data-rds-style="cyberpunk"] #readout{color:#4f606c;letter-spacing:.1em}
+html[data-rds-style="cyberpunk"] .sitemark,
+html[data-rds-style="cyberpunk"] .sitemark a{color:#6a7a86}
+html[data-rds-style="cyberpunk"] .sitemark b{color:var(--accent-ink);text-shadow:0 0 16px rgba(47,224,192,.4)}
+html[data-rds-style="cyberpunk"] .sitemark a:hover,
+html[data-rds-style="cyberpunk"] .sitemark a:focus-visible,
+html[data-rds-style="cyberpunk"] .sitemark a[aria-current]{color:var(--accent-ink);border-bottom-color:var(--accent)}
+html[data-rds-style="cyberpunk"] .node.hot rect,
+html[data-rds-style="cyberpunk"] .hot-s{filter:drop-shadow(0 0 5px rgba(47,224,192,.55))}
+html[data-rds-style="cyberpunk"] #grid line{opacity:.16}
+html[data-rds-style="cyberpunk"] .f-text{fill:#6f7f8b}
+html[data-rds-style="cyberpunk"] .f-ttl{fill:#c3d0da}
+html[data-rds-style="cyberpunk"] .f-sub,
+html[data-rds-style="cyberpunk"] .node text{fill:#64747f}
+html[data-rds-style="cyberpunk"] .node.hot text{fill:var(--accent-ink)}
+html[data-rds-style="cyberpunk"] .live-shield:hover .live-play{color:#06211c}
+@media (prefers-reduced-motion:reduce){html[data-rds-style="cyberpunk"] body::after{display:none}}
+
+/* ── windows 95 ─────────────────────────────────────────────────────────────
+   The map and the figures are drawn on the teal desktop, so the page-level tokens are
+   the light-on-teal ones. Everything that is a window or a control (the cards, the
+   taskbar, the switches) resets the tokens to black on silver. */
+html[data-rds-style="win95"]{
+  --bg:#008080; --panel:#c0c0c0; --ink:#ffffff; --muted:#d5f0f0;
+  --line:#5fb3b3; --accent:#ffff66; --accent-ink:#ffff66; --navy:#000080; --bar:44px;
+  --sans:"MS Sans Serif",Tahoma,Verdana,Segoe,sans-serif;
+  --mono:"MS Sans Serif",Tahoma,Verdana,Segoe,sans-serif;
+  color-scheme:light}
+html[data-rds-style="win95"] body{background:#008080;text-shadow:none}
+html[data-rds-style="win95"] body::after{display:none}
+/* the taskbar */
+html[data-rds-style="win95"] body::before{content:"";position:fixed;left:0;right:0;top:0;
+  height:var(--bar);z-index:25;background:#c0c0c0;border-bottom:2px solid #808080;
+  box-shadow:inset 0 -2px 0 #dfdfdf, 0 1px 0 #000;pointer-events:none}
+html[data-rds-style="win95"] .panel,
+html[data-rds-style="win95"] .vers,
+html[data-rds-style="win95"] .live-frame,
+html[data-rds-style="win95"] .stylepick select{
+  --ink:#000000; --muted:#404040; --line:#808080; --accent:#000080; --accent-ink:#000080}
+html[data-rds-style="win95"] .panel{background:#c0c0c0;color:#000;border:2px outset #fff;
+  border-radius:0;box-shadow:1.5px 1.5px #000;padding:0 22px 20px;max-width:540px}
+/* the chapter kicker is the window's title bar */
+html[data-rds-style="win95"] .panel .kicker{margin:3px -19px 16px;padding:4px 8px;
+  background:linear-gradient(to right,#08216b,#a5cef7);color:#fff;font-size:11px;
+  font-weight:700;letter-spacing:.02em;text-transform:none;opacity:1;position:relative}
+html[data-rds-style="win95"] .panel .kicker b{color:#fff}
+html[data-rds-style="win95"] .panel .kicker::after{content:"\00d7";position:absolute;right:3px;
+  top:3px;width:16px;height:14px;line-height:12px;text-align:center;font-size:13px;
+  color:#000;background:#c0c0c0;border:1px outset #fff;box-shadow:.5px .5px #000}
+html[data-rds-style="win95"] .panel h2{font-size:22px;font-weight:700;letter-spacing:0;
+  text-shadow:none;color:#000}
+html[data-rds-style="win95"] .panel p{color:#000;font-size:15px;line-height:1.5}
+html[data-rds-style="win95"] .panel p code{font-family:"Courier New",Courier,monospace;font-size:14px}
+html[data-rds-style="win95"] .panel em{color:inherit;font-style:italic;border-bottom:0}
+html[data-rds-style="win95"] .panel .figs{border:2px inset #fff;background:#fff;color:#000;
+  padding:6px 9px;font-size:12px}
+html[data-rds-style="win95"] .panel .tag{border:1px inset #fff;color:#000}
+html[data-rds-style="win95"] .panel .links a{background:#c0c0c0;color:#000;border:2px outset #fff;
+  box-shadow:1px 1px #000;padding:3px 10px;font-size:11px;letter-spacing:0;text-transform:none;
+  transition:none}
+html[data-rds-style="win95"] .panel .links a:hover,
+html[data-rds-style="win95"] .panel .links a:focus-visible{background:#c0c0c0;color:#000;
+  border-color:#fff;outline:1px dotted #000;outline-offset:-5px}
+html[data-rds-style="win95"] .panel .links a:active{border-style:inset;box-shadow:none}
+html[data-rds-style="win95"] .panel a.sib,
+html[data-rds-style="win95"] .panel a.cite{color:#0000ee;border-bottom:1px solid #0000ee}
+html[data-rds-style="win95"] .panel a.sib:hover,
+html[data-rds-style="win95"] .panel a.cite:hover{background:#000080;color:#fff;border-bottom-color:transparent}
+/* the narration switch: three buttons, the chosen one pressed in */
+html[data-rds-style="win95"] .vers{top:8px;background:transparent;border:0;gap:3px;box-shadow:none}
+html[data-rds-style="win95"] .vers button{background:#c0c0c0;color:#000;border:2px outset #fff;
+  box-shadow:1px 1px #000;padding:4px 10px;font-size:11px;letter-spacing:0;text-transform:none}
+html[data-rds-style="win95"] .vers button:last-child{border-right:2px outset #fff}
+html[data-rds-style="win95"] .vers button:hover{color:#000}
+html[data-rds-style="win95"] .vers button[aria-pressed="true"]{border-style:inset;box-shadow:none;
+  font-weight:700;color:#000;
+  background:repeating-conic-gradient(#c0c0c0 0% 25%, #fff 0% 50%) 50% / 2px 2px}
+/* the name and the page switch: on the desktop when they sit at the bottom of a phone,
+   on the taskbar otherwise */
+html[data-rds-style="win95"] .sitemark,
+html[data-rds-style="win95"] .sitemark a{color:#fff;font-size:11px;letter-spacing:.02em;text-transform:none}
+html[data-rds-style="win95"] .sitemark b{color:#fff;text-shadow:none}
+html[data-rds-style="win95"] .sitemark a[aria-current]{color:#ffff66;border-bottom-color:#ffff66}
+html[data-rds-style="win95"] .sitemark a:hover,
+html[data-rds-style="win95"] .sitemark a:focus-visible{color:#ffff66;border-bottom-color:#ffff66}
+html[data-rds-style="win95"] .sitemark a.home:hover b,
+html[data-rds-style="win95"] .sitemark a.home:focus-visible b{color:#ffff66}
+@media (min-width:761px){
+  html[data-rds-style="win95"] .sitemark{top:9px;display:flex;align-items:center;gap:4px}
+  html[data-rds-style="win95"] .sitemark a{margin-left:0;color:#000;background:#c0c0c0;
+    border:2px outset #fff;box-shadow:1px 1px #000;padding:3px 10px}
+  html[data-rds-style="win95"] .sitemark a.home{border:2px outset #fff;margin-right:6px}
+  html[data-rds-style="win95"] .sitemark b{color:#000}
+  html[data-rds-style="win95"] .sitemark a[aria-current]{color:#000;border-style:inset;
+    border-color:#fff;box-shadow:none;font-weight:700;
+    background:repeating-conic-gradient(#c0c0c0 0% 25%, #fff 0% 50%) 50% / 2px 2px}
+  html[data-rds-style="win95"] .sitemark a:hover,
+  html[data-rds-style="win95"] .sitemark a:focus-visible{color:#000;border-color:#fff}
+  html[data-rds-style="win95"] .sitemark a.home:hover b,
+  html[data-rds-style="win95"] .sitemark a.home:focus-visible b{color:#000}
+}
+/* the map and the figures, drawn on the desktop */
+html[data-rds-style="win95"] #grid line{opacity:.3}
+html[data-rds-style="win95"] .node rect{stroke:#7fc4c4}
+html[data-rds-style="win95"] .node.hot rect,
+html[data-rds-style="win95"] .hot-s{filter:none}
+html[data-rds-style="win95"] .node text{fill:#d5f0f0}
+html[data-rds-style="win95"] .node.hot text{fill:#ffff66}
+html[data-rds-style="win95"] .f-text{fill:#d5f0f0}
+html[data-rds-style="win95"] .f-ttl{fill:#fff}
+html[data-rds-style="win95"] .f-sub{fill:#bfe6e6}
+html[data-rds-style="win95"] #rail i{background:#7fc4c4}
+html[data-rds-style="win95"] #rail button[aria-current="true"] i{background:#ffff66;box-shadow:none}
+html[data-rds-style="win95"] #rail button:hover i{background:#fff}
+html[data-rds-style="win95"] #readout{color:#d5f0f0;letter-spacing:.04em}
+html[data-rds-style="win95"] .live-frame{border:2px outset #fff;box-shadow:1.5px 1.5px #000;background:#c0c0c0}
+html[data-rds-style="win95"] .live-shield{background:rgba(0,128,128,.72);color:#fff;font-family:var(--sans)}
+html[data-rds-style="win95"] .live-play{background:#c0c0c0;color:#000;border:2px outset #fff;
+  box-shadow:1px 1px #000;letter-spacing:0;text-transform:none;font-size:12px;padding:5px 16px}
+html[data-rds-style="win95"] .live-shield:hover .live-play{background:#c0c0c0;color:#000;border-color:#fff}
+html[data-rds-style="win95"] .live-note,
+html[data-rds-style="win95"] .live-cap{color:#d5f0f0}
+html[data-rds-style="win95"] .stylepick{color:#fff;letter-spacing:.02em;text-transform:none;font-size:11px}
+html[data-rds-style="win95"] .stylepick select{background:#fff;color:#000;border:2px inset #fff}
+
+/* ── psychometric ───────────────────────────────────────────────────────────
+   A machine-scored answer sheet: cream paper, form-green rules, pencil marks. Each
+   chapter card is an item, with a row of A to D bubbles and one filled in. The chapter
+   rail down the left edge becomes the sheet's timing marks. */
+html[data-rds-style="psychometric"]{
+  --bg:#fdfbf4; --panel:#ffffff; --ink:#2b2b2e; --muted:#5a6b61;
+  --line:#9fd8b5; --accent:#1c7a4a; --accent-ink:#14603a; --navy:#fdfbf4; --bar:56px;
+  --serif:"STIX Two Text","Latin Modern Roman",Cambria,Georgia,"Times New Roman",serif;
+  color-scheme:light}
+html[data-rds-style="psychometric"] body{text-shadow:none;background:
+  linear-gradient(rgba(28,122,74,.08) 1px, transparent 1px) 0 0 / 24px 24px,
+  linear-gradient(90deg, rgba(28,122,74,.08) 1px, transparent 1px) 0 0 / 24px 24px,
+  #fdfbf4}
+html[data-rds-style="psychometric"] body::after{display:none}
+html[data-rds-style="psychometric"] body::before{content:"";position:fixed;left:0;right:0;top:0;
+  height:var(--bar);z-index:25;background:#fdfbf4;border-bottom:4px double #1c7a4a;
+  pointer-events:none}
+html[data-rds-style="psychometric"] .panel{background:#fff;color:var(--ink);
+  border:1.5px solid #1c7a4a;border-radius:0;box-shadow:none;padding:0 30px 24px;max-width:548px}
+/* the kicker is the item's header band, with the bubble row at its right end */
+html[data-rds-style="psychometric"] .panel .kicker{margin:0 -30px 18px;padding:9px 132px 9px 30px;
+  min-height:40px;background-color:#e2f1e6;border-bottom:1.5px solid #1c7a4a;color:#14603a;
+  opacity:1;background-repeat:no-repeat;background-position:right 12px center;
+  background-size:112px 22px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 22'%3E%3Ccircle cx='11' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='11' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EA%3C/text%3E%3Cellipse cx='41' cy='11' rx='9.6' ry='9.2' fill='%232b2b2e' transform='rotate(-12 41 11)'/%3E%3Ccircle cx='71' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='71' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EC%3C/text%3E%3Ccircle cx='101' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='101' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3ED%3C/text%3E%3C/svg%3E")}
+html[data-rds-style="psychometric"] .stage:nth-child(4n+2) .panel .kicker{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 22'%3E%3Ccircle cx='11' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='11' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EA%3C/text%3E%3Ccircle cx='41' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='41' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EB%3C/text%3E%3Cellipse cx='71' cy='11' rx='9.6' ry='9.2' fill='%232b2b2e' transform='rotate(-12 71 11)'/%3E%3Ccircle cx='101' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='101' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3ED%3C/text%3E%3C/svg%3E")}
+html[data-rds-style="psychometric"] .stage:nth-child(4n+3) .panel .kicker{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 22'%3E%3Ccircle cx='11' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='11' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EA%3C/text%3E%3Ccircle cx='41' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='41' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EB%3C/text%3E%3Ccircle cx='71' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='71' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EC%3C/text%3E%3Cellipse cx='101' cy='11' rx='9.6' ry='9.2' fill='%232b2b2e' transform='rotate(-12 101 11)'/%3E%3C/svg%3E")}
+html[data-rds-style="psychometric"] .stage:nth-child(4n) .panel .kicker{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 112 22'%3E%3Cellipse cx='11' cy='11' rx='9.6' ry='9.2' fill='%232b2b2e' transform='rotate(-12 11 11)'/%3E%3Ccircle cx='41' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='41' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EB%3C/text%3E%3Ccircle cx='71' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='71' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3EC%3C/text%3E%3Ccircle cx='101' cy='11' r='9.2' fill='%23fff' stroke='%231c7a4a' stroke-width='1.3'/%3E%3Ctext x='101' y='15' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='11' fill='%231c7a4a'%3ED%3C/text%3E%3C/svg%3E")}
+html[data-rds-style="psychometric"] .panel .kicker b{color:#1c7a4a}
+html[data-rds-style="psychometric"] .panel .kicker b::before{content:"Item "}
+html[data-rds-style="psychometric"] .panel h2{font-family:var(--serif);font-weight:600;
+  letter-spacing:0;text-shadow:none;color:var(--ink)}
+html[data-rds-style="psychometric"] .panel p{color:#2b2b2e}
+html[data-rds-style="psychometric"] .panel em{color:inherit;font-style:italic;border-bottom:0}
+html[data-rds-style="psychometric"] .panel .figs{border-top:1px dashed #1c7a4a;color:var(--muted)}
+html[data-rds-style="psychometric"] .panel .tag{border-color:#1c7a4a;border-radius:999px;color:#14603a}
+html[data-rds-style="psychometric"] .panel .links a{border:1.3px solid #1c7a4a;border-radius:999px;
+  color:#14603a;background:#fff;padding:3px 11px}
+html[data-rds-style="psychometric"] .panel .links a:hover,
+html[data-rds-style="psychometric"] .panel .links a:focus-visible{background:#2b2b2e;color:#fff;
+  border-color:#2b2b2e;box-shadow:none}
+html[data-rds-style="psychometric"] .panel a.sib,
+html[data-rds-style="psychometric"] .panel a.cite{color:#14603a;border-bottom:1px solid #1c7a4a}
+html[data-rds-style="psychometric"] .panel a.sib:hover,
+html[data-rds-style="psychometric"] .panel a.cite:hover{background:#e2f1e6;color:#14603a}
+/* the narration switch: three bubbles, the chosen one pencilled in */
+html[data-rds-style="psychometric"] .vers{top:13px;background:transparent;border:0;gap:6px;box-shadow:none}
+html[data-rds-style="psychometric"] .vers button{background:#fff;color:#14603a;
+  border:1.3px solid #1c7a4a;border-radius:999px;padding:6px 13px}
+html[data-rds-style="psychometric"] .vers button:last-child{border-right:1.3px solid #1c7a4a}
+html[data-rds-style="psychometric"] .vers button:hover{color:#14603a;background:#e2f1e6}
+html[data-rds-style="psychometric"] .vers button[aria-pressed="true"]{background:#2b2b2e;
+  color:#fff;border-color:#2b2b2e;box-shadow:none}
+html[data-rds-style="psychometric"] .sitemark,
+html[data-rds-style="psychometric"] .sitemark a{color:#5a6b61}
+html[data-rds-style="psychometric"] .sitemark b{color:#2b2b2e;text-shadow:none}
+html[data-rds-style="psychometric"] .sitemark a:hover,
+html[data-rds-style="psychometric"] .sitemark a:focus-visible,
+html[data-rds-style="psychometric"] .sitemark a[aria-current]{color:#14603a;border-bottom-color:#1c7a4a}
+html[data-rds-style="psychometric"] .sitemark a.home:hover b,
+html[data-rds-style="psychometric"] .sitemark a.home:focus-visible b{color:#14603a}
+/* the rail as timing marks */
+html[data-rds-style="psychometric"] #rail i{height:4px;background:#2b2b2e}
+html[data-rds-style="psychometric"] #rail button[aria-current="true"] i{height:5px;
+  background:#1c7a4a;box-shadow:none}
+html[data-rds-style="psychometric"] #rail button:hover i{background:#1c7a4a}
+html[data-rds-style="psychometric"] #readout{color:#5a6b61;letter-spacing:.06em}
+/* the map and the figures, in form green and pencil */
+html[data-rds-style="psychometric"] #grid line{opacity:.3}
+html[data-rds-style="psychometric"] .node.hot rect,
+html[data-rds-style="psychometric"] .hot-s{filter:none}
+html[data-rds-style="psychometric"] .node text{fill:#5a6b61}
+html[data-rds-style="psychometric"] .node.hot text{fill:#14603a}
+html[data-rds-style="psychometric"] .f-text{fill:#5a6b61}
+html[data-rds-style="psychometric"] .f-ttl{fill:#2b2b2e}
+html[data-rds-style="psychometric"] .f-sub{fill:#5a6b61}
+html[data-rds-style="psychometric"] .live-frame{border:1.5px solid #1c7a4a}
+html[data-rds-style="psychometric"] .live-play{border:1.3px solid #1c7a4a;border-radius:999px;
+  background:#fff;color:#14603a}
+html[data-rds-style="psychometric"] .live-shield:hover .live-play{background:#2b2b2e;color:#fff;
+  border-color:#2b2b2e}
+html[data-rds-style="psychometric"] .stylepick select{border:1.3px solid #1c7a4a;border-radius:999px;
+  background:#fff;color:#14603a;padding:3px 9px}
+@media (max-width:760px){
+  html[data-rds-style="psychometric"] .panel{padding:0 20px 20px}
+  html[data-rds-style="psychometric"] .panel .kicker{margin:0 -20px 16px;padding-left:20px}
+}
