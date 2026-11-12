@@ -54,6 +54,8 @@ The counts, dates, and papers behind these numbers are in the [interactive CV](c
 I work out whether a test measures what it claims to and whether it scores people fairly.
 
 Item and form analysis, DIF, equating, standard setting support, technical reporting, and validity evidence.
+
+[Example: fairness checks for small groups](posts/2026-11-11-small-group-dif/index.qmd)
 :::
 :::
 
@@ -66,6 +68,8 @@ Item and form analysis, DIF, equating, standard setting support, technical repor
 I build the software around an analysis, so it runs the same way every time and people who do not write code can use it.
 
 Shiny applications, Quarto reporting workflows, R package development, dashboards, and analytic automation.
+
+[Example: shortening a scale](posts/2026-11-11-short-forms/index.qmd)
 :::
 :::
 

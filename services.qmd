@@ -14,6 +14,9 @@ I check whether a test measures what it claims to, whether it scores people fair
 [In technical terms]{.rds-kicker}
 Item and form analysis, DIF/fairness analyses, equating, linking, and scaling, standard setting support, validity and reliability evidence, technical reports, and assessment program review.
 
+[Published examples]{.rds-kicker}
+[Checking test questions for fairness to small groups](posts/2026-11-11-small-group-dif/index.qmd) · [Validating a fatigue questionnaire in a phase 3 trial](posts/2026-11-11-fatigue-scale-validation/index.qmd)
+
 ## R, Shiny, & Reproducible Tools
 
 *For teams that rerun the same analysis or rebuild the same report by hand.*
@@ -23,6 +26,9 @@ I build the software around an analysis, so it runs the same way every time and 
 
 [In technical terms]{.rds-kicker}
 Shiny dashboards and decision-support apps, Quarto reports and reproducible reporting pipelines, R package development, deployment, and support, workflow automation, and code review and refactoring.
+
+[Published examples]{.rds-kicker}
+[Shortening a scale without breaking it](posts/2026-11-11-short-forms/index.qmd) · [The ShinyShortForm app](posts/2026-05-12/ShinyShortForm.qmd)
 
 ## Operations & Planning Models
 
