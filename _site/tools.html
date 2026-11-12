@@ -76,8 +76,22 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script>
+/* Applies the saved optional site style before the page paints, so there is no flash of
+   the default. The list here must match STYLES in _includes/style-picker.html. */
+(function () {
+  var allowed = ["cyberpunk", "win95", "psychometric"];
+  try {
+    var saved = localStorage.getItem("rds-style");
+    if (saved && allowed.indexOf(saved) !== -1) {
+      document.documentElement.setAttribute("data-rds-style", saved);
+    }
+  } catch (e) { /* storage blocked: stay on the default style */ }
+})();
+</script>
 
 
+<link rel="stylesheet" href="fun-styles.css">
 <meta property="og:title" content="Tools and Projects – Raborn Decision Sciences">
 <meta property="og:description" content="Applied analytics and custom R/Shiny tools for measurement, operations, and planning.">
 <meta property="og:site_name" content="Raborn Decision Sciences">
@@ -856,6 +870,57 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 </footer>
+<script>
+/* Adds a quiet "Style" control to the footer. Each optional style is a block of CSS in
+   fun-styles.css keyed to html[data-rds-style="<id>"]; the page content never changes.
+   To add a style: add it here, to the allowed list in _includes/style-head.html, and
+   write its block in fun-styles.css. */
+(function () {
+  var STYLES = [
+    ["", "Default"],
+    ["cyberpunk", "Cyberpunk"],
+    ["win95", "Windows 95"],
+    ["psychometric", "Psychometric"]
+  ];
+  var root = document.documentElement;
+  var footer = document.querySelector(".nav-footer .nav-footer-center");
+  if (!footer) return;
+
+  var wrap = document.createElement("div");
+  wrap.className = "rds-style-picker";
+  var label = document.createElement("label");
+  label.setAttribute("for", "rds-style-select");
+  label.textContent = "Style";
+  var select = document.createElement("select");
+  select.id = "rds-style-select";
+  STYLES.forEach(function (style) {
+    var option = document.createElement("option");
+    option.value = style[0];
+    option.textContent = style[1];
+    select.appendChild(option);
+  });
+  select.value = root.getAttribute("data-rds-style") || "";
+
+  select.addEventListener("change", function () {
+    if (select.value) {
+      root.setAttribute("data-rds-style", select.value);
+    } else {
+      root.removeAttribute("data-rds-style");
+    }
+    try {
+      if (select.value) {
+        localStorage.setItem("rds-style", select.value);
+      } else {
+        localStorage.removeItem("rds-style");
+      }
+    } catch (e) { /* storage blocked: the choice lasts for this page only */ }
+  });
+
+  wrap.appendChild(label);
+  wrap.appendChild(select);
+  footer.appendChild(wrap);
+})();
+</script>
 
 
 

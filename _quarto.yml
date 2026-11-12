@@ -69,6 +69,11 @@ format:
             dark: 
                 - darkly
                 - theme-dark.scss
+        css: fun-styles.css
+        include-in-header:
+            - file: _includes/style-head.html
+        include-after-body:
+            - file: _includes/style-picker.html
         toc: true
         toc-depth: 3
         smooth-scroll: true

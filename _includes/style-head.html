@@ -1,0 +1,13 @@
+<script>
+/* Applies the saved optional site style before the page paints, so there is no flash of
+   the default. The list here must match STYLES in _includes/style-picker.html. */
+(function () {
+  var allowed = ["cyberpunk", "win95", "psychometric"];
+  try {
+    var saved = localStorage.getItem("rds-style");
+    if (saved && allowed.indexOf(saved) !== -1) {
+      document.documentElement.setAttribute("data-rds-style", saved);
+    }
+  } catch (e) { /* storage blocked: stay on the default style */ }
+})();
+</script>

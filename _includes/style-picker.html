@@ -1,0 +1,51 @@
+<script>
+/* Adds a quiet "Style" control to the footer. Each optional style is a block of CSS in
+   fun-styles.css keyed to html[data-rds-style="<id>"]; the page content never changes.
+   To add a style: add it here, to the allowed list in _includes/style-head.html, and
+   write its block in fun-styles.css. */
+(function () {
+  var STYLES = [
+    ["", "Default"],
+    ["cyberpunk", "Cyberpunk"],
+    ["win95", "Windows 95"],
+    ["psychometric", "Psychometric"]
+  ];
+  var root = document.documentElement;
+  var footer = document.querySelector(".nav-footer .nav-footer-center");
+  if (!footer) return;
+
+  var wrap = document.createElement("div");
+  wrap.className = "rds-style-picker";
+  var label = document.createElement("label");
+  label.setAttribute("for", "rds-style-select");
+  label.textContent = "Style";
+  var select = document.createElement("select");
+  select.id = "rds-style-select";
+  STYLES.forEach(function (style) {
+    var option = document.createElement("option");
+    option.value = style[0];
+    option.textContent = style[1];
+    select.appendChild(option);
+  });
+  select.value = root.getAttribute("data-rds-style") || "";
+
+  select.addEventListener("change", function () {
+    if (select.value) {
+      root.setAttribute("data-rds-style", select.value);
+    } else {
+      root.removeAttribute("data-rds-style");
+    }
+    try {
+      if (select.value) {
+        localStorage.setItem("rds-style", select.value);
+      } else {
+        localStorage.removeItem("rds-style");
+      }
+    } catch (e) { /* storage blocked: the choice lasts for this page only */ }
+  });
+
+  wrap.appendChild(label);
+  wrap.appendChild(select);
+  footer.appendChild(wrap);
+})();
+</script>
