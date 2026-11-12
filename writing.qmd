@@ -2,8 +2,9 @@
 title: "Writing"
 listing: 
     contents: posts
-    type: grid
+    type: default
+    sort: "date desc"
+    fields: [date, title, description, categories]
     categories: true
     feed: true
 ---
-

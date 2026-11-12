@@ -1,0 +1,38 @@
+---
+title: "Checking test questions for fairness to small groups"
+author: "Anthony W. Raborn"
+description: "A DIF method for groups too small for the standard checks, published in the Journal of Educational Measurement and available as the repsd R package."
+date: 2026-11-11
+categories: [case study, DIF, R]
+---
+
+## The problem
+
+A test question shows differential item functioning (DIF) when people of the same ability have different chances of answering it correctly depending on which group they belong to. Testing programs screen for DIF so that a question does not count against a group for reasons unrelated to what the test measures.
+
+The standard checks have two limits. They usually compare one focal group with one reference group, which does not suit a variable with many categories. They also need large samples, so the smallest groups, which are often the ones a program most wants to check, get combined with others or skipped.
+
+## What I did
+
+I worked with Corinne Huggins-Manley, Peggy Jones and Ted Myers on a nonparametric index called the root expected proportion squared difference, or REPSD. It differs from the standard checks in two ways:
+
+- It compares each focal group directly with the composite group, meaning everyone whose responses are used to build the reported score scale.
+- It judges statistical significance with Monte Carlo permutations, so it does not need the sample sizes that the standard checks do.
+
+I wrote and maintain the repsd R package that implements it. You give it a matrix of item responses and a column that says who is in the focal group. It returns the REPSD value for each item, a simulated null distribution, and the p-values that flag items for review.
+
+## What came out of it
+
+The method was published in the *Journal of Educational Measurement* in 2024. The paper includes a simulation study of the conditions under which the index gives acceptable Type I error and power, and an application to a school district assessment.
+
+The package is free and on CRAN. A version for items scored in more than two categories is in progress with a student of my PhD advisor.
+
+## Where this applies
+
+This is useful if your program reports results for groups that are a small share of test takers, or if the grouping variable you care about has many categories.
+
+## Sources
+
+Huggins-Manley, Raborn, et al. (2024). [A nonparametric composite group DIF index for focal groups stemming from multicategorical variables](https://doi.org/10.1111/jedm.12394). *Journal of Educational Measurement*.
+
+[repsd on CRAN](https://cran.r-project.org/package=repsd)

@@ -1,0 +1,44 @@
+---
+title: "Shortening a scale without breaking it"
+author: "Anthony W. Raborn"
+description: "How the ShortForm package picks the items for a shorter version of a survey or test, and what a simulation study showed about which method to trust."
+date: 2026-11-11
+categories: [case study, short forms, R]
+---
+
+## The problem
+
+A long questionnaire costs respondents time, and tired respondents give worse answers. The usual fix is a short form: a subset of the items that measures the same thing.
+
+Picking that subset by hand is hard. The short form has to keep the structure of the full scale, stay reliable, and still relate to outside variables the way the full scale does. Dropping the items with the weakest statistics one at a time tends to satisfy one of those goals at the expense of the others. With 30 items and a target of 10, there are about 30 million possible short forms, so checking them all is not practical either.
+
+## What I did
+
+One of my graduate school advisors, Walter Leite, had code from an earlier publication that used an ant colony optimization algorithm to search for good short forms. I turned that code into the ShortForm R package, and we described it in *Applied Psychological Measurement* in 2018.
+
+The algorithm builds many candidate short forms, fits a model to each one, and makes the items from the better-fitting candidates more likely to be chosen in the next round. It stops when the search keeps returning the same items.
+
+I then added more search methods to the package, including a Tabu search and a new implementation of simulated annealing. With Walter Leite and George Marcoulides, I ran a Monte Carlo simulation comparing four algorithms: ant colony optimization, Tabu search, a genetic algorithm, and simulated annealing. We tested them on scales with one factor, several factors, and a bifactor structure, with and without a misspecified model and an outside variable.
+
+## What came out of it
+
+The comparison was published in *Educational and Psychological Measurement* in 2020. The main findings were:
+
+- When the model for the full scale was right, or only slightly wrong, all four algorithms produced short forms with good psychometric qualities that kept the structure of the full scale.
+- When the model was badly wrong, every algorithm did worse.
+- Simulated annealing performed best overall and held up best when the model was wrong.
+- The genetic algorithm produced worse-fitting short forms than the others when the model was wrong.
+
+ShortForm is on CRAN, and I have maintained it since 2017. [ShinyShortForm](../2026-05-12/ShinyShortForm.qmd) puts the same methods behind a web page for people who do not write R.
+
+## Where this applies
+
+This is useful if you have a validated instrument that is too long for the setting you need it in, such as a screener, a repeated survey, or one section of a longer battery. You need response data on the full scale and a model of how its items relate.
+
+## Sources
+
+Raborn & Leite (2018). [ShortForm: An R package to select scale short forms with the ant colony optimization algorithm](https://doi.org/10.1177/0146621617752993). *Applied Psychological Measurement*.
+
+Raborn, Leite & Marcoulides (2020). [A comparison of metaheuristic optimization algorithms for scale short-form development](https://doi.org/10.1177/0013164420906600). *Educational and Psychological Measurement*.
+
+[ShortForm on CRAN](https://cran.r-project.org/package=ShortForm)

@@ -1,0 +1,48 @@
+---
+title: "Validating a fatigue questionnaire in a phase 3 trial"
+author: "Anthony W. Raborn"
+description: "Psychometric evidence for the Neuro-QoL Fatigue measure in adults with generalized myasthenia gravis, published in Quality of Life Research."
+date: 2026-11-11
+categories: [case study, clinical outcomes, validation]
+---
+
+## The problem
+
+Fatigue is one of the symptoms that people with generalized myasthenia gravis (gMG) report. A clinical trial can only use a questionnaire to measure it if there is evidence that the scores mean what they are supposed to mean in that group of patients.
+
+The Neuro-QoL Fatigue is an existing patient-reported measure with a 19-item version and a short form. The question was whether its scores hold up in adults with gMG, and how large a change in a person's score counts as a real improvement.
+
+## What I did
+
+I was first author on the psychometric analysis, working with five coauthors. The data came from Vivacity-MG3, a double-blind, placebo-controlled phase 3 trial with 196 participants. We used the baseline data and the 24-week double-blind phase.
+
+For both the 19-item version and the short form, we examined:
+
+- **Structure:** factor analysis to check that the items measure a single thing.
+- **Reliability:** internal consistency, and test-retest reliability among participants whose condition was stable.
+- **Relationships with other measures:** whether scores correlated with related measures and not with unrelated ones.
+- **Known groups:** whether scores separated groups of patients who differ clinically.
+- **Sensitivity to change:** whether scores moved when other measures of the patient's condition moved.
+- **Meaningful change:** the size of a within-person score change that represents a real improvement.
+
+## What came out of it
+
+The results were published in *Quality of Life Research* in 2025. For the 19-item version:
+
+| Evidence | Result |
+|---|---|
+| Single-factor model fit | TLI = 0.99, RMSEA = 0.07 |
+| Internal consistency | alpha = 0.95 |
+| Test-retest reliability, stable participants | r = 0.92 |
+| Meaningful improvement, 19-item score | change of 6.7 |
+| Meaningful improvement, short-form score | change of 7.6 |
+
+The short form gave similar results on structure and reliability. Scores from both versions related to other measures as expected, separated clinically distinct groups, and tracked change in other measures. The paper concludes that the evidence supports using Neuro-QoL Fatigue scores to assess fatigue in adults with gMG.
+
+## Where this applies
+
+This is useful if you are using a patient-reported measure in a population it was not originally validated in, or if you need a defensible threshold for meaningful change to interpret trial results.
+
+## Source
+
+Raborn et al. (2025). [Psychometric analysis of the Neuro-QoL Fatigue in generalized myasthenia gravis using data from a phase 3 trial](https://doi.org/10.1007/s11136-025-03998-9). *Quality of Life Research*.
